@@ -24,7 +24,7 @@ use FluxBB\Markdown\Renderer\RendererInterface;
 class Ciconia
 {
 
-    const VERSION = '1.1.x-dev';
+    const VERSION = '0.9.x-dev';
 
     /**
      * @var RendererInterface
