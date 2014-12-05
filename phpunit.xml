@@ -14,8 +14,8 @@
     bootstrap                   = "vendor/autoload.php" >
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>test</directory>
+        <testsuite name="FluxBB Markdown Test Suite">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
