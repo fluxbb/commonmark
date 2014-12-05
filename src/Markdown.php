@@ -9,7 +9,6 @@ use FluxBB\Markdown\Event\EmitterInterface;
 use FluxBB\Markdown\Event\EmitterTrait;
 use FluxBB\Markdown\Renderer\RendererInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Manages options and events
@@ -123,9 +122,9 @@ class Markdown implements EmitterInterface
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    protected function setDefaultOptions(OptionsResolverInterface $resolver)
+    protected function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'tabWidth'       => 4,
