@@ -1,12 +1,16 @@
 {
-    "name": "kzykhys/ciconia",
-    "description": "The Markdown parser for PHP5.4",
-    "keywords": ["markdown", "parser", "cli"],
+    "name": "fluxbb/markdown",
+    "description": "An extensible markdown parser for PHP 5.4+",
+    "keywords": ["markdown", "commonmark", "parser"],
     "license": "MIT",
     "authors": [
         {
             "name": "Kazuyuki Hayashi",
             "email": "hayashi@valnur.net"
+        },
+        {
+            "name": "Franz Liedke",
+            "email": "franz@fluxbb.org"
         }
     ],
     "minimum-stability": "stable",
