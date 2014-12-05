@@ -1,6 +1,6 @@
 <?php
 
-use FluxBB\Markdown\Ciconia;
+use FluxBB\Markdown\Parser;
 use FluxBB\Markdown\Renderer\XhtmlRenderer;
 use Symfony\Component\Finder\Finder;
 
@@ -19,7 +19,7 @@ class HtmlExtensionsTest extends PHPUnit_Framework_TestCase
      */
     public function testHtmlPatterns($name, $textile, $expected)
     {
-        $ciconia = new Ciconia(new XhtmlRenderer());
+        $ciconia = new Parser(new XhtmlRenderer());
         $ciconia->addExtensions([
             new \FluxBB\Markdown\Extension\Html\AttributesExtension()
         ]);

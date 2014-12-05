@@ -1,5 +1,5 @@
 <?php
-use FluxBB\Markdown\Ciconia;
+use FluxBB\Markdown\Parser;
 use FluxBB\Markdown\Extension\Textile\CommentExtension;
 use FluxBB\Markdown\Extension\Textile\DefinitionListExtension;
 use FluxBB\Markdown\Extension\Textile\HeaderExtension;
@@ -20,7 +20,7 @@ class TextileExtensionsTest extends PHPUnit_Framework_TestCase
      */
     public function testTextilePatterns($name, $textile, $expected)
     {
-        $ciconia = new Ciconia();
+        $ciconia = new Parser();
         $ciconia->addExtensions([
             new HeaderExtension(),
             new DefinitionListExtension(),

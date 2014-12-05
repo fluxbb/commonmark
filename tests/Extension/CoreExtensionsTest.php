@@ -1,6 +1,6 @@
 <?php
 
-use FluxBB\Markdown\Ciconia;
+use FluxBB\Markdown\Parser;
 use FluxBB\Markdown\Renderer\XhtmlRenderer;
 use Symfony\Component\Finder\Finder;
 
@@ -28,7 +28,7 @@ class CoreExtensionsTest extends PHPUnit_Framework_TestCase
      */
     public function testWithMarkdownTestSuite($name, $markdown, $expected)
     {
-        $ciconia = new Ciconia(new XhtmlRenderer());
+        $ciconia = new Parser(new XhtmlRenderer());
         $html    = $ciconia->render($markdown);
 
         $this->assertEquals($expected, $html, sprintf('%s failed', $name));
@@ -39,7 +39,7 @@ class CoreExtensionsTest extends PHPUnit_Framework_TestCase
      */
     public function testAutoLinkEmail()
     {
-        $ciconia  = new Ciconia();
+        $ciconia  = new Parser();
         $markdown = 'Email <test@example.com>';
         $output   = $ciconia->render($markdown);
         $expected = '<p>Email <a href="mailto:test@example.com">test@example.com</a></p>';
@@ -59,7 +59,7 @@ class CoreExtensionsTest extends PHPUnit_Framework_TestCase
      */
     public function testStrictMode($name, $markdown, $expected)
     {
-        $ciconia = new Ciconia();
+        $ciconia = new Parser();
         $html    = $ciconia->render($markdown, ['strict' => true]);
 
         $this->assertEquals($expected, $html, sprintf('%s failed', $name));

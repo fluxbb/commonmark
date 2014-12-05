@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Console\Command;
 
-use FluxBB\Markdown\Ciconia;
+use FluxBB\Markdown\Parser;
 use FluxBB\Markdown\Exception\SyntaxError;
 use FluxBB\Markdown\Extension\Gfm\FencedCodeBlockExtension;
 use FluxBB\Markdown\Extension\Gfm\InlineStyleExtension;
@@ -131,14 +131,14 @@ class CiconiaCommand extends Command
      *
      * @param InputInterface $input The InputInterface instance
      *
-     * @return Ciconia|\FluxBB\Markdown\Diagnose\Ciconia
+     * @return Parser|\FluxBB\Markdown\Diagnose\Ciconia
      */
     protected function createCiconia(InputInterface $input)
     {
         if ($input->getOption('diagnose')) {
             $ciconia = new \FluxBB\Markdown\Diagnose\Ciconia();
         } else {
-            $ciconia = new Ciconia();
+            $ciconia = new Parser();
         }
 
         if ($input->getOption('format') == 'xhtml') {
@@ -179,12 +179,12 @@ class CiconiaCommand extends Command
      * Lints the content
      *
      * @param OutputInterface $output  The OutputInterface instance
-     * @param Ciconia         $ciconia The FluxBB instance
+     * @param Parser         $ciconia The FluxBB instance
      * @param string          $content The markdown content
      *
      * @return int
      */
-    protected function lint(OutputInterface $output, Ciconia $ciconia, $content)
+    protected function lint(OutputInterface $output, Parser $ciconia, $content)
     {
         try {
             $ciconia->render($content, array('strict' => true));

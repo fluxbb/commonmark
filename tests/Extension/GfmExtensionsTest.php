@@ -1,6 +1,6 @@
 <?php
 
-use FluxBB\Markdown\Ciconia;
+use FluxBB\Markdown\Parser;
 use FluxBB\Markdown\Extension\Gfm\FencedCodeBlockExtension;
 use FluxBB\Markdown\Extension\Gfm\InlineStyleExtension;
 use FluxBB\Markdown\Extension\Gfm\TableExtension;
@@ -33,7 +33,7 @@ class GfmExtensionsTest extends PHPUnit_Framework_TestCase
      */
     public function testGfmPatterns($name, $markdown, $expected)
     {
-        $ciconia = new Ciconia();
+        $ciconia = new Parser();
         $ciconia->addExtensions([
             new FencedCodeBlockExtension(),
             new InlineStyleExtension(),
@@ -62,7 +62,7 @@ class GfmExtensionsTest extends PHPUnit_Framework_TestCase
      */
     public function testStrictMode($name, $markdown, $expected)
     {
-        $ciconia = new Ciconia();
+        $ciconia = new Parser();
         $ciconia->addExtensions([
             new FencedCodeBlockExtension(),
             new InlineStyleExtension(),
@@ -86,7 +86,7 @@ class GfmExtensionsTest extends PHPUnit_Framework_TestCase
      */
     public function testPygmentsMode($name, $markdown, $expected)
     {
-        $ciconia = new Ciconia();
+        $ciconia = new Parser();
         $ciconia->addExtensions([
             new FencedCodeBlockExtension()
         ]);

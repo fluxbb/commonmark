@@ -21,7 +21,7 @@ use FluxBB\Markdown\Renderer\RendererInterface;
  *
  * @author Kazuyuki Hayashi <hayashi@valnur.net>
  */
-class Ciconia
+class Parser
 {
 
     const VERSION = '0.9.x-dev';
@@ -74,7 +74,7 @@ class Ciconia
     /**
      * @param \FluxBB\Markdown\Renderer\RendererInterface $renderer
      *
-     * @return Ciconia
+     * @return Parser
      */
     public function setRenderer($renderer)
     {
@@ -94,7 +94,7 @@ class Ciconia
     /**
      * @param ExtensionInterface $extension
      *
-     * @return Ciconia
+     * @return Parser
      */
     public function addExtension(ExtensionInterface $extension)
     {
@@ -106,7 +106,7 @@ class Ciconia
     /**
      * @param ExtensionInterface[] $extensions
      *
-     * @return Ciconia
+     * @return Parser
      */
     public function addExtensions(array $extensions)
     {
@@ -120,7 +120,7 @@ class Ciconia
     /**
      * @param string|object $extension
      *
-     * @return Ciconia
+     * @return Parser
      */
     public function removeExtension($extension)
     {

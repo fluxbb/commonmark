@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Diagnose;
 
-use FluxBB\Markdown\Ciconia as BaseCiconia;
+use FluxBB\Markdown\Parser as BaseCiconia;
 use FluxBB\Markdown\Common\Text;
 
 /**

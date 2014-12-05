@@ -10,7 +10,7 @@ class SyntaxErrorTest extends \PHPUnit_Framework_TestCase
      */
     public function testSyntaxErrorPointsRightLineNumber()
     {
-        $md = new \FluxBB\Markdown\Ciconia();
+        $md = new \FluxBB\Markdown\Parser();
         $md->render(<<< EOL
 This is a paragraph
 
