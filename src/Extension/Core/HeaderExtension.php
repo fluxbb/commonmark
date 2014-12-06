@@ -62,7 +62,7 @@ class HeaderExtension implements ExtensionInterface, RendererAwareInterface
         /** @noinspection PhpUnusedParameterInspection */
         $text->replace('{
             ^(\#{1,6})  # $1 = string of #\'s
-            [ \t]*
+            [ ]+
             (.+?)       # $2 = Header text
             [ \t]*
             \#*         # optional closing #\'s (not counted)
@@ -70,7 +70,7 @@ class HeaderExtension implements ExtensionInterface, RendererAwareInterface
         }mx', function (Text $whole, Text $marks, Text $content) {
             $level = strlen($marks);
 
-            $this->markdown->emit('inline', array($content));
+            $this->markdown->emit('inline', array($content->trim()));
 
             return $this->getRenderer()->renderHeader($content, array('level' => $level)) . "\n\n";
         });
