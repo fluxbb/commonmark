@@ -1,11 +1,10 @@
 An extensible Markdown parser for PHP
 =====================================
 
-<p align="center">
-<a href="https://github.com/fluxbb/markdown/releases"><img src="https://img.shields.io/github/release/fluxbb/markdown.svg?style=flat-square" alt="Latest Stable Version"></img></a>
-<a href="https://travis-ci.org/fluxbb/markdown"><img src="https://img.shields.io/travis/fluxbb/markdown/master.svg?style=flat-square" alt="Build Status"></img></a>
-<a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
-</p>
+[![Latest Stable Version](https://img.shields.io/github/release/fluxbb/markdown.svg?style=flat-square)](https://github.com/fluxbb/markdown/releases)
+[![Build Status](https://img.shields.io/travis/fluxbb/markdown/master.svg?style=flat-square)](https://travis-ci.org/fluxbb/markdown)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Coverage Status](https://img.shields.io/coveralls/kzykhys/Ciconia/master.svg?style=flat-square)](https://coveralls.io/r/kzykhys/Ciconia?branch=master)
 
 An object oriented, fully extensible markdown parser for PHP 5.4 and above.
 It contains a collection of extensions, making it easy to replace, add or remove parsing mechanics.
