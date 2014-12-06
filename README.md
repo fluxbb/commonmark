@@ -1,17 +1,20 @@
-Ciconia - A New Markdown Parser for PHP
-=======================================
+An extensible Markdown parser for PHP
+=====================================
 
-[![Latest Stable Version](https://poser.pugx.org/kzykhys/ciconia/v/stable.png)](https://packagist.org/packages/kzykhys/ciconia)
-[![Build Status](https://travis-ci.org/kzykhys/Ciconia.png?branch=master)](https://travis-ci.org/kzykhys/Ciconia)
+[![Latest Stable Version](https://poser.pugx.org/fluxbb/markdown/v/stable.svg)](https://packagist.org/packages/fluxbb/markdown)
+[![Build Status](https://travis-ci.org/fluxbb/markdown.svg)](https://travis-ci.org/fluxbb/markdown)
+[![Total Downloads](https://poser.pugx.org/fluxbb/markdown/downloads.svg)](https://packagist.org/packages/fluxbb/markdown)
+[![License](https://poser.pugx.org/fluxbb/markdown/license.svg)](https://packagist.org/packages/fluxbb/markdown)
 [![Coverage Status](https://coveralls.io/repos/kzykhys/Ciconia/badge.png?branch=master)](https://coveralls.io/r/kzykhys/Ciconia?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/d0ca7ab7-c342-4f04-8f67-b7d74c2fdb66/mini.png)](https://insight.sensiolabs.com/projects/d0ca7ab7-c342-4f04-8f67-b7d74c2fdb66)
 
-The Markdown parser for PHP5.4, it is fully extensible.
-Ciconia is the collection of extension, so you can replace, add or remove each parsing mechanism.
+An object oriented, fully extensible markdown parser for PHP 5.4 and above.
+It contains a collection of extensions, making it easy to replace, add or remove parsing mechanics.
 
 [**Try Demo**][ciconia-demo] / [**Docs**][ciconia-docs] / [**Supported Syntax**][ciconia-syntax] / [**API Reference**][ciconia-api]
 
 *   Based on John Gruber's Markdown.pl
+*   Originally started by [Kazuyuki Hayashi](https://github.com/kzykhys)
 
 *   [Github Flavored Markdown](https://help.github.com/articles/github-flavored-markdown) support (disabled by default)
 
@@ -24,33 +27,22 @@ Ciconia is the collection of extension, so you can replace, add or remove each p
 
 *   Tested with [karlcow/markdown-testsuite](https://github.com/karlcow/markdown-testsuite)
 
-Requirements
-------------
+## Requirements
 
-* PHP5.4+
+* PHP 5.4+
 * Composer
 
-Installation
-------------
+## Installation
 
-create a `composer.json`
+Add the library to your Composer dependencies:
 
-``` json
-{
-    "require": {
-        "kzykhys/ciconia": "~1.0.0"
-    }
-}
-```
+    composer require fluxbb/markdown
+    
+Next, use Composer to install the library and its dependencies:
 
-and run
+    composer install
 
-```
-php composer.phar install
-```
-
-Usage
------
+## Usage
 
 ### Traditional Markdown
 
@@ -117,8 +109,7 @@ $html = $ciconia->render('Markdown is **awesome**');
 // <p>Markdown is <em>awesome</em></p>
 ```
 
-Extend Ciconia
---------------
+## Extensions
 
 ### How to Extend
 
@@ -222,8 +213,7 @@ just create a class that implements `Ciconia\Renderer\RendererInterface`.
 
 See [Ciconia\Renderer\RendererInterface](src/Ciconia/Renderer/RendererInterface.php)
 
-Command Line Interface
-----------------------
+## Command Line Interface
 
 ### Usage
 
@@ -285,25 +275,22 @@ php composer.phar update --dev
 
 and run `phpunit`
 
-License
--------
+## License
 
 The MIT License
 
-Contributing
-------------
+## Contributing
 
-Feel free to fork this repository and send a pull request. ([A list of contributors][contributors])
+Feel free to fork this repository and send pull requests. Take a look at [who has contributed so far][contributors].
 
-Author
-------
+## Author
 
-Kazuyuki Hayashi (@kzykhys)
+A big thanks to Kazuyuki Hayashi (@kzykhys), who originally created this library.
 
 
-[milestones]: https://github.com/kzykhys/Ciconia/issues/milestones
-[phar]: https://github.com/kzykhys/Ciconia/releases/download/v1.0.3/ciconia.phar
-[contributors]: https://github.com/kzykhys/Ciconia/graphs/contributors
+[milestones]: https://github.com/fluxbb/markdown/issues/milestones
+[phar]: https://github.com/fluxbb/markdown/releases/download/v1.0.3/ciconia.phar
+[contributors]: https://github.com/fluxbb/markdown/graphs/contributors
 [textapi]: https://github.com/kzykhys/Text#api
 
 [ciconia-demo]: http://ciconia.kzykhys.com/
