@@ -21,7 +21,7 @@ use Symfony\Component\Finder\Finder;
 class CompileCommand extends Command
 {
 
-    private $fileName = 'ciconia.phar';
+    private $fileName = 'markdown.phar';
 
     /**
      * {@inheritdoc}
@@ -30,7 +30,7 @@ class CompileCommand extends Command
     {
         $this
             ->setName('phar')
-            ->setDescription('Compiles Ciconia into a phar archive')
+            ->setDescription('Compiles the library into a phar archive')
             ->addOption('directory', 'o', InputOption::VALUE_REQUIRED, 'Output directory', 'build')
             //->addOption('gzip', null, InputOption::VALUE_NONE)
         ;
@@ -68,7 +68,7 @@ class CompileCommand extends Command
             ->in('.')
             ->files()
             ->name('*.php')
-            ->exclude(array('test', 'build', 'bin'))
+            ->exclude(array('tests', 'build', 'bin'))
             ->ignoreVCS(true);
 
         $count = iterator_count($finder);
@@ -85,9 +85,9 @@ class CompileCommand extends Command
 
         $progress->finish();
 
-        $script = file_get_contents('bin/ciconia');
+        $script = file_get_contents('bin/markdown');
         $script = preg_replace('/^.*?(<\?php.*)/ms', '\1', $script);
-        $phar->addFromString('bin/ciconia', $script);
+        $phar->addFromString('bin/markdown', $script);
 
         $phar->setStub($this->getStub());
         $phar->stopBuffering();
@@ -107,7 +107,7 @@ class CompileCommand extends Command
      */
     protected function getStub()
     {
-        return "#!/usr/bin/env php\n<?php Phar::mapPhar('ciconia.phar'); require 'phar://ciconia.phar/bin/ciconia'; __HALT_COMPILER();";
+        return "#!/usr/bin/env php\n<?php Phar::mapPhar('markdown.phar'); require 'phar://markdown.phar/bin/markdown'; __HALT_COMPILER();";
     }
 
 }

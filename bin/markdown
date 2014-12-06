@@ -4,7 +4,7 @@
 use FluxBB\Markdown\Console\Application;
 
 if (PHP_SAPI !== 'cli') {
-    echo 'Ciconia command should be run on the CLI environment.' . PHP_EOL;
+    echo 'The Markdown parser command should be run on the CLI environment.' . PHP_EOL;
 }
 
 $paths = [

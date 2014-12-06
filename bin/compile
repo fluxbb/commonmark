@@ -1,11 +1,11 @@
 #!/usr/bin/env php
 <?php
 
-use Ciconia\Console\Command\CompileCommand;
+use FluxBB\Markdown\Console\Command\CompileCommand;
 use Symfony\Component\Console\Application;
 
 if (PHP_SAPI !== 'cli') {
-    die('Compile command must be run on the CLI environment.');
+    die('The compilation command must be run on the CLI environment.');
 }
 
 $paths = [
@@ -23,6 +23,6 @@ foreach($paths as $path) {
     }
 }
 
-$app = new Application('Ciconia Compiler', \Ciconia\Ciconia::VERSION);
+$app = new Application('Ciconia Compiler', \FluxBB\Markdown\Parser::VERSION);
 $app->add(new CompileCommand());
 $app->run();
