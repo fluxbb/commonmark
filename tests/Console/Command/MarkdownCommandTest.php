@@ -1,13 +1,13 @@
 <?php
 
 use FluxBB\Markdown\Console\Application;
-use FluxBB\Markdown\Console\Command\CiconiaCommand;
+use FluxBB\Markdown\Console\Command\MarkdownCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>
  */
-class CiconiaCommandTest extends \PHPUnit_Framework_TestCase
+class MarkdownCommandTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -117,8 +117,8 @@ class CiconiaCommandTest extends \PHPUnit_Framework_TestCase
     protected function createCommandTester()
     {
         $application = new Application();
-        $application->add(new CiconiaCommand());
-        $command = $application->find('ciconia');
+        $application->add(new MarkdownCommand());
+        $command = $application->find('markdown');
 
         return new CommandTester($command);
     }

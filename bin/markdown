@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use Ciconia\Console\Application;
+use FluxBB\Markdown\Console\Application;
 
 if (PHP_SAPI !== 'cli') {
     echo 'Ciconia command should be run on the CLI environment.' . PHP_EOL;
@@ -22,5 +22,5 @@ foreach($paths as $path) {
     }
 }
 
-$app = new Application('Ciconia', \Ciconia\Ciconia::VERSION);
+$app = new Application('Ciconia', \FluxBB\Markdown\Parser::VERSION);
 $app->run();

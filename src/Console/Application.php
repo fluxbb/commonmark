@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Console;
 
-use FluxBB\Markdown\Console\Command\CiconiaCommand;
+use FluxBB\Markdown\Console\Command\MarkdownCommand;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -32,7 +32,7 @@ class Application extends BaseApplication
      */
     protected function getCommandName(InputInterface $input)
     {
-        return 'ciconia';
+        return 'markdown';
     }
 
     /**
@@ -41,7 +41,7 @@ class Application extends BaseApplication
     protected function getDefaultCommands()
     {
         return array_merge(parent::getDefaultCommands(), array(
-            new CiconiaCommand()
+            new MarkdownCommand()
         ));
     }
 

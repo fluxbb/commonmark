@@ -29,7 +29,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Kazuyuki Hayashi <hayashi@valnur.net>
  */
-class CiconiaCommand extends Command
+class MarkdownCommand extends Command
 {
 
     /**
@@ -38,7 +38,7 @@ class CiconiaCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ciconia')
+            ->setName('markdown')
             ->setDescription('Translates markdown into HTML and displays to STDOUT')
             ->addArgument('file', InputArgument::OPTIONAL, 'The input file')
             ->addOption('gfm', null, InputOption::VALUE_NONE, 'Activate Gfm extensions')
