@@ -238,13 +238,13 @@ Or using pipe (does not work on Windows):
 You can also use [single phar file][phar]
 
 ```
-ciconia.phar /path/to/file.md
+markdown.phar /path/to/file.md
 ```
 
-If you prefer access this command globally, download [ciconia.phar][phar] and move it into your `PATH`.
+If you prefer access this command globally, download [markdown.phar][phar] and move it into your `PATH`.
 
 ```
-mv ciconia.phar /usr/local/bin/ciconia
+mv markdown.phar /usr/local/bin/markdown
 ```
 
 Testing
@@ -272,7 +272,7 @@ A big thanks to Kazuyuki Hayashi (@kzykhys), who originally created this library
 
 
 [milestones]: https://github.com/fluxbb/markdown/issues/milestones
-[phar]: https://github.com/fluxbb/markdown/releases/download/v1.0.3/ciconia.phar
+[phar]: https://github.com/fluxbb/markdown/releases/download/v.9.0/markdown.phar
 [contributors]: https://github.com/fluxbb/markdown/graphs/contributors
 [textapi]: https://github.com/kzykhys/Text#api
 
