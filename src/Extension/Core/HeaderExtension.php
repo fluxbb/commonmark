@@ -61,11 +61,11 @@ class HeaderExtension implements ExtensionInterface, RendererAwareInterface
     {
         /** @noinspection PhpUnusedParameterInspection */
         $text->replace('{
-            ^(\#{1,6})  # $1 = string of #\'s
+            ^(\#{1,6})      # $1 = string of #\'s
             [ ]+
-            (.+?)       # $2 = Header text
+            (.+?)           # $2 = Header text
             [ \t]*
-            \#*         # optional closing #\'s (not counted)
+            ([ ]\#*[ ]*)?   # optional closing #\'s (not counted)
             \n+
         }mx', function (Text $whole, Text $marks, Text $content) {
             $level = strlen($marks);
