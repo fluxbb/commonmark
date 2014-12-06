@@ -24,7 +24,7 @@ use FluxBB\Markdown\Renderer\RendererInterface;
 class Parser
 {
 
-    const VERSION = '0.9.0';
+    const VERSION = '1.0-dev';
 
     /**
      * @var RendererInterface
