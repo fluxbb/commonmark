@@ -11,19 +11,16 @@ It contains a collection of extensions, making it easy to replace, add or remove
 
 [**Try Demo**][ciconia-demo] / [**Docs**][ciconia-docs] / [**Supported Syntax**][ciconia-syntax] / [**API Reference**][ciconia-api]
 
-*   Based on John Gruber's Markdown.pl
-*   Originally started by [Kazuyuki Hayashi](https://github.com/kzykhys)
-
-*   [Github Flavored Markdown](https://help.github.com/articles/github-flavored-markdown) support (disabled by default)
-
-    * Multiple underscores in words
-    * New lines
-    * Fenced code blocks
-    * Task lists
-    * Table
-    * URL Autolinking
-
-*   Tested with [karlcow/markdown-testsuite](https://github.com/karlcow/markdown-testsuite)
+* Based on John Gruber's Markdown.pl
+* Originally started by [Kazuyuki Hayashi](https://github.com/kzykhys)
+* [Github Flavored Markdown](https://help.github.com/articles/github-flavored-markdown) support (disabled by default)
+	* Multiple underscores in words
+	* New lines
+	* Fenced code blocks
+	* Task lists
+	* Table
+	* URL Autolinking
+* Tested with [karlcow/markdown-testsuite](https://github.com/karlcow/markdown-testsuite)
 
 ## Requirements
 
@@ -34,21 +31,21 @@ It contains a collection of extensions, making it easy to replace, add or remove
 
 Add the library to your Composer dependencies:
 
-    composer require fluxbb/markdown
-    
+	composer require fluxbb/markdown
+
 Next, use Composer to install the library and its dependencies:
 
-    composer install
+	composer install
 
 ## Usage
 
 ### Traditional Markdown
 
-``` php
-use Ciconia\Ciconia;
+```php
+use FluxBB\Markdown\Parsers;
 
-$ciconia = new Ciconia();
-$html = $ciconia->render('Markdown is **awesome**');
+$parser = new Parser();
+$html = $parser->render('Markdown is **awesome**');
 
 // <p>Markdown is <em>awesome</em></p>
 ```
@@ -58,18 +55,18 @@ $html = $ciconia->render('Markdown is **awesome**');
 To activate 6 gfm features:
 
 ``` php
-use Ciconia\Ciconia;
-use Ciconia\Extension\Gfm;
+use FluxBB\Markdown\Parser;
+use FluxBB\Markdown\Extension\Gfm;
 
-$ciconia = new Ciconia();
-$ciconia->addExtension(new Gfm\FencedCodeBlockExtension());
-$ciconia->addExtension(new Gfm\TaskListExtension());
-$ciconia->addExtension(new Gfm\InlineStyleExtension());
-$ciconia->addExtension(new Gfm\WhiteSpaceExtension());
-$ciconia->addExtension(new Gfm\TableExtension());
-$ciconia->addExtension(new Gfm\UrlAutoLinkExtension());
+$parser = new Parser();
+$parser->addExtension(new Gfm\FencedCodeBlockExtension());
+$parser->addExtension(new Gfm\TaskListExtension());
+$parser->addExtension(new Gfm\InlineStyleExtension());
+$parser->addExtension(new Gfm\WhiteSpaceExtension());
+$parser->addExtension(new Gfm\TableExtension());
+$parser->addExtension(new Gfm\UrlAutoLinkExtension());
 
-$html = $ciconia->render('Markdown is **awesome**');
+$html = $parser->render('Markdown is **awesome**');
 
 // <p>Markdown is <em>awesome</em></p>
 ```
@@ -83,10 +80,10 @@ Option             | Type    | Default | Description                   |
 **strict**         | boolean | false   | Throws exception if markdown contains syntax error |
 
 ``` php
-use Ciconia\Ciconia;
+use FluxBB\Markdown\Parser;
 
-$ciconia = new Ciconia();
-$html = $ciconia->render(
+$parser = new Parser();
+$html = $parser->render(
     'Markdown is **awesome**',
     ['tabWidth' => 8, 'nestedTagLevel' => 5, 'strict' => true]
 );
@@ -95,14 +92,14 @@ $html = $ciconia->render(
 Rendering HTML or XHTML
 -----------------------
 
-Ciconia renders HTML by default. If you prefer XHTML:
+The parser renders HTML by default. If you prefer XHTML:
 
 ``` php
-use Ciconia\Ciconia;
-use Ciconia\Renderer\XhtmlRenderer;
+use FluxBB\Markdown\Parser;
+use FluxBB\Markdown\Renderer\XhtmlRenderer;
 
-$ciconia = new Ciconia(new XhtmlRenderer());
-$html = $ciconia->render('Markdown is **awesome**');
+$parser = new Parser(new XhtmlRenderer());
+$html = $parser->render('Markdown is **awesome**');
 
 // <p>Markdown is <em>awesome</em></p>
 ```
@@ -111,29 +108,29 @@ $html = $ciconia->render('Markdown is **awesome**');
 
 ### How to Extend
 
-Creating extension is easy, just implement `Ciconia\Extension\ExtensionInterface`.
+Creating extensions is easy, you only need to implement the `FluxBB\Markdown\Extension\ExtensionInterface`.
 
-Your class must implement 2 methods.
+Your class must implement two methods.
 
-#### _void_ register(`Ciconia\Markdown` $markdown)
+#### _void_ register(`FluxBB\Markdown\Markdown` $markdown)
 
-Register your callback to markdown event manager.
-`Ciconia\Markdown` is instance of `Ciconia\Event\EmitterInterface` (looks like Node.js's EventEmitter)
+Register any callbacks with the markdown event manager.
+`FluxBB\Markdown\Markdown` is an instance of the `FluxBB\Markdown\Event\EmitterInterface` (similar to Node's EventEmitter)
 
 #### _string_ getName()
 
 Returns the name of your extension.
-If your name is the same as one of core extension, it will be replaced by your extension.
+If your name is the same as one of the core extensions, the latter will be replaced by your extension.
 
 ### Extension Example
 
-This sample extension turns `@username ` mentions into links.
+This sample extension turns any `@username` mentions into links.
 
 ``` php
 <?php
 
-use Ciconia\Common\Text;
-use Ciconia\Extension\ExtensionInterface;
+use FluxBB\Markdown\Common\Text;
+use FluxBB\Markdown\Extension\ExtensionInterface;
 
 class MentionExtension implements ExtensionInterface
 {
@@ -141,7 +138,7 @@ class MentionExtension implements ExtensionInterface
     /**
      * {@inheritdoc}
      */
-    public function register(\Ciconia\Markdown $markdown)
+    public function register(\FluxBB\Markdown\Markdown $markdown)
     {
         $markdown->on('inline', [$this, 'processMentions']);
     }
@@ -174,15 +171,15 @@ Register your extension.
 
 require __DIR__ . '/vendor/autoload.php';
 
-$ciconia = new \Ciconia\Ciconia();
-$ciconia->addExtension(new MentionExtension());
-echo $ciconia->render('@kzykhys my email address is example@example.com!');
+$parser = new \FluxBB\Markdown\Parser();
+$parser->addExtension(new MentionExtension());
+echo $parser->render('@admin my email address is example@example.com!');
 ```
 
 Output
 
 ``` html
-<p><a href="http://example.com/user/kzykhys">@kzykhys</a> my email address is example@example.com!</p>
+<p><a href="http://example.com/user/admin">@admin</a> my email address is example@example.com!</p>
 ```
 
 Each extension handles string as a `Text` object. See [API section of kzykhys/Text][textapi].
@@ -200,53 +197,41 @@ Possible events are:
 | outdent    | Remove one level of line-leading tabs or spaces. Generally called by block level parsers. |
 | finalize   | Called after `block`                                                                      |
 
-[See the source code of Extensions](src/Ciconia/Extension)
+[See the source code of Extensions](src/Extension).
 
-[See events and timing information](https://gist.github.com/kzykhys/7443440)
+[See events and timing information](https://gist.github.com/kzykhys/7443440).
 
 ### Create your own Renderer
 
-Ciconia supports HTML/XHTML output. but if you prefer customizing the output,
-just create a class that implements `Ciconia\Renderer\RendererInterface`.
+This library supports HTML/XHTML output. If you prefer customizing the output,
+just create a class that implements `FluxBB\Markdown\Renderer\RendererInterface`.
 
-See [Ciconia\Renderer\RendererInterface](src/Ciconia/Renderer/RendererInterface.php)
+See [FluxBB\Markdown\Renderer\RendererInterface](src/Renderer/RendererInterface.php).
 
 ## Command Line Interface
 
 ### Usage
 
-Basic Usage: (Outputs result to STDOUT)
+Basic usage: (Outputs result to STDOUT)
 
-    ciconia /path/to/file.md
+    bin/markdown /path/to/file.md
 
-Following command saves result to file:
+The following command saves results to a file:
 
-    ciconia /path/to/file.md > /path/to/file.html
+    bin/markdown /path/to/file.md > /path/to/file.html
 
-Or using pipe (On Windows in does't work):
+Or using pipe (does not work on Windows):
 
-    echo "Markdown is **awesome**" | ciconia
+    echo "Markdown is **awesome**" | bin/markdown
 
 ### Command Line Options
 
 ```
- --gfm                 Activate Gfm extensions
- --compress (-c)       Remove whitespace between HTML tags
- --format (-f)         Output format (html|xhtml) (default: "html")
- --lint (-l)           Syntax check only (lint)
+	--gfm                 Activate Gfm extensions
+	--compress (-c)       Remove whitespace between HTML tags
+	--format (-f)         Output format (html|xhtml) (default: "html")
+	--lint (-l)           Syntax check only (lint)
 ```
-
-### Where is the script?
-
-CLI script will be installed in `vendor/bin/ciconia` by default.
-To change the location:
-
-> Yes, there are two ways an alternate vendor binary location can be specified:
->
-> 1. Setting the bin-dir configuration setting in composer.json
-> 2. Setting the environment variable COMPOSER_BIN_DIR
-
-[http://getcomposer.org/doc/articles/vendor-binaries.md](http://getcomposer.org/doc/articles/vendor-binaries.md)
 
 ### Using PHAR version
 
