@@ -23,7 +23,7 @@ script:
 
 after_script:
   - php vendor/bin/coveralls
-  - git clone git@github.com:jgm/CommonMark.git
+  - git clone https://github.com/jgm/CommonMark.git
   - python CommonMark/test/spec_tests.py --program bin/markdown
 
 after_success:
