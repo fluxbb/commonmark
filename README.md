@@ -1,12 +1,11 @@
 An extensible Markdown parser for PHP
 =====================================
 
-[![Latest Stable Version](https://poser.pugx.org/fluxbb/markdown/v/stable.svg)](https://packagist.org/packages/fluxbb/markdown)
-[![Build Status](https://travis-ci.org/fluxbb/markdown.svg)](https://travis-ci.org/fluxbb/markdown)
-[![Total Downloads](https://poser.pugx.org/fluxbb/markdown/downloads.svg)](https://packagist.org/packages/fluxbb/markdown)
-[![License](https://poser.pugx.org/fluxbb/markdown/license.svg)](https://packagist.org/packages/fluxbb/markdown)
-[![Coverage Status](https://coveralls.io/repos/kzykhys/Ciconia/badge.png?branch=master)](https://coveralls.io/r/kzykhys/Ciconia?branch=master)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d0ca7ab7-c342-4f04-8f67-b7d74c2fdb66/mini.png)](https://insight.sensiolabs.com/projects/d0ca7ab7-c342-4f04-8f67-b7d74c2fdb66)
+<p align="center">
+<a href="https://github.com/fluxbb/markdown/releases"><img src="https://img.shields.io/github/release/fluxbb/markdown.svg?style=flat-square" alt="Latest Stable Version"></img></a>
+<a href="https://travis-ci.org/fluxbb/markdown"><img src="https://img.shields.io/travis/fluxbb/markdown/master.svg?style=flat-square" alt="Build Status"></img></a>
+<a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
+</p>
 
 An object oriented, fully extensible markdown parser for PHP 5.4 and above.
 It contains a collection of extensions, making it easy to replace, add or remove parsing mechanics.
