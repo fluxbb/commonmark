@@ -61,7 +61,8 @@ class HeaderExtension implements ExtensionInterface, RendererAwareInterface
     {
         /** @noinspection PhpUnusedParameterInspection */
         $text->replace('{
-            ^(\#{1,6})      # $1 = string of #\'s
+            ^[ ]{0,3}       # Optional leading spaces
+            (\#{1,6})       # $1 = string of #\'s
             [ ]+
             (.+?)           # $2 = Header text
             [ \t]*
