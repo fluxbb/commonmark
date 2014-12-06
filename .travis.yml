@@ -24,7 +24,7 @@ script:
 after_script:
   - php vendor/bin/coveralls
   - git clone https://github.com/jgm/CommonMark.git
-  - python CommonMark/test/spec_tests.py --program bin/markdown
+  - cd CommonMark && python test/spec_tests.py --program bin/markdown
 
 after_success:
   - composer require --no-update composer/composer:*@dev
