@@ -1,8 +1,9 @@
 language: php
 
 php:
-  - 5.5
   - 5.4
+  - 5.5
+  - 5.6
   - hhvm
 
 matrix:
@@ -10,8 +11,9 @@ matrix:
     - php: hhvm
 
 before_script:
-  - composer require --no-update satooshi/php-coveralls:dev-master sensiolabs/security-checker:dev-master
-  - composer update --dev --no-interaction
+  - travis_retry composer self-update
+  - travis_retry composer require --no-update satooshi/php-coveralls:dev-master sensiolabs/security-checker:dev-master
+  - travis_retry composer update --dev --no-interaction
   - sudo easy_install Pygments
 
 script:
@@ -25,6 +27,6 @@ after_script:
 after_success:
   - composer require --no-update composer/composer:*@dev
   - composer require kzykhys/markbench:*@dev
-  - vendor/bin/markbench benchmark --parser=kzykhys/ciconia --profile=blank
-  - vendor/bin/markbench benchmark --parser=kzykhys/ciconia --profile=default
-  - vendor/bin/markbench benchmark --parser=kzykhys/ciconia --profile=github-sample
+  - vendor/bin/markbench benchmark --parser=fluxbb/markdown --profile=blank
+  - vendor/bin/markbench benchmark --parser=fluxbb/markdown --profile=default
+  - vendor/bin/markbench benchmark --parser=fluxbb/markdown --profile=github-sample
