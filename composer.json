@@ -25,6 +25,7 @@
         "symfony/console": "~2.3"
     },
     "require-dev": {
+        "phpunit/phpunit": "~4.0",
         "symfony/finder": ">=2.3,<2.5-dev",
         "symfony/stopwatch": ">=2.3,<2.5-dev",
         "kzykhys/pygments": ">=1.0"
