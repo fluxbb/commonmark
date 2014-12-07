@@ -32,7 +32,7 @@ class CoreExtensionsTest extends PHPUnit_Framework_TestCase
         $parser = new Parser(new XhtmlRenderer());
         $html = $parser->render($markdown);
 
-        $this->assertEquals($expected, $html, "$section: $name failed");
+        $this->assertEquals($expected, $html, "$section: $name failed\n$markdown");
     }
 
     /**
