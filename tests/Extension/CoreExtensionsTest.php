@@ -16,22 +16,23 @@ class CoreExtensionsTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * Test core patterns
+     * Test CommonMark spec examples
      *
-     * See `test/Resources/markdown-testsuite`
+     * See `test/Resources/spec.txt`
      *
-     * @param string $name     Name of the test case
-     * @param string $markdown The Markdown content
-     * @param string $expected Expected output
+     * @param string $name
+     * @param string $markdown
+     * @param string $expected
+     * @param string $section
      *
-     * @dataProvider markdownTestSuiteProvider
+     * @dataProvider commonMarkSpecProvider
      */
-    public function testWithMarkdownTestSuite($name, $markdown, $expected)
+    public function testWithCommonMarkSpec($name, $markdown, $expected, $section)
     {
-        $ciconia = new Parser(new XhtmlRenderer());
-        $html    = $ciconia->render($markdown);
+        $parser = new Parser(new XhtmlRenderer());
+        $html = $parser->render($markdown);
 
-        $this->assertEquals($expected, $html, sprintf('%s failed', $name));
+        $this->assertEquals($expected, $html, "$section: $name failed");
     }
 
     /**
@@ -68,15 +69,54 @@ class CoreExtensionsTest extends PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function markdownTestSuiteProvider()
+    public function commonMarkSpecProvider()
     {
-        $finder = Finder::create()
-            ->in(__DIR__.'/../Resources/core')
-            ->files()
-            ->name('*.md')
-            ->notName('link-automatic-email.md');
+        $lines = file(__DIR__.'/../Resources/CommonMark/spec.txt', FILE_IGNORE_NEW_LINES);
 
-        return $this->processPatterns($finder);
+        $state = 0; // 0 regular text, 1 markdown example, 2 html output
+        $startLine = 0;
+        $lineNumber = 0;
+        $exampleNumber = 0;
+        $headerText = '';
+        $markdownLines = [];
+        $htmlLines = [];
+
+        $tests = [];
+        foreach ($lines as $line) {
+            $lineNumber++;
+
+            if ($state == 0 && preg_match('/#+ /', $line)) {
+                $headerText = trim(preg_replace('/#+ /', '', $line));
+            }
+
+            if (trim($line) == '.') {
+                $state = ($state + 1) % 3;
+                if ($state == 0) {
+                    $exampleNumber++;
+                    $endLine = $lineNumber;
+
+                    $tests[] = [
+                        "#$exampleNumber (lines $startLine - $endLine)",
+                        str_replace('→', "\t", implode("\n", $markdownLines)),
+                        implode("\n", $htmlLines),
+                        $headerText,
+                    ];
+
+                    $startLine = 0;
+                    $markdownLines = [];
+                    $htmlLines = [];
+                }
+            } elseif ($state == 1) {
+                if ($startLine == 0) {
+                    $startLine = $lineNumber - 1;
+                }
+                $markdownLines[] = $line;
+            } elseif ($state == 2) {
+                $htmlLines[] = $line;
+            }
+        }
+
+        return $tests;
     }
 
     /**
