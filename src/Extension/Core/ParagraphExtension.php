@@ -50,7 +50,9 @@ class ParagraphExtension implements ExtensionInterface, RendererAwareInterface
         $parts->apply(function (Text $part) {
             if (!$this->markdown->getHashRegistry()->exists($part)) {
                 $this->markdown->emit('inline', array($part));
-                $part->replace('/^([ \t]*)/', '');
+
+                // For every line, remove all leading whitespace
+                $part->replace('/^([ \t]*)/m', '');
 
                 $part->setString($this->getRenderer()->renderParagraph((string) $part));
             }
