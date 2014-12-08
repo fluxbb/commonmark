@@ -63,9 +63,7 @@ class HeaderExtension implements ExtensionInterface, RendererAwareInterface
         $text->replace('{
             ^[ ]{0,3}       # Optional leading spaces
             (\#{1,6})       # $1 = string of #\'s
-            [ ]+
-            (.+?)           # $2 = Header text
-            [ \t]*
+            (([ ].+?)??)    # $2 = Header text
             ([ ]\#*[ ]*)?   # optional closing #\'s (not counted)
             \n+
         }mx', function (Text $whole, Text $marks, Text $content) {
