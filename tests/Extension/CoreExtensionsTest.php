@@ -16,26 +16,6 @@ class CoreExtensionsTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * Test CommonMark spec examples
-     *
-     * See `test/Resources/spec.txt`
-     *
-     * @param string $name
-     * @param string $markdown
-     * @param string $expected
-     * @param string $section
-     *
-     * @dataProvider commonMarkSpecProvider
-     */
-    public function testWithCommonMarkSpec($name, $markdown, $expected, $section)
-    {
-        $parser = new Parser(new XhtmlRenderer());
-        $html = $parser->render($markdown);
-
-        $this->assertEquals($expected, $html, "$section: $name failed\n$markdown");
-    }
-
-    /**
      * Test an email link
      */
     public function testAutoLinkEmail()
@@ -64,59 +44,6 @@ class CoreExtensionsTest extends PHPUnit_Framework_TestCase
         $html    = $ciconia->render($markdown, ['strict' => true]);
 
         $this->assertEquals($expected, $html, sprintf('%s failed', $name));
-    }
-
-    /**
-     * @return array
-     */
-    public function commonMarkSpecProvider()
-    {
-        $lines = file(__DIR__.'/../Resources/CommonMark/spec.txt', FILE_IGNORE_NEW_LINES);
-
-        $state = 0; // 0 regular text, 1 markdown example, 2 html output
-        $startLine = 0;
-        $lineNumber = 0;
-        $exampleNumber = 0;
-        $headerText = '';
-        $markdownLines = [];
-        $htmlLines = [];
-
-        $tests = [];
-        foreach ($lines as $line) {
-            $lineNumber++;
-
-            if ($state == 0 && preg_match('/#+ /', $line)) {
-                $headerText = trim(preg_replace('/#+ /', '', $line));
-            }
-
-            if (trim($line) == '.') {
-                $state = ($state + 1) % 3;
-                if ($state == 0) {
-                    $exampleNumber++;
-                    $endLine = $lineNumber;
-
-                    $tests[] = [
-                        "#$exampleNumber (lines $startLine - $endLine)",
-                        str_replace('→', "\t", implode("\n", $markdownLines)),
-                        implode("\n", $htmlLines),
-                        $headerText,
-                    ];
-
-                    $startLine = 0;
-                    $markdownLines = [];
-                    $htmlLines = [];
-                }
-            } elseif ($state == 1) {
-                if ($startLine == 0) {
-                    $startLine = $lineNumber - 1;
-                }
-                $markdownLines[] = $line;
-            } elseif ($state == 2) {
-                $htmlLines[] = $line;
-            }
-        }
-
-        return $tests;
     }
 
     /**
