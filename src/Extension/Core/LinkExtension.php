@@ -2,7 +2,6 @@
 
 namespace FluxBB\Markdown\Extension\Core;
 
-use FluxBB\Markdown\Common\Collection;
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Exception\SyntaxError;
 use FluxBB\Markdown\Extension\ExtensionInterface;
