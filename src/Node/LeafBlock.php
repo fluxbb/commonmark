@@ -10,11 +10,6 @@ abstract class LeafBlock extends Node implements NodeAcceptorInterface
         return false;
     }
 
-    public function accept(NodeInterface $node)
-    {
-        return $node->proposeTo($this);
-    }
-
     public function acceptParagraph(Paragraph $paragraph)
     {
         return $this->parent->acceptParagraph($paragraph);

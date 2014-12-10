@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Node;
 
-abstract class Node
+abstract class Node implements NodeAcceptorInterface
 {
 
     protected $children = [];
@@ -18,6 +18,19 @@ abstract class Node
     public function toString()
     {
         return $this->getType();
+    }
+
+    /**
+     * Accept the given node as a child.
+     *
+     * This should ask the node for its type, and then call the appropriate method.
+     *
+     * @param NodeInterface $node
+     * @return Node
+     */
+    public function accept(NodeInterface $node)
+    {
+        return $node->proposeTo($this);
     }
 
     public function setParent(Node $parent)

@@ -4,12 +4,12 @@ namespace FluxBB\Markdown\Parser;
 
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Blockquote;
-use FluxBB\Markdown\Node\NodeAcceptorInterface;
+use FluxBB\Markdown\Node\Node;
 
 class BlockquoteParser implements ParserInterface
 {
 
-    public function parseLine(Text $line, NodeAcceptorInterface $target, callable $next)
+    public function parseLine(Text $line, Node $target, callable $next)
     {
         $text = $line->getString();
         if ($text[0] == '>') {

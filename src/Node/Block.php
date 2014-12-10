@@ -40,13 +40,8 @@ abstract class Block extends Node implements NodeAcceptorInterface
     }
 
     /*
-     * Block acceptor methods
+     * Node acceptor methods
      */
-
-    public function accept(NodeInterface $node)
-    {
-        return $node->proposeTo($this);
-    }
 
     public function acceptParagraph(Paragraph $paragraph)
     {
