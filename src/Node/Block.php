@@ -59,6 +59,11 @@ abstract class Block extends Node implements NodeAcceptorInterface
         return $this->closeAndBubble($blockquote);
     }
 
+    public function acceptHeading(Heading $heading)
+    {
+        return $this->closeAndBubble($heading);
+    }
+
     /*
      * Node visitor methods
      */

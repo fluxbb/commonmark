@@ -9,4 +9,6 @@ interface NodeAcceptorInterface
 
     public function acceptBlockquote(Blockquote $blockquote);
 
+    public function acceptHeading(Heading $heading);
+
 }

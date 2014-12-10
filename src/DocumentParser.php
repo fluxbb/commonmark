@@ -6,6 +6,7 @@ use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Parser\BlockquoteParser;
+use FluxBB\Markdown\Parser\HeaderParser;
 use FluxBB\Markdown\Parser\ParagraphParser;
 use FluxBB\Markdown\Parser\ParserInterface;
 
@@ -54,6 +55,7 @@ class DocumentParser
     {
         $this->parsers = [
             new BlockquoteParser(),
+            new HeaderParser(),
             new ParagraphParser(),
         ];
     }

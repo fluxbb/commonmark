@@ -34,4 +34,11 @@ class Document extends Block
         return $blockquote;
     }
 
+    public function acceptHeading(Heading $heading)
+    {
+        $this->addChild($heading);
+
+        return $heading;
+    }
+
 }

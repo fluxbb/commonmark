@@ -5,6 +5,7 @@ namespace FluxBB\Markdown;
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Blockquote;
 use FluxBB\Markdown\Node\Document;
+use FluxBB\Markdown\Node\Heading;
 use FluxBB\Markdown\Node\NodeVisitorInterface;
 use FluxBB\Markdown\Node\Paragraph;
 
@@ -47,4 +48,17 @@ class Renderer implements NodeVisitorInterface
         $this->buffer->append('</blockquote>');
     }
 
+    public function enterHeading(Heading $heading)
+    {
+        $this->buffer
+            ->append('<h')
+            ->append($heading->getLevel())
+            ->append('>')
+            ->append($heading->getText());
+    }
+
+    public function leaveHeading(Heading $heading)
+    {
+        $this->buffer->append('</h')->append($heading->getLevel())->append('>');
+    }
 }
