@@ -22,5 +22,6 @@ foreach($paths as $path) {
     }
 }
 
-$app = new Application('Ciconia', \FluxBB\Markdown\Parser::VERSION);
+$app = new Application('FluxBB Markdown', \FluxBB\Markdown\Parser::VERSION);
+$app->add(new \FluxBB\Markdown\Console\Command\CommonMarkCommand());
 $app->run();

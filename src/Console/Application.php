@@ -32,7 +32,7 @@ class Application extends BaseApplication
      */
     protected function getCommandName(InputInterface $input)
     {
-        return 'markdown';
+        return 'cm';
     }
 
     /**
