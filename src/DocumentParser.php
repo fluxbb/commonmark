@@ -5,8 +5,8 @@ namespace FluxBB\Markdown;
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\Node;
+use FluxBB\Markdown\Parser\BlankLineParser;
 use FluxBB\Markdown\Parser\BlockquoteParser;
-use FluxBB\Markdown\Parser\EmptyLineParser;
 use FluxBB\Markdown\Parser\HeaderParser;
 use FluxBB\Markdown\Parser\HorizontalRuleParser;
 use FluxBB\Markdown\Parser\ParagraphParser;
@@ -56,7 +56,7 @@ class DocumentParser
     protected function registerDefaultParsers()
     {
         $this->parsers = [
-            new EmptyLineParser(),
+            new BlankLineParser(),
             new BlockquoteParser(),
             new HorizontalRuleParser(),
             new HeaderParser(),

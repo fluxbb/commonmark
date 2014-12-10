@@ -283,6 +283,16 @@ class Text implements \Serializable
     }
 
     /**
+     * Copy this object.
+     *
+     * @return Text
+     */
+    public function copy()
+    {
+        return clone $this;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
