@@ -40,7 +40,7 @@ class HorizontalRuleExtension implements ExtensionInterface, RendererAwareInterf
 
         foreach ($marks as $mark) {
             $text->replace(
-                '/^[ ]{0,2}([ ]?' . preg_quote($mark, '/') . '[ ]?){3,}[ \t]*$/m',
+                '/^[ ]{0,2}([ ]?' . preg_quote($mark, '/') . '[ ]*){3,}[ \t]*$/m',
                 $this->getRenderer()->renderHorizontalRule() . "\n"
             );
         }
