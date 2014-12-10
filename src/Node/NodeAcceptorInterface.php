@@ -11,4 +11,6 @@ interface NodeAcceptorInterface
 
     public function acceptHeading(Heading $heading);
 
+    public function acceptHorizontalRule(HorizontalRule $horizontalRule);
+
 }

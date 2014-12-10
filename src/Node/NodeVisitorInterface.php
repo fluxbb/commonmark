@@ -17,4 +17,6 @@ interface NodeVisitorInterface
 
     public function leaveHeading(Heading $heading);
 
+    public function visitHorizontalRule(HorizontalRule $horizontalRule);
+
 }

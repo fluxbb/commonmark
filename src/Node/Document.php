@@ -41,4 +41,11 @@ class Document extends Block
         return $heading;
     }
 
+    public function acceptHorizontalRule(HorizontalRule $horizontalRule)
+    {
+        $this->addChild($horizontalRule);
+
+        return $horizontalRule;
+    }
+
 }

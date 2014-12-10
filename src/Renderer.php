@@ -6,6 +6,7 @@ use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Blockquote;
 use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\Heading;
+use FluxBB\Markdown\Node\HorizontalRule;
 use FluxBB\Markdown\Node\NodeVisitorInterface;
 use FluxBB\Markdown\Node\Paragraph;
 
@@ -61,4 +62,10 @@ class Renderer implements NodeVisitorInterface
     {
         $this->buffer->append('</h')->append($heading->getLevel())->append('>');
     }
+
+    public function visitHorizontalRule(HorizontalRule $horizontalRule)
+    {
+        $this->buffer->append('<hr />');
+    }
+
 }

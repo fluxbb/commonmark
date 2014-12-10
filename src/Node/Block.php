@@ -64,6 +64,11 @@ abstract class Block extends Node implements NodeAcceptorInterface
         return $this->closeAndBubble($heading);
     }
 
+    public function acceptHorizontalRule(HorizontalRule $horizontalRule)
+    {
+        return $this->closeAndBubble($horizontalRule);
+    }
+
     /*
      * Node visitor methods
      */
