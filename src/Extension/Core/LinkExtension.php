@@ -210,9 +210,11 @@ class LinkExtension implements ExtensionInterface, RendererAwareInterface
             <
             (?:mailto:)?
             (
-                [-.\w]+
+                [a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+
                 \@
-                [-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+
+                [a-zA-Z0-9]
+                (?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?
+                (?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*
             )
             >
         }ix', function (Text $w, Text $address) {
