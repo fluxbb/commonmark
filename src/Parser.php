@@ -6,6 +6,7 @@ use FluxBB\Markdown\Common\Collection;
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Event\EmitterAwareInterface;
 use FluxBB\Markdown\Extension\Core;
+use FluxBB\Markdown\Extension\Gfm;
 use FluxBB\Markdown\Extension\ExtensionInterface;
 use FluxBB\Markdown\Renderer\RendererAwareInterface;
 use FluxBB\Markdown\Renderer\RendererInterface;
@@ -172,7 +173,8 @@ class Parser
             new Core\BlockQuoteExtension(),
             new Core\ImageExtension(),
             new Core\InlineStyleExtension(),
-            new Core\EscaperExtension()
+            new Core\EscaperExtension(),
+            new Gfm\FencedCodeBlockExtension(),
         ];
     }
 
