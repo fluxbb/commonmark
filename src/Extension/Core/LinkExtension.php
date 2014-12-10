@@ -218,33 +218,7 @@ class LinkExtension implements ExtensionInterface, RendererAwareInterface
             )
             >
         }ix', function (Text $w, Text $address) {
-            $address  = "mailto:" . $address;
-
-            $encode = array(
-                function ($char) { return '&#' . ord($char) . ';'; },
-                function ($char) { return '&#x' . dechex(ord($char)) . ';'; },
-                function ($char) { return $char; }
-            );
-
-            $chars = new Collection(str_split($address));
-
-            $chars->apply(function ($char) use ($encode) {
-                if ($char == '@') {
-                    return $encode[rand(0, 1)]($char);
-                } elseif ($char != ':') {
-                    $rand = rand(0, 100);
-                    $key = ($rand > 90) ? 2 : ($rand < 45 ? 0 : 1);
-
-                    return $encode[$key]($char);
-                }
-
-                return $char;
-            });
-
-            $address = $chars->join();
-            $text = $chars->slice(7)->join();
-
-            return $this->getRenderer()->renderLink($text, ['href' => $address]);
+            return $this->getRenderer()->renderLink($address, ['href' => 'mailto:' . $address]);
         });
     }
     
