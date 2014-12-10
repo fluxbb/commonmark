@@ -33,6 +33,11 @@ class Paragraph extends Block implements NodeInterface, NodeAcceptorInterface
         return true;
     }
 
+    public function getText()
+    {
+        return $this->text;
+    }
+
     public function proposeTo(NodeAcceptorInterface $block)
     {
         return $block->acceptParagraph($this);
@@ -43,6 +48,13 @@ class Paragraph extends Block implements NodeInterface, NodeAcceptorInterface
         $this->text->append("\n")->append($paragraph->text);
 
         return $this;
+    }
+
+    public function visit(NodeVisitorInterface $visitor)
+    {
+        $visitor->enterParagraph($this);
+
+        $visitor->leaveParagraph($this);
     }
 
 }

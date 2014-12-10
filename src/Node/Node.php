@@ -5,6 +5,9 @@ namespace FluxBB\Markdown\Node;
 abstract class Node implements NodeAcceptorInterface
 {
 
+    /**
+     * @var Node[]
+     */
     protected $children = [];
 
     /**
@@ -32,6 +35,8 @@ abstract class Node implements NodeAcceptorInterface
     {
         return $node->proposeTo($this);
     }
+
+    abstract public function visit(NodeVisitorInterface $visitor);
 
     public function setParent(Node $parent)
     {

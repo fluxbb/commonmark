@@ -59,4 +59,16 @@ abstract class Block extends Node implements NodeAcceptorInterface
         return $this->closeAndBubble($blockquote);
     }
 
+    /*
+     * Node visitor methods
+     */
+
+    public function visit(NodeVisitorInterface $visitor)
+    {
+        foreach ($this->children as $child)
+        {
+            $child->visit($visitor);
+        }
+    }
+
 }

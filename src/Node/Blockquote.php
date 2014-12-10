@@ -39,4 +39,12 @@ class Blockquote extends Block implements NodeInterface, NodeAcceptorInterface
         return $this;
     }
 
+    public function visit(NodeVisitorInterface $visitor)
+    {
+        $visitor->enterBlockquote($this);
+
+        parent::visit($visitor);
+
+        $visitor->leaveBlockquote($this);
+    }
 }
