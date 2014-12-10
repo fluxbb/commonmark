@@ -50,6 +50,13 @@ class Paragraph extends Block implements NodeInterface, NodeAcceptorInterface
         return $this;
     }
 
+    public function acceptBlankLine(BlankLine $blankLine)
+    {
+        $this->close();
+
+        return $this->parent;
+    }
+
     public function visit(NodeVisitorInterface $visitor)
     {
         $visitor->enterParagraph($this);

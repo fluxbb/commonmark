@@ -48,4 +48,9 @@ class Document extends Block
         return $horizontalRule;
     }
 
+    public function acceptBlankLine(BlankLine $blankLine)
+    {
+        return $this;
+    }
+
 }

@@ -69,6 +69,11 @@ abstract class Block extends Node implements NodeAcceptorInterface
         return $this->closeAndBubble($horizontalRule);
     }
 
+    public function acceptBlankLine(BlankLine $blankLine)
+    {
+        return $this->closeAndBubble($blankLine);
+    }
+
     /*
      * Node visitor methods
      */

@@ -13,4 +13,6 @@ interface NodeAcceptorInterface
 
     public function acceptHorizontalRule(HorizontalRule $horizontalRule);
 
+    public function acceptBlankLine(BlankLine $blankLine);
+
 }
