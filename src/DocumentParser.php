@@ -2,6 +2,7 @@
 
 namespace FluxBB\Markdown;
 
+use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\NodeAcceptorInterface;
 use FluxBB\Markdown\Parser\BlockquoteParser;
@@ -38,7 +39,7 @@ class DocumentParser
 
         $lines = explode("\n", $markdown);
         foreach ($lines as $line) {
-            $target = call_user_func($parser, $line, $target);
+            $target = call_user_func($parser, new Text($line), $target);
         }
 
         return $root;
@@ -78,7 +79,7 @@ class DocumentParser
     protected function getParserClosure()
     {
         return function ($stack, ParserInterface $parser) {
-            return function ($line, NodeAcceptorInterface $target) use ($stack, $parser) {
+            return function (Text $line, NodeAcceptorInterface $target) use ($stack, $parser) {
                 return $parser->parseLine($line, $target, $stack);
             };
         };
@@ -91,7 +92,7 @@ class DocumentParser
      */
     protected function getInitialClosure()
     {
-        return function ($line, NodeAcceptorInterface $target) {
+        return function (Text $line, NodeAcceptorInterface $target) {
             return $target;
         };
     }

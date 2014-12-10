@@ -2,6 +2,7 @@
 
 namespace FluxBB\Markdown\Parser;
 
+use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\NodeAcceptorInterface;
 
 interface ParserInterface
@@ -15,11 +16,11 @@ interface ParserInterface
      *
      * This method should return the node that was last to be created.
      *
-     * @param string $line
+     * @param Text $line
      * @param NodeAcceptorInterface $target
      * @param callable $next
      * @return \FluxBB\Markdown\Node\Node
      */
-    public function parseLine($line, NodeAcceptorInterface $target, callable $next);
+    public function parseLine(Text $line, NodeAcceptorInterface $target, callable $next);
 
 }
