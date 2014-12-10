@@ -10,11 +10,7 @@ class BlankLineParser implements ParserInterface
 
     public function parseLine(Text $line, Node $target, callable $next)
     {
-        if ($line->copy()->trim()->isEmpty()) {
-            return $target;
-        }
-
-        return $next($line, $target);
+        return $line->isEmpty() ? $target : $next($line, $target);
     }
 
 }
