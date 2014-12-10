@@ -11,7 +11,7 @@ class ParagraphParser implements ParserInterface
 
     public function parseLine(Text $line, Node $target, callable $next)
     {
-        $paragraph = new Paragraph($line);
+        $paragraph = new Paragraph($line->trim());
 
         return $target->accept($paragraph);
     }
