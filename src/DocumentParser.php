@@ -40,12 +40,31 @@ class DocumentParser
         $target = $root = new Document();
         $parser = $this->buildParserStack();
 
-        $lines = explode("\n", $markdown);
-        foreach ($lines as $line) {
-            $target = call_user_func($parser, new Text($line), $target);
-        }
+        $this->getLines(new Text($markdown))->reduce(function ($target, Text $line) use ($parser) {
+            return call_user_func($parser, $line, $target);
+        }, $target);
 
         return $root;
+    }
+
+    /**
+     * Preprocess the text and return a collection of lines.
+     *
+     * @param Text $text
+     * @return \FluxBB\Markdown\Common\Collection
+     */
+    protected function getLines(Text $text)
+    {
+        // Unify line endings
+        $text->replaceString("\r\n", "\n");
+        $text->replaceString("\r", "\n");
+
+        $text->append("\n\n");
+
+        // Trim empty lines
+        $text->replace('/^[ \t]+$/m', '');
+
+        return $text->split('/\n/');
     }
 
     /**

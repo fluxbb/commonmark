@@ -18,7 +18,7 @@ class Collection implements \IteratorAggregate, \Countable
      *
      * @param array $objects [optional]
      */
-    public function __construct(array $objects = array())
+    public function __construct(array $objects = [])
     {
         $this->objects = $objects;
     }
@@ -149,12 +149,24 @@ class Collection implements \IteratorAggregate, \Countable
     public function each(callable $callable)
     {
         foreach ($this->objects as $key => $value) {
-            if (false === call_user_func_array($callable, array($value, $key))) {
+            if (false === call_user_func_array($callable, [$value, $key])) {
                 break;
             }
         }
 
         return $this;
+    }
+
+    /**
+     * Execute the callback for each element, passing the result of each iteration to the next one.
+     *
+     * @param callable $callable
+     * @param mixed $initial
+     * @return mixed
+     */
+    public function reduce(callable $callable, $initial = null)
+    {
+        return array_reduce($this->objects, $callable, $initial);
     }
 
     /**
