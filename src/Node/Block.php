@@ -39,18 +39,24 @@ abstract class Block extends Node implements NodeAcceptorInterface
         $this->open = false;
     }
 
+    protected function closeAndBubble(Node $node)
+    {
+        $this->close();
+        return $this->parent->accept($node);
+    }
+
     /*
      * Node acceptor methods
      */
 
     public function acceptParagraph(Paragraph $paragraph)
     {
-        return $this->getParent()->acceptParagraph($paragraph);
+        return $this->closeAndBubble($paragraph);
     }
 
     public function acceptBlockquote(Blockquote $blockquote)
     {
-        return $this->getParent()->acceptBlockquote($blockquote);
+        return $this->closeAndBubble($blockquote);
     }
 
 }
