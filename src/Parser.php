@@ -8,8 +8,8 @@ use FluxBB\Markdown\Event\EmitterAwareInterface;
 use FluxBB\Markdown\Extension\Core;
 use FluxBB\Markdown\Extension\ExtensionInterface;
 use FluxBB\Markdown\Renderer\RendererAwareInterface;
-use FluxBB\Markdown\Renderer\HtmlRenderer;
 use FluxBB\Markdown\Renderer\RendererInterface;
+use FluxBB\Markdown\Renderer\XhtmlRenderer;
 
 /**
  * Ciconia - The New Markdown Parser
@@ -57,16 +57,16 @@ class Parser
      *
      * @return string
      */
-    public function render($text, array $options = array())
+    public function render($text, array $options = [])
     {
         $text = new Text($text);
         $markdown = new Markdown($this->renderer, $text, $options);
 
         $this->registerExtensions($markdown);
 
-        $markdown->emit('initialize', array($text));
-        $markdown->emit('block', array($text));
-        $markdown->emit('finalize', array($text));
+        $markdown->emit('initialize', [$text]);
+        $markdown->emit('block', [$text]);
+        $markdown->emit('finalize', [$text]);
 
         return (string) $text;
     }
@@ -152,7 +152,7 @@ class Parser
      */
     protected function getDefaultRenderer()
     {
-        return new HtmlRenderer();
+        return new XhtmlRenderer();
     }
 
     /**
@@ -160,7 +160,7 @@ class Parser
      */
     protected function getDefaultExtensions()
     {
-        return array(
+        return [
             new Core\WhitespaceExtension(),
             new Core\HeaderExtension(),
             new Core\ParagraphExtension(),
@@ -173,7 +173,7 @@ class Parser
             new Core\ImageExtension(),
             new Core\InlineStyleExtension(),
             new Core\EscaperExtension()
-        );
+        ];
     }
 
     /**
