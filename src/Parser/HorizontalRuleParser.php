@@ -17,9 +17,8 @@ class HorizontalRuleParser implements ParserInterface
 
         foreach ($marks as $mark) {
             if (preg_match(
-                '/^[ ]{0,2}([ ]?' . preg_quote($mark, '/') . '[ ]*){3,}[ \t]*$/m',
-                $text,
-                $matches
+                '/^[ ]{0,3}(' . preg_quote($mark, '/') . '[ ]*){3,}[ \t]*$/',
+                $text
             )) {
                 return $target->accept(new HorizontalRule());
             }
