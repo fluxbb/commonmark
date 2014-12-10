@@ -61,6 +61,8 @@ class DocumentParser
 
         $text->append("\n\n");
 
+        // TODO: Replace tabs by spaces
+
         // Trim empty lines
         $text->replace('/^[ \t]+$/m', '');
 
