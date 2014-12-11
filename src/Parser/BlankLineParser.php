@@ -11,8 +11,8 @@ class BlankLineParser implements ParserInterface
 
     public function parseLine(Text $line, Node $target, callable $next)
     {
-        if ($line->isEmpty()) {
-            return $target->accept(new BlankLine());
+        if ($line->copy()->trim()->isEmpty()) {
+            return $target->accept(new BlankLine($line));
         }
 
         return $next($line, $target);

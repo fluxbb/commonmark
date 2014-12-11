@@ -63,9 +63,6 @@ class DocumentParser
 
         // TODO: Replace tabs by spaces
 
-        // Trim empty lines
-        $text->replace('/^[ \t]+$/m', '');
-
         return $text->split('/\n/');
     }
 
