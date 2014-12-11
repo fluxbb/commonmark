@@ -36,7 +36,7 @@ class CodeBlock extends Block implements NodeInterface, NodeAcceptorInterface
 
     public function acceptBlankLine(BlankLine $blankLine)
     {
-        $this->lines->add($blankLine->getContent()->replace('/^[ ]{4}/', ''));
+        $this->lines->add($blankLine->getContent()->replace('/^[ ]{0,4}/', ''));
 
         return $this;
     }
