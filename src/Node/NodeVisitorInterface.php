@@ -19,4 +19,6 @@ interface NodeVisitorInterface
 
     public function visitHorizontalRule(HorizontalRule $horizontalRule);
 
+    public function visitCodeBlock(CodeBlock $codeBlock);
+
 }

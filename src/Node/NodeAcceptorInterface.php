@@ -15,4 +15,6 @@ interface NodeAcceptorInterface
 
     public function acceptBlankLine(BlankLine $blankLine);
 
+    public function acceptCodeBlock(CodeBlock $codeBlock);
+
 }

@@ -7,6 +7,7 @@ use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Parser\BlankLineParser;
 use FluxBB\Markdown\Parser\BlockquoteParser;
+use FluxBB\Markdown\Parser\CodeBlockParser;
 use FluxBB\Markdown\Parser\HeaderParser;
 use FluxBB\Markdown\Parser\HorizontalRuleParser;
 use FluxBB\Markdown\Parser\ParagraphParser;
@@ -75,6 +76,7 @@ class DocumentParser
     {
         $this->parsers = [
             new BlankLineParser(),
+            new CodeBlockParser(),
             new BlockquoteParser(),
             new HorizontalRuleParser(),
             new HeaderParser(),

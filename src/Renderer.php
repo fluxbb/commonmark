@@ -4,6 +4,7 @@ namespace FluxBB\Markdown;
 
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Blockquote;
+use FluxBB\Markdown\Node\CodeBlock;
 use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\Heading;
 use FluxBB\Markdown\Node\HorizontalRule;
@@ -66,6 +67,14 @@ class Renderer implements NodeVisitorInterface
     public function visitHorizontalRule(HorizontalRule $horizontalRule)
     {
         $this->buffer->append('<hr />');
+    }
+
+    public function visitCodeBlock(CodeBlock $codeBlock)
+    {
+        $this->buffer
+            ->append('<pre><code>')
+            ->append($codeBlock->getContent())
+            ->append('</code></pre>');
     }
 
 }

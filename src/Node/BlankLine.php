@@ -7,6 +7,9 @@ use FluxBB\Markdown\Common\Text;
 class BlankLine extends Block implements NodeInterface, NodeAcceptorInterface
 {
 
+    /**
+     * @var Text
+     */
     protected $content;
 
 
@@ -20,6 +23,9 @@ class BlankLine extends Block implements NodeInterface, NodeAcceptorInterface
         return 'blank_line';
     }
 
+    /**
+     * @return Text
+     */
     public function getContent()
     {
         return $this->content->copy();

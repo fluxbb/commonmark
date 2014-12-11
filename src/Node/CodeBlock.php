@@ -1,0 +1,63 @@
+<?php
+
+namespace FluxBB\Markdown\Node;
+
+use FluxBB\Markdown\Common\Collection;
+use FluxBB\Markdown\Common\Text;
+
+class CodeBlock extends Block implements NodeInterface, NodeAcceptorInterface
+{
+
+    /**
+     * @var Collection
+     */
+    protected $lines;
+
+
+    public function __construct(Text $text)
+    {
+        $this->lines = new Collection([$text->replace('/^[ ]{4}/', '')]);
+    }
+
+    public function getType()
+    {
+        return 'code_block';
+    }
+
+    public function canContain(Node $other)
+    {
+        return true;
+    }
+
+    public function proposeTo(NodeAcceptorInterface $block)
+    {
+        return $block->acceptCodeBlock($this);
+    }
+
+    public function acceptBlankLine(BlankLine $blankLine)
+    {
+        $this->lines->add($blankLine->getContent()->replace('/^[ ]{4}/', ''));
+
+        return $this;
+    }
+
+    public function acceptCodeBlock(CodeBlock $codeBlock)
+    {
+        $codeBlock->lines->each(function (Text $line) {
+            $this->lines->add($line);
+        });
+
+        return $this;
+    }
+
+    public function getContent()
+    {
+        return (new Text($this->lines->join("\n")))->rtrim()->append("\n");
+    }
+
+    public function visit(NodeVisitorInterface $visitor)
+    {
+        $visitor->visitCodeBlock($this);
+    }
+
+}

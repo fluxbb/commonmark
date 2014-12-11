@@ -53,4 +53,11 @@ class Document extends Block
         return $this;
     }
 
+    public function acceptCodeBlock(CodeBlock $codeBlock)
+    {
+        $this->addChild($codeBlock);
+
+        return $codeBlock;
+    }
+
 }
