@@ -52,7 +52,12 @@ class CodeBlock extends Block implements NodeInterface, NodeAcceptorInterface
 
     public function getContent()
     {
-        return (new Text($this->lines->join("\n")))->rtrim()->append("\n");
+        $content = new Text($this->lines->join("\n"));
+
+        // Just in case we added blank lines at the end, we remove them, and finally add back the trailing newline.
+        $content->replace('/(\n[ ]*)*$/', '')->append("\n");
+
+        return $content;
     }
 
     public function visit(NodeVisitorInterface $visitor)
