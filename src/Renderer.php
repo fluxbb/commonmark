@@ -73,7 +73,7 @@ class Renderer implements NodeVisitorInterface
     {
         $this->buffer
             ->append('<pre><code>')
-            ->append($codeBlock->getContent())
+            ->append($codeBlock->getContent()->escapeHtml())
             ->append('</code></pre>');
     }
 
