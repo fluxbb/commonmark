@@ -62,6 +62,15 @@ class Paragraph extends Block implements NodeInterface, NodeAcceptorInterface
         return $this->parent;
     }
 
+    public function acceptCodeBlock(CodeBlock $codeBlock)
+    {
+        $codeBlock->getLines()->each(function (Text $line) {
+            $this->lines->add($line->prepend('    '));
+        });
+
+        return $this;
+    }
+
     public function visit(NodeVisitorInterface $visitor)
     {
         $visitor->enterParagraph($this);

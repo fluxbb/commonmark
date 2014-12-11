@@ -60,6 +60,11 @@ class CodeBlock extends Block implements NodeInterface, NodeAcceptorInterface
         return $content;
     }
 
+    public function getLines()
+    {
+        return $this->lines;
+    }
+
     public function visit(NodeVisitorInterface $visitor)
     {
         $visitor->visitCodeBlock($this);
