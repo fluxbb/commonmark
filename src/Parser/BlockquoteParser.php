@@ -11,12 +11,12 @@ class BlockquoteParser implements ParserInterface
 
     public function parseLine(Text $line, Node $target, callable $next)
     {
-        $text = $line->getString();
-        if ($text[0] == '>') {
-            $line = new Text(trim(substr($line, 1)));
+        $pattern = '/^[ ]{0,3}\>[ ]?/';
 
-            $quote = new Blockquote();
-            $target = $target->accept($quote);
+        if ($line->match($pattern)) {
+            $line->replace($pattern, '');
+
+            $target = $target->accept(new Blockquote());
         }
 
         return $next($line, $target);
