@@ -2,20 +2,21 @@
 
 namespace FluxBB\Markdown\Node;
 
+use FluxBB\Markdown\Common\Collection;
 use FluxBB\Markdown\Common\Text;
 
 class Paragraph extends Block implements NodeInterface, NodeAcceptorInterface
 {
 
     /**
-     * @var Text
+     * @var Collection
      */
-    protected $text;
+    protected $lines;
 
 
     public function __construct(Text $text)
     {
-        $this->text = $text;
+        $this->lines = new Collection([$text]);
     }
 
     public function getType()
@@ -25,7 +26,7 @@ class Paragraph extends Block implements NodeInterface, NodeAcceptorInterface
 
     public function toString()
     {
-        return parent::toString() . '("' . $this->text->replaceString("\n", ' ') . '")';
+        return parent::toString() . '("' . $this->lines->join(' ') . '")';
     }
 
     public function canContain(Node $other)
@@ -35,7 +36,9 @@ class Paragraph extends Block implements NodeInterface, NodeAcceptorInterface
 
     public function getText()
     {
-        return $this->text;
+        return $this->lines->apply(function (Text $line) {
+            return $line->trim();
+        })->join("\n");
     }
 
     public function proposeTo(NodeAcceptorInterface $block)
@@ -45,7 +48,9 @@ class Paragraph extends Block implements NodeInterface, NodeAcceptorInterface
 
     public function acceptParagraph(Paragraph $paragraph)
     {
-        $this->text->append("\n")->append($paragraph->text);
+        $paragraph->lines->each(function (Text $line) {
+            $this->lines->add($line);
+        });
 
         return $this;
     }
