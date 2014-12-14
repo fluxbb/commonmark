@@ -24,6 +24,11 @@ class Blockquote extends Container implements NodeAcceptorInterface
         return $this->parent;
     }
 
+    public function acceptHorizontalRule(HorizontalRule $horizontalRule)
+    {
+        return $this->parent->acceptHorizontalRule($horizontalRule);
+    }
+
     public function visit(NodeVisitorInterface $visitor)
     {
         $visitor->enterBlockquote($this);
