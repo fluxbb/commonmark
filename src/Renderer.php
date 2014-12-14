@@ -37,17 +37,17 @@ class Renderer implements NodeVisitorInterface
 
     public function leaveParagraph(Paragraph $paragraph)
     {
-        $this->buffer->append('</p>');
+        $this->buffer->append("</p>\n");
     }
 
     public function enterBlockquote(Blockquote $blockquote)
     {
-        $this->buffer->append('<blockquote>');
+        $this->buffer->append("<blockquote>\n");
     }
 
     public function leaveBlockquote(Blockquote $blockquote)
     {
-        $this->buffer->append('</blockquote>');
+        $this->buffer->append("</blockquote>\n");
     }
 
     public function enterHeading(Heading $heading)
@@ -61,12 +61,16 @@ class Renderer implements NodeVisitorInterface
 
     public function leaveHeading(Heading $heading)
     {
-        $this->buffer->append('</h')->append($heading->getLevel())->append('>');
+        $this->buffer
+            ->append('</h')
+            ->append($heading->getLevel())
+            ->append('>')
+            ->append("\n");
     }
 
     public function visitHorizontalRule(HorizontalRule $horizontalRule)
     {
-        $this->buffer->append('<hr />');
+        $this->buffer->append("<hr />\n");
     }
 
     public function visitCodeBlock(CodeBlock $codeBlock)
@@ -74,7 +78,8 @@ class Renderer implements NodeVisitorInterface
         $this->buffer
             ->append('<pre><code>')
             ->append($codeBlock->getContent()->escapeHtml())
-            ->append('</code></pre>');
+            ->append('</code></pre>')
+            ->append("\n");
     }
 
 }
