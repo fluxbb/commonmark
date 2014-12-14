@@ -62,7 +62,11 @@ class DocumentParser
 
         $text->append("\n\n");
 
-        // TODO: Replace tabs by spaces
+        // Replace tabs by spaces
+        $text->replace('/(.*?)\t/', function (Text $whole, Text $string) {
+            $tabWidth = 4;
+            return $string . str_repeat(' ', $tabWidth - $string->getLength() % $tabWidth);
+        });
 
         return $text->split('/\n/');
     }
