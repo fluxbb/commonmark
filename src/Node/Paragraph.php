@@ -5,7 +5,7 @@ namespace FluxBB\Markdown\Node;
 use FluxBB\Markdown\Common\Collection;
 use FluxBB\Markdown\Common\Text;
 
-class Paragraph extends LeafBlock implements NodeAcceptorInterface
+class Paragraph extends Node implements NodeAcceptorInterface
 {
 
     /**

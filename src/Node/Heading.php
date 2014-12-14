@@ -4,7 +4,7 @@ namespace FluxBB\Markdown\Node;
 
 use FluxBB\Markdown\Common\Text;
 
-class Heading extends LeafBlock implements NodeAcceptorInterface
+class Heading extends Node implements NodeAcceptorInterface
 {
 
     /**

@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Node;
 
-class HorizontalRule extends LeafBlock implements NodeAcceptorInterface
+class HorizontalRule extends Node implements NodeAcceptorInterface
 {
 
     public function visit(NodeVisitorInterface $visitor)
