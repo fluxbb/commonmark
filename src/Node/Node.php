@@ -6,10 +6,40 @@ abstract class Node implements NodeAcceptorInterface
 {
 
     /**
+     * All inline children of this node.
+     *
+     * @var Node[]
+     */
+    protected $inlines = [];
+
+    /**
+     * The parent node.
+     *
      * @var Node
      */
     protected $parent = null;
 
+
+    /**
+     * Add an inline element.
+     *
+     * @param Node $inline
+     * @return void
+     */
+    public function addInline(Node $inline)
+    {
+        $this->inlines[] = $inline;
+    }
+
+    /**
+     * Return all inline elements.
+     *
+     * @return Node[]
+     */
+    public function getInlines()
+    {
+        return $this->inlines;
+    }
 
     /**
      * Set a node as parent of this node.
