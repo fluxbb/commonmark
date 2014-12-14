@@ -5,7 +5,7 @@ namespace FluxBB\Markdown\Node;
 use FluxBB\Markdown\Common\Collection;
 use FluxBB\Markdown\Common\Text;
 
-class Paragraph extends Block implements NodeInterface, NodeAcceptorInterface
+class Paragraph extends Block implements NodeAcceptorInterface
 {
 
     /**
@@ -39,11 +39,6 @@ class Paragraph extends Block implements NodeInterface, NodeAcceptorInterface
         return $this->lines->apply(function (Text $line) {
             return $line->trim();
         })->join("\n");
-    }
-
-    public function proposeTo(NodeAcceptorInterface $block)
-    {
-        return $block->acceptParagraph($this);
     }
 
     public function acceptParagraph(Paragraph $paragraph)

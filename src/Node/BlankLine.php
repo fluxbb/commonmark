@@ -4,7 +4,7 @@ namespace FluxBB\Markdown\Node;
 
 use FluxBB\Markdown\Common\Text;
 
-class BlankLine extends Block implements NodeInterface, NodeAcceptorInterface
+class BlankLine extends Block implements NodeAcceptorInterface
 {
 
     /**
@@ -34,11 +34,6 @@ class BlankLine extends Block implements NodeInterface, NodeAcceptorInterface
     public function canContain(Node $other)
     {
         return true;
-    }
-
-    public function proposeTo(NodeAcceptorInterface $block)
-    {
-        return $block->acceptBlankLine($this);
     }
 
 }

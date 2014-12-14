@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Node;
 
-class Blockquote extends Block implements NodeInterface, NodeAcceptorInterface
+class Blockquote extends Block implements NodeAcceptorInterface
 {
 
     public function getType()
@@ -18,11 +18,6 @@ class Blockquote extends Block implements NodeInterface, NodeAcceptorInterface
     public function accepts(Node $block)
     {
         return $block->getType() == 'paragraph';
-    }
-
-    public function proposeTo(NodeAcceptorInterface $block)
-    {
-        return $block->acceptBlockquote($this);
     }
 
     public function acceptParagraph(Paragraph $paragraph)

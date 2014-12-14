@@ -4,7 +4,7 @@ namespace FluxBB\Markdown\Node;
 
 use FluxBB\Markdown\Common\Text;
 
-class Heading extends Block implements NodeInterface, NodeAcceptorInterface
+class Heading extends Block implements NodeAcceptorInterface
 {
 
     /**
@@ -44,11 +44,6 @@ class Heading extends Block implements NodeInterface, NodeAcceptorInterface
     public function getLevel()
     {
         return $this->level;
-    }
-
-    public function proposeTo(NodeAcceptorInterface $block)
-    {
-        return $block->acceptHeading($this);
     }
 
     public function visit(NodeVisitorInterface $visitor)

@@ -5,7 +5,7 @@ namespace FluxBB\Markdown\Node;
 use FluxBB\Markdown\Common\Collection;
 use FluxBB\Markdown\Common\Text;
 
-class CodeBlock extends Block implements NodeInterface, NodeAcceptorInterface
+class CodeBlock extends Block implements NodeAcceptorInterface
 {
 
     /**
@@ -27,11 +27,6 @@ class CodeBlock extends Block implements NodeInterface, NodeAcceptorInterface
     public function canContain(Node $other)
     {
         return true;
-    }
-
-    public function proposeTo(NodeAcceptorInterface $block)
-    {
-        return $block->acceptCodeBlock($this);
     }
 
     public function acceptBlankLine(BlankLine $blankLine)

@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Node;
 
-class HorizontalRule extends Block implements NodeInterface, NodeAcceptorInterface
+class HorizontalRule extends Block implements NodeAcceptorInterface
 {
 
     public function getType()
@@ -13,11 +13,6 @@ class HorizontalRule extends Block implements NodeInterface, NodeAcceptorInterfa
     public function canContain(Node $other)
     {
         return true;
-    }
-
-    public function proposeTo(NodeAcceptorInterface $block)
-    {
-        return $block->acceptHorizontalRule($this);
     }
 
     public function visit(NodeVisitorInterface $visitor)
