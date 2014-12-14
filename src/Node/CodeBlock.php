@@ -24,11 +24,6 @@ class CodeBlock extends Block implements NodeAcceptorInterface
         return 'code_block';
     }
 
-    public function canContain(Node $other)
-    {
-        return true;
-    }
-
     public function acceptBlankLine(BlankLine $blankLine)
     {
         $this->lines->add($blankLine->getContent()->replace('/^[ ]{0,4}/', ''));

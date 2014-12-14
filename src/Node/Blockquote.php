@@ -10,16 +10,6 @@ class Blockquote extends Block implements NodeAcceptorInterface
         return 'block_quote';
     }
 
-    public function canContain(Node $other)
-    {
-        return $other->getType() == 'paragraph';
-    }
-
-    public function accepts(Node $block)
-    {
-        return $block->getType() == 'paragraph';
-    }
-
     public function acceptParagraph(Paragraph $paragraph)
     {
         $this->addChild($paragraph);

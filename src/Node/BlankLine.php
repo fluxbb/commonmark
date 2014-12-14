@@ -31,9 +31,4 @@ class BlankLine extends Block implements NodeAcceptorInterface
         return $this->content->copy();
     }
 
-    public function canContain(Node $other)
-    {
-        return true;
-    }
-
 }

@@ -5,11 +5,6 @@ namespace FluxBB\Markdown\Node;
 class Document extends Block
 {
 
-    public function canContain(Node $other)
-    {
-        return true;
-    }
-
     public function isOpen()
     {
         return true;

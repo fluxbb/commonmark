@@ -44,37 +44,6 @@ abstract class Node implements NodeAcceptorInterface
     abstract public function visit(NodeVisitorInterface $visitor);
 
     /**
-     * Set a node as parent of this node.
-     *
-     * @param Node $parent
-     * @return void
-     */
-    public function setParent(Node $parent)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * Get the parent of this node.
-     *
-     * @return Node
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * Get all children of this node, if any.
-     *
-     * @return Node[]
-     */
-    public function getChildNodes()
-    {
-        return $this->children;
-    }
-
-    /**
      * Add a node as child of this node.
      *
      * @param Node $child
@@ -89,16 +58,14 @@ abstract class Node implements NodeAcceptorInterface
     }
 
     /**
-     * Remove the given node from the list of child nodes.
+     * Set a node as parent of this node.
      *
-     * @param Node $child
+     * @param Node $parent
      * @return void
      */
-    public function removeChild(Node $child)
+    protected function setParent(Node $parent)
     {
-        $this->children = array_filter($this->children, function (Node $element) use ($child) {
-            return $child != $element;
-        });
+        $this->parent = $parent;
     }
 
     /**

@@ -31,11 +31,6 @@ class Heading extends Block implements NodeAcceptorInterface
         return parent::toString() . '("' . $this->level . '")';
     }
 
-    public function canContain(Node $other)
-    {
-        return true;
-    }
-
     public function getText()
     {
         return $this->text;

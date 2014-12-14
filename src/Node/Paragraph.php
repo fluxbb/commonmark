@@ -29,11 +29,6 @@ class Paragraph extends Block implements NodeAcceptorInterface
         return parent::toString() . '("' . $this->lines->join(' ') . '")';
     }
 
-    public function canContain(Node $other)
-    {
-        return true;
-    }
-
     public function getText()
     {
         return $this->lines->apply(function (Text $line) {
