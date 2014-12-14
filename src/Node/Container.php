@@ -38,44 +38,32 @@ abstract class Container extends Node implements NodeAcceptorInterface
 
     public function acceptParagraph(Paragraph $paragraph)
     {
-        $this->addChild($paragraph);
-
-        return $this;
+        return $this->addChild($paragraph);
     }
 
     public function acceptBlockquote(Blockquote $blockquote)
     {
-        $this->addChild($blockquote);
-
-        return $this;
+        return $this->addChild($blockquote);
     }
 
     public function acceptHeading(Heading $heading)
     {
-        $this->addChild($heading);
-
-        return $this;
+        return $this->addChild($heading);
     }
 
     public function acceptHorizontalRule(HorizontalRule $horizontalRule)
     {
-        $this->addChild($horizontalRule);
-
-        return $this;
+        return $this->addChild($horizontalRule);
     }
 
     public function acceptBlankLine(BlankLine $blankLine)
     {
-        $this->addChild($blankLine);
-
-        return $this;
+        return $this->addChild($blankLine);
     }
 
     public function acceptCodeBlock(CodeBlock $codeBlock)
     {
-        $this->addChild($codeBlock);
-
-        return $this;
+        return $this->addChild($codeBlock);
     }
 
     /**
