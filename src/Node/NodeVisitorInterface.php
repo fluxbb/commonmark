@@ -21,4 +21,10 @@ interface NodeVisitorInterface
 
     public function visitCodeBlock(CodeBlock $codeBlock);
 
+    public function visitString(String $string);
+
+    public function visitEmphasis(Emphasis $emphasis);
+
+    public function visitStrongEmphasis(StrongEmphasis $strongEmphasis);
+
 }

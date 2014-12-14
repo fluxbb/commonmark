@@ -6,10 +6,14 @@ use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Blockquote;
 use FluxBB\Markdown\Node\CodeBlock;
 use FluxBB\Markdown\Node\Document;
+use FluxBB\Markdown\Node\Emphasis;
 use FluxBB\Markdown\Node\Heading;
 use FluxBB\Markdown\Node\HorizontalRule;
+use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Node\NodeVisitorInterface;
 use FluxBB\Markdown\Node\Paragraph;
+use FluxBB\Markdown\Node\String;
+use FluxBB\Markdown\Node\StrongEmphasis;
 
 class Renderer implements NodeVisitorInterface
 {
@@ -31,8 +35,9 @@ class Renderer implements NodeVisitorInterface
     public function enterParagraph(Paragraph $paragraph)
     {
         $this->buffer
-            ->append('<p>')
-            ->append($paragraph->getText());
+            ->append('<p>');
+
+        $this->renderInlineElements($paragraph);
     }
 
     public function leaveParagraph(Paragraph $paragraph)
@@ -80,6 +85,36 @@ class Renderer implements NodeVisitorInterface
             ->append($codeBlock->getContent()->escapeHtml())
             ->append('</code></pre>')
             ->append("\n");
+    }
+
+    public function visitString(String $string)
+    {
+        $this->buffer->append($string->getContent());
+    }
+
+    public function visitEmphasis(Emphasis $emphasis)
+    {
+        $this->buffer
+            ->append('<em>')
+            ->append($emphasis->getContent())
+            ->append('</em>');
+    }
+
+    public function visitStrongEmphasis(StrongEmphasis $strongEmphasis)
+    {
+        $this->buffer
+            ->append('<strong>')
+            ->append($strongEmphasis->getContent())
+            ->append('</strong>');
+    }
+
+    protected function renderInlineElements(Node $node)
+    {
+        $children = $node->getInlines();
+
+        foreach ($children as $child) {
+            $child->visit($this);
+        }
     }
 
 }
