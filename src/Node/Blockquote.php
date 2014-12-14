@@ -32,6 +32,13 @@ class Blockquote extends Block implements NodeInterface, NodeAcceptorInterface
         return $paragraph;
     }
 
+    public function acceptHeading(Heading $heading)
+    {
+        $this->addChild($heading);
+
+        return $this;
+    }
+
     public function acceptBlockquote(Blockquote $blockquote)
     {
         $this->merge($blockquote);
