@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Node;
 
-class Blockquote extends Block implements NodeAcceptorInterface
+class Blockquote extends ContainerBlock implements NodeAcceptorInterface
 {
 
     public function getType()
