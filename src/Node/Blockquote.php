@@ -28,8 +28,6 @@ class Blockquote extends ContainerBlock implements NodeAcceptorInterface
 
     public function acceptBlankLine(BlankLine $blankLine)
     {
-        $this->close();
-
         return $this->parent;
     }
 
