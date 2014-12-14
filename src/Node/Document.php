@@ -2,13 +2,8 @@
 
 namespace FluxBB\Markdown\Node;
 
-class Document extends Block
+class Document extends Container
 {
-
-    public function isOpen()
-    {
-        return true;
-    }
 
     public function acceptParagraph(Paragraph $paragraph)
     {

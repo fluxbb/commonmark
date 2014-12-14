@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Node;
 
-abstract class ContainerBlock extends Block implements NodeAcceptorInterface
+abstract class Container extends Node implements NodeAcceptorInterface
 {
 
     /**
@@ -28,10 +28,10 @@ abstract class ContainerBlock extends Block implements NodeAcceptorInterface
     /**
      * Merge the given node's children into the current one's.
      *
-     * @param ContainerBlock $sibling
+     * @param Container $sibling
      * @return void
      */
-    public function merge(ContainerBlock $sibling)
+    public function merge(Container $sibling)
     {
         $this->children = array_merge($this->children, $sibling->children);
     }
@@ -76,6 +76,22 @@ abstract class ContainerBlock extends Block implements NodeAcceptorInterface
         $this->addChild($codeBlock);
 
         return $this;
+    }
+
+    /**
+     * Accept a visit from a node visitor.
+     *
+     * This method should instrument the visitor to handle this node correctly, and also pass it on to any child nodes.
+     *
+     * @param NodeVisitorInterface $visitor
+     * @return void
+     */
+    public function visit(NodeVisitorInterface $visitor)
+    {
+        foreach ($this->children as $child)
+        {
+            $child->visit($visitor);
+        }
     }
 
 }

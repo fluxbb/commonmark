@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Node;
 
-class Blockquote extends ContainerBlock implements NodeAcceptorInterface
+class Blockquote extends Container implements NodeAcceptorInterface
 {
 
     public function acceptParagraph(Paragraph $paragraph)
