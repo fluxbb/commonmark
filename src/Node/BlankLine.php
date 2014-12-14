@@ -4,7 +4,7 @@ namespace FluxBB\Markdown\Node;
 
 use FluxBB\Markdown\Common\Text;
 
-class BlankLine extends Block implements NodeAcceptorInterface
+class BlankLine extends LeafBlock implements NodeAcceptorInterface
 {
 
     /**

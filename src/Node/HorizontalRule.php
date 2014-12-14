@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Node;
 
-class HorizontalRule extends Block implements NodeAcceptorInterface
+class HorizontalRule extends LeafBlock implements NodeAcceptorInterface
 {
 
     public function getType()

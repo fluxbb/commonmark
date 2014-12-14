@@ -5,7 +5,7 @@ namespace FluxBB\Markdown\Node;
 use FluxBB\Markdown\Common\Collection;
 use FluxBB\Markdown\Common\Text;
 
-class Paragraph extends Block implements NodeAcceptorInterface
+class Paragraph extends LeafBlock implements NodeAcceptorInterface
 {
 
     /**
@@ -47,8 +47,6 @@ class Paragraph extends Block implements NodeAcceptorInterface
 
     public function acceptBlankLine(BlankLine $blankLine)
     {
-        $this->close();
-
         return $this->parent;
     }
 

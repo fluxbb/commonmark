@@ -5,7 +5,7 @@ namespace FluxBB\Markdown\Node;
 use FluxBB\Markdown\Common\Collection;
 use FluxBB\Markdown\Common\Text;
 
-class CodeBlock extends Block implements NodeAcceptorInterface
+class CodeBlock extends LeafBlock implements NodeAcceptorInterface
 {
 
     /**
