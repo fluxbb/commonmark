@@ -23,7 +23,7 @@ class HeaderParser implements ParserInterface
             $content = new Text($matches[2]);
             $level = strlen($marks);
 
-            return $target->accept(new Heading($content, $level));
+            return $target->accept(new Heading($content->trim(), $level));
         }
 
         return $next($line, $target);
