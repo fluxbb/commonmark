@@ -45,6 +45,8 @@ class DocumentParser
             return call_user_func($parser, $line, $target);
         }, $target);
 
+        $this->parseInlineContent($root);
+
         return $root;
     }
 
@@ -69,6 +71,18 @@ class DocumentParser
         });
 
         return $text->split('/\n/');
+    }
+
+    /**
+     * Parse the inline elements of our document tree.
+     *
+     * @param Document $root
+     * @return void
+     */
+    protected function parseInlineContent(Document $root)
+    {
+        $inlineParser = new InlineParser;
+        $root->visit($inlineParser);
     }
 
     /**
