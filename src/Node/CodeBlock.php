@@ -19,11 +19,6 @@ class CodeBlock extends LeafBlock implements NodeAcceptorInterface
         $this->lines = new Collection([$text->replace('/^[ ]{4}/', '')]);
     }
 
-    public function getType()
-    {
-        return 'code_block';
-    }
-
     public function acceptBlankLine(BlankLine $blankLine)
     {
         $this->lines->add($blankLine->getContent()->replace('/^[ ]{0,4}/', ''));

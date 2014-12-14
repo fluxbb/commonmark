@@ -5,11 +5,6 @@ namespace FluxBB\Markdown\Node;
 class Blockquote extends ContainerBlock implements NodeAcceptorInterface
 {
 
-    public function getType()
-    {
-        return 'block_quote';
-    }
-
     public function acceptParagraph(Paragraph $paragraph)
     {
         $this->addChild($paragraph);

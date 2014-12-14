@@ -17,23 +17,6 @@ abstract class Node implements NodeAcceptorInterface
 
 
     /**
-     * Return a string representation of this node's type.
-     *
-     * @return string
-     */
-    abstract public function getType();
-
-    /**
-     * Convert this node to a string.
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->getType();
-    }
-
-    /**
      * Accept a visit from a node visitor.
      *
      * This method should instrument the visitor to handle this node correctly, and also pass it on to any child nodes.

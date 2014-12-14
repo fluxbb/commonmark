@@ -21,16 +21,6 @@ class Heading extends LeafBlock implements NodeAcceptorInterface
         $this->level = $level;
     }
 
-    public function getType()
-    {
-        return 'heading';
-    }
-
-    public function toString()
-    {
-        return parent::toString() . '("' . $this->level . '")';
-    }
-
     public function getText()
     {
         return $this->text;

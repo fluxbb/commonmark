@@ -10,11 +10,6 @@ class Document extends Block
         return true;
     }
 
-    public function getType()
-    {
-        return 'document';
-    }
-
     public function acceptParagraph(Paragraph $paragraph)
     {
         $this->addChild($paragraph);

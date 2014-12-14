@@ -8,11 +8,6 @@ abstract class Block extends Node implements NodeAcceptorInterface
     protected $open = true;
 
 
-    public function toString()
-    {
-        return ($this->isOpen() ? '-> ' : '') . parent::toString();
-    }
-
     public function isOpen()
     {
         return $this->open;

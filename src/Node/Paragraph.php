@@ -19,16 +19,6 @@ class Paragraph extends LeafBlock implements NodeAcceptorInterface
         $this->lines = new Collection([$text]);
     }
 
-    public function getType()
-    {
-        return 'paragraph';
-    }
-
-    public function toString()
-    {
-        return parent::toString() . '("' . $this->lines->join(' ') . '")';
-    }
-
     public function getText()
     {
         return $this->lines->apply(function (Text $line) {

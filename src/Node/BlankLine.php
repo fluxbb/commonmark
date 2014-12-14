@@ -18,11 +18,6 @@ class BlankLine extends LeafBlock implements NodeAcceptorInterface
         $this->content = $content;
     }
 
-    public function getType()
-    {
-        return 'blank_line';
-    }
-
     /**
      * @return Text
      */
