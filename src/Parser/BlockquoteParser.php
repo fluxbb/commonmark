@@ -16,7 +16,7 @@ class BlockquoteParser implements ParserInterface
         if ($line->match($pattern)) {
             $line->replace($pattern, '');
 
-            $target = $target->accept(new Blockquote());
+            $target = $target->acceptBlockquote(new Blockquote());
         }
 
         return $next($line, $target);

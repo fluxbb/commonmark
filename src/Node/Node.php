@@ -23,19 +23,6 @@ abstract class Node implements NodeAcceptorInterface
         return $this->getType();
     }
 
-    /**
-     * Accept the given node as a child.
-     *
-     * This should ask the node for its type, and then call the appropriate method.
-     *
-     * @param NodeInterface $node
-     * @return Node
-     */
-    public function accept(NodeInterface $node)
-    {
-        return $node->proposeTo($this);
-    }
-
     abstract public function visit(NodeVisitorInterface $visitor);
 
     public function setParent(Node $parent)

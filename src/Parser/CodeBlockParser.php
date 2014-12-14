@@ -14,7 +14,7 @@ class CodeBlockParser implements ParserInterface
         $pattern = '/^[ ]{4}/';
 
         if ($line->match($pattern)) {
-            return $target->accept(new CodeBlock($line));
+            return $target->acceptCodeBlock(new CodeBlock($line));
         }
 
         return $next($line, $target);

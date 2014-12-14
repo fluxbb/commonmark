@@ -20,7 +20,7 @@ class HorizontalRuleParser implements ParserInterface
                 '/^[ ]{0,3}(' . preg_quote($mark, '/') . '[ ]*){3,}[ \t]*$/',
                 $text
             )) {
-                return $target->accept(new HorizontalRule());
+                return $target->acceptHorizontalRule(new HorizontalRule());
             }
         }
 

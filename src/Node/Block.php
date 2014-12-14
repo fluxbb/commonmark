@@ -39,44 +39,44 @@ abstract class Block extends Node implements NodeAcceptorInterface
         $this->open = false;
     }
 
-    protected function closeAndBubble(Node $node)
-    {
-        $this->close();
-        return $this->parent->accept($node);
-    }
-
     /*
      * Node acceptor methods
      */
 
     public function acceptParagraph(Paragraph $paragraph)
     {
-        return $this->closeAndBubble($paragraph);
+        $this->close();
+        return $this->parent->acceptParagraph($paragraph);
     }
 
     public function acceptBlockquote(Blockquote $blockquote)
     {
-        return $this->closeAndBubble($blockquote);
+        $this->close();
+        return $this->parent->acceptBlockquote($blockquote);
     }
 
     public function acceptHeading(Heading $heading)
     {
-        return $this->closeAndBubble($heading);
+        $this->close();
+        return $this->parent->acceptHeading($heading);
     }
 
     public function acceptHorizontalRule(HorizontalRule $horizontalRule)
     {
-        return $this->closeAndBubble($horizontalRule);
+        $this->close();
+        return $this->parent->acceptHorizontalRule($horizontalRule);
     }
 
     public function acceptBlankLine(BlankLine $blankLine)
     {
-        return $this->closeAndBubble($blankLine);
+        $this->close();
+        return $this->parent->acceptBlankLine($blankLine);
     }
 
     public function acceptCodeBlock(CodeBlock $codeBlock)
     {
-        return $this->closeAndBubble($codeBlock);
+        $this->close();
+        return $this->parent->acceptCodeBlock($codeBlock);
     }
 
     /*
