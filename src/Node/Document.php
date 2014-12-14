@@ -12,13 +12,6 @@ class Document extends Container
         return $paragraph;
     }
 
-    public function acceptBlockquote(Blockquote $blockquote)
-    {
-        $this->addChild($blockquote);
-
-        return $blockquote;
-    }
-
     public function acceptHeading(Heading $heading)
     {
         $this->addChild($heading);

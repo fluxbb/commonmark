@@ -43,7 +43,9 @@ abstract class Container extends Node implements NodeAcceptorInterface
 
     public function acceptBlockquote(Blockquote $blockquote)
     {
-        return $this->addChild($blockquote);
+        $this->addChild($blockquote);
+
+        return $blockquote;
     }
 
     public function acceptHeading(Heading $heading)
