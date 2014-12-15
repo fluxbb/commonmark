@@ -21,7 +21,9 @@ class Paragraph extends Node implements NodeAcceptorInterface
 
     public function getText()
     {
-        return (new Text($this->lines->join("\n")))->trim();
+        return (new Text($this->lines->apply(function (Text $line) {
+            return $line->copy()->ltrim();
+        })->join("\n")))->trim();
     }
 
     public function acceptParagraph(Paragraph $paragraph)
