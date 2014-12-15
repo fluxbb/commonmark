@@ -11,6 +11,7 @@ use FluxBB\Markdown\Node\Heading;
 use FluxBB\Markdown\Node\HorizontalRule;
 use FluxBB\Markdown\Node\Image;
 use FluxBB\Markdown\Node\Link;
+use FluxBB\Markdown\Node\ListBlock;
 use FluxBB\Markdown\Node\ListItem;
 use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Node\NodeVisitorInterface;
@@ -59,14 +60,24 @@ class Renderer implements NodeVisitorInterface
         $this->buffer->append("</blockquote>\n");
     }
 
-    public function visitListItem(ListItem $listItem)
+    public function enterListBlock(ListBlock $listBlock)
     {
-        $this->buffer
-            ->append("<ul>\n")
-            ->append('<li>')
-            ->append($listItem->getContent())
-            ->append("</li>\n")
-            ->append("</ul>\n");
+        $this->buffer->append("<ul>\n");
+    }
+
+    public function leaveListBlock(ListBlock $listBlock)
+    {
+        $this->buffer->append("</ul>\n");
+    }
+
+    public function enterListItem(ListItem $listItem)
+    {
+        $this->buffer->append('<li>');
+    }
+
+    public function leaveListItem(ListItem $listItem)
+    {
+        $this->buffer->append("</li>\n");
     }
 
     public function enterHeading(Heading $heading)

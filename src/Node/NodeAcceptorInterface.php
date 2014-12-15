@@ -9,7 +9,7 @@ interface NodeAcceptorInterface
 
     public function acceptBlockquote(Blockquote $blockquote);
 
-    public function acceptListItem(ListItem $listItem);
+    public function acceptListBlock(ListBlock $listBlock);
 
     public function acceptHeading(Heading $heading);
 

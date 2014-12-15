@@ -17,6 +17,7 @@ use FluxBB\Markdown\Node\Heading;
 use FluxBB\Markdown\Node\HorizontalRule;
 use FluxBB\Markdown\Node\Image;
 use FluxBB\Markdown\Node\Link;
+use FluxBB\Markdown\Node\ListBlock;
 use FluxBB\Markdown\Node\ListItem;
 use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Node\NodeVisitorInterface;
@@ -74,7 +75,22 @@ class InlineParser implements NodeVisitorInterface
         return;
     }
 
-    public function visitListItem(ListItem $listItem)
+    public function enterListBlock(ListBlock $listBlock)
+    {
+        return;
+    }
+
+    public function leaveListBlock(ListBlock $listBlock)
+    {
+        return;
+    }
+
+    public function enterListItem(ListItem $listItem)
+    {
+        return;
+    }
+
+    public function leaveListItem(ListItem $listItem)
     {
         return;
     }

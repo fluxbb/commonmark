@@ -48,11 +48,11 @@ abstract class Container extends Node implements NodeAcceptorInterface
         return $blockquote;
     }
 
-    public function acceptListItem(ListItem $listItem)
+    public function acceptListBlock(ListBlock $listBlock)
     {
-        $this->addChild($listItem);
+        $this->addChild($listBlock);
 
-        return $listItem;
+        return $listBlock;
     }
 
     public function acceptHeading(Heading $heading)
