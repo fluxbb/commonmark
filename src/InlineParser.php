@@ -15,6 +15,7 @@ use FluxBB\Markdown\Node\CodeBlock;
 use FluxBB\Markdown\Node\Emphasis;
 use FluxBB\Markdown\Node\Heading;
 use FluxBB\Markdown\Node\HorizontalRule;
+use FluxBB\Markdown\Node\ListItem;
 use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Node\NodeVisitorInterface;
 use FluxBB\Markdown\Node\Paragraph;
@@ -66,6 +67,11 @@ class InlineParser implements NodeVisitorInterface
     }
 
     public function leaveBlockquote(Blockquote $blockquote)
+    {
+        return;
+    }
+
+    public function visitListItem(ListItem $listItem)
     {
         return;
     }

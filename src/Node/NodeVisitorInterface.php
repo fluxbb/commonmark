@@ -13,6 +13,8 @@ interface NodeVisitorInterface
 
     public function leaveBlockquote(Blockquote $blockquote);
 
+    public function visitListItem(ListItem $listItem);
+
     public function enterHeading(Heading $heading);
 
     public function leaveHeading(Heading $heading);

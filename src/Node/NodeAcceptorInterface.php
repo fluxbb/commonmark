@@ -9,6 +9,8 @@ interface NodeAcceptorInterface
 
     public function acceptBlockquote(Blockquote $blockquote);
 
+    public function acceptListItem(ListItem $listItem);
+
     public function acceptHeading(Heading $heading);
 
     public function acceptHorizontalRule(HorizontalRule $horizontalRule);

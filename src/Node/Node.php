@@ -62,6 +62,11 @@ abstract class Node implements NodeAcceptorInterface
         return $this->parent->acceptBlockquote($blockquote);
     }
 
+    public function acceptListItem(ListItem $listItem)
+    {
+        return $this->parent->acceptListItem($listItem);
+    }
+
     public function acceptHeading(Heading $heading)
     {
         return $this->parent->acceptHeading($heading);

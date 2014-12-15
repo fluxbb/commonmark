@@ -9,6 +9,7 @@ use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\Emphasis;
 use FluxBB\Markdown\Node\Heading;
 use FluxBB\Markdown\Node\HorizontalRule;
+use FluxBB\Markdown\Node\ListItem;
 use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Node\NodeVisitorInterface;
 use FluxBB\Markdown\Node\Paragraph;
@@ -53,6 +54,16 @@ class Renderer implements NodeVisitorInterface
     public function leaveBlockquote(Blockquote $blockquote)
     {
         $this->buffer->append("</blockquote>\n");
+    }
+
+    public function visitListItem(ListItem $listItem)
+    {
+        $this->buffer
+            ->append("<ul>\n")
+            ->append('<li>')
+            ->append($listItem->getContent())
+            ->append("</li>\n")
+            ->append("</ul>\n");
     }
 
     public function enterHeading(Heading $heading)

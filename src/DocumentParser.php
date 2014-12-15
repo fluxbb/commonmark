@@ -10,6 +10,7 @@ use FluxBB\Markdown\Parser\BlockquoteParser;
 use FluxBB\Markdown\Parser\CodeBlockParser;
 use FluxBB\Markdown\Parser\HeaderParser;
 use FluxBB\Markdown\Parser\HorizontalRuleParser;
+use FluxBB\Markdown\Parser\ListParser;
 use FluxBB\Markdown\Parser\ParagraphParser;
 use FluxBB\Markdown\Parser\ParserInterface;
 
@@ -97,6 +98,7 @@ class DocumentParser
             new CodeBlockParser(),
             new BlockquoteParser(),
             new HorizontalRuleParser(),
+            new ListParser(),
             new HeaderParser(),
             new ParagraphParser(),
         ];
