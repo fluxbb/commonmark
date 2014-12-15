@@ -84,7 +84,9 @@ class WhitespaceExtension implements ExtensionInterface, RendererAwareInterface
      */
     public function processHardBreak(Text $text)
     {
-        $text->replace('/ {2,}\n/', $this->getRenderer()->renderLineBreak() .  "\n");
+        $text->replace('/ {2,}\n/', function () {
+            return $this->getRenderer()->renderLineBreak() . "\n";
+        });
     }
 
     /**
