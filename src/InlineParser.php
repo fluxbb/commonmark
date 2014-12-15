@@ -81,7 +81,7 @@ class InlineParser implements NodeVisitorInterface
 
     public function enterHeading(Heading $heading)
     {
-        return;
+        $this->parseInline($heading, $heading->getText());
     }
 
     public function leaveHeading(Heading $heading)

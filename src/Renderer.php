@@ -74,8 +74,9 @@ class Renderer implements NodeVisitorInterface
         $this->buffer
             ->append('<h')
             ->append($heading->getLevel())
-            ->append('>')
-            ->append($heading->getText());
+            ->append('>');
+
+        $this->renderInlineElements($heading);
     }
 
     public function leaveHeading(Heading $heading)
