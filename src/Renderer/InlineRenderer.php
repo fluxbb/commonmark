@@ -6,6 +6,7 @@ use FluxBB\Markdown\Common\Tag;
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\InlineParser;
 use FluxBB\Markdown\Node\Emphasis;
+use FluxBB\Markdown\Node\SoftBreak;
 use FluxBB\Markdown\Node\StrongEmphasis;
 
 class InlineRenderer implements RendererInterface
@@ -191,7 +192,7 @@ class InlineRenderer implements RendererInterface
      */
     public function renderLineBreak(array $options = [])
     {
-        $this->parser->addBlob('');
+        $this->parser->addBlob(new SoftBreak());
         return "\0";
     }
 
