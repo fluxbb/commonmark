@@ -29,6 +29,6 @@ interface NodeVisitorInterface
 
     public function visitStrongEmphasis(StrongEmphasis $strongEmphasis);
 
-    public function visitSoftBreak(SoftBreak $softBreak);
+    public function visitHardBreak(HardBreak $softBreak);
 
 }

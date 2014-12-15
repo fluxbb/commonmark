@@ -13,7 +13,7 @@ use FluxBB\Markdown\Node\ListItem;
 use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Node\NodeVisitorInterface;
 use FluxBB\Markdown\Node\Paragraph;
-use FluxBB\Markdown\Node\SoftBreak;
+use FluxBB\Markdown\Node\HardBreak;
 use FluxBB\Markdown\Node\String;
 use FluxBB\Markdown\Node\StrongEmphasis;
 
@@ -120,7 +120,7 @@ class Renderer implements NodeVisitorInterface
             ->append('</strong>');
     }
 
-    public function visitSoftBreak(SoftBreak $softBreak)
+    public function visitHardBreak(HardBreak $softBreak)
     {
         $this->buffer->append('<br />');
     }

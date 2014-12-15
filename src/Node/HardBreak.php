@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Node;
 
-class SoftBreak extends Node implements NodeAcceptorInterface
+class HardBreak extends Node implements NodeAcceptorInterface
 {
 
     /**
@@ -15,7 +15,7 @@ class SoftBreak extends Node implements NodeAcceptorInterface
      */
     public function visit(NodeVisitorInterface $visitor)
     {
-        $visitor->visitSoftBreak($this);
+        $visitor->visitHardBreak($this);
     }
 
 }
