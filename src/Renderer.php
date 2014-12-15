@@ -148,7 +148,7 @@ class Renderer implements NodeVisitorInterface
     {
         $this->buffer
             ->append('<img src="')
-            ->append($image->getUrl())
+            ->append($image->getSource())
             ->append('" />');
     }
 

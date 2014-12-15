@@ -5,17 +5,17 @@ namespace FluxBB\Markdown\Node;
 class Image extends Node implements NodeAcceptorInterface
 {
 
-    protected $url;
+    protected $source;
 
 
-    public function __construct($url)
+    public function __construct($source)
     {
-        $this->url = $url;
+        $this->source = $source;
     }
 
-    public function getUrl()
+    public function getSource()
     {
-        return $this->url;
+        return $this->source;
     }
 
     /**

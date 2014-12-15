@@ -7,6 +7,7 @@ use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\InlineParser;
 use FluxBB\Markdown\Node\Emphasis;
 use FluxBB\Markdown\Node\HardBreak;
+use FluxBB\Markdown\Node\Image;
 use FluxBB\Markdown\Node\Link;
 use FluxBB\Markdown\Node\StrongEmphasis;
 
@@ -152,7 +153,7 @@ class InlineRenderer implements RendererInterface
      */
     public function renderImage($src, array $options = [])
     {
-        $this->parser->addBlob('IMAGE' . $src);
+        $this->parser->addBlob(new Image($src));
         return "\0";
     }
 
