@@ -11,6 +11,7 @@ use FluxBB\Markdown\Extension\Core\InlineStyleExtension;
 use FluxBB\Markdown\Extension\Core\LinkExtension;
 use FluxBB\Markdown\Extension\Core\WhitespaceExtension;
 use FluxBB\Markdown\Node\Blockquote;
+use FluxBB\Markdown\Node\Code;
 use FluxBB\Markdown\Node\CodeBlock;
 use FluxBB\Markdown\Node\Emphasis;
 use FluxBB\Markdown\Node\Heading;
@@ -136,6 +137,11 @@ class InlineParser implements NodeVisitorInterface
     }
 
     public function visitImage(Image $image)
+    {
+        return;
+    }
+
+    public function visitCode(Code $code)
     {
         return;
     }

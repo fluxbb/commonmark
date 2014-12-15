@@ -39,6 +39,8 @@ interface NodeVisitorInterface
 
     public function visitImage(Image $image);
 
+    public function visitCode(Code $code);
+
     public function visitHardBreak(HardBreak $softBreak);
 
 }

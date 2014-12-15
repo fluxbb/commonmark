@@ -4,6 +4,7 @@ namespace FluxBB\Markdown;
 
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Blockquote;
+use FluxBB\Markdown\Node\Code;
 use FluxBB\Markdown\Node\CodeBlock;
 use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\Emphasis;
@@ -150,6 +151,14 @@ class Renderer implements NodeVisitorInterface
             ->append('<img src="')
             ->append($image->getSource())
             ->append('" />');
+    }
+
+    public function visitCode(Code $code)
+    {
+        $this->buffer
+            ->append('<code>')
+            ->append($code->getContent())
+            ->append('</code>');
     }
 
     public function visitHardBreak(HardBreak $softBreak)

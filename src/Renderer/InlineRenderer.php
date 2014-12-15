@@ -5,6 +5,7 @@ namespace FluxBB\Markdown\Renderer;
 use FluxBB\Markdown\Common\Tag;
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\InlineParser;
+use FluxBB\Markdown\Node\Code;
 use FluxBB\Markdown\Node\Emphasis;
 use FluxBB\Markdown\Node\HardBreak;
 use FluxBB\Markdown\Node\Image;
@@ -74,7 +75,7 @@ class InlineRenderer implements RendererInterface
      */
     public function renderCodeSpan($content, array $options = [])
     {
-        $this->parser->addBlob('CODE' . $content);
+        $this->parser->addBlob(new Code($content));
         return "\0";
     }
 
