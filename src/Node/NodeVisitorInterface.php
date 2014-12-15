@@ -29,6 +29,10 @@ interface NodeVisitorInterface
 
     public function visitStrongEmphasis(StrongEmphasis $strongEmphasis);
 
+    public function visitLink(Link $link);
+
+    public function visitImage(Image $image);
+
     public function visitHardBreak(HardBreak $softBreak);
 
 }

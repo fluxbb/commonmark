@@ -9,6 +9,8 @@ use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\Emphasis;
 use FluxBB\Markdown\Node\Heading;
 use FluxBB\Markdown\Node\HorizontalRule;
+use FluxBB\Markdown\Node\Image;
+use FluxBB\Markdown\Node\Link;
 use FluxBB\Markdown\Node\ListItem;
 use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Node\NodeVisitorInterface;
@@ -118,6 +120,24 @@ class Renderer implements NodeVisitorInterface
             ->append('<strong>')
             ->append($strongEmphasis->getContent())
             ->append('</strong>');
+    }
+
+    public function visitLink(Link $link)
+    {
+        $this->buffer
+            ->append('<a href="')
+            ->append($link->getHref())
+            ->append('">')
+            ->append($link->getContent())
+            ->append('</a>');
+    }
+
+    public function visitImage(Image $image)
+    {
+        $this->buffer
+            ->append('<img src="')
+            ->append($image->getUrl())
+            ->append('" />');
     }
 
     public function visitHardBreak(HardBreak $softBreak)

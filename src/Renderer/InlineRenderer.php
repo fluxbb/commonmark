@@ -7,6 +7,7 @@ use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\InlineParser;
 use FluxBB\Markdown\Node\Emphasis;
 use FluxBB\Markdown\Node\HardBreak;
+use FluxBB\Markdown\Node\Link;
 use FluxBB\Markdown\Node\StrongEmphasis;
 
 class InlineRenderer implements RendererInterface
@@ -86,7 +87,7 @@ class InlineRenderer implements RendererInterface
      */
     public function renderLink($content, array $options = [])
     {
-        $this->parser->addBlob('LINK' . $content);
+        $this->parser->addBlob(new Link($options['href'], $content));
         return "\0";
     }
 

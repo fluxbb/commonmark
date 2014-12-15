@@ -15,6 +15,8 @@ use FluxBB\Markdown\Node\CodeBlock;
 use FluxBB\Markdown\Node\Emphasis;
 use FluxBB\Markdown\Node\Heading;
 use FluxBB\Markdown\Node\HorizontalRule;
+use FluxBB\Markdown\Node\Image;
+use FluxBB\Markdown\Node\Link;
 use FluxBB\Markdown\Node\ListItem;
 use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Node\NodeVisitorInterface;
@@ -108,6 +110,16 @@ class InlineParser implements NodeVisitorInterface
     }
 
     public function visitStrongEmphasis(StrongEmphasis $strongEmphasis)
+    {
+        return;
+    }
+
+    public function visitLink(Link $link)
+    {
+        return;
+    }
+
+    public function visitImage(Image $image)
     {
         return;
     }
