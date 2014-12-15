@@ -4,27 +4,34 @@ namespace FluxBB\Markdown\Parser;
 
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\HorizontalRule;
-use FluxBB\Markdown\Node\Node;
 
-class HorizontalRuleParser implements ParserInterface
+class HorizontalRuleParser extends AbstractParser
 {
 
-    public function parseLine(Text $line, Node $target, callable $next)
+    /**
+     * Parse the given block content.
+     *
+     * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
+     * in the chain.
+     *
+     * @param Text $block
+     * @return void
+     */
+    public function parseBlock(Text $block)
     {
-        $text = $line->getString();
-
         $marks = ['*', '-', '_'];
 
         foreach ($marks as $mark) {
-            if (preg_match(
+            $block->handle(
                 '/^[ ]{0,3}(' . preg_quote($mark, '/') . '[ ]*){3,}[ \t]*$/',
-                $text
-            )) {
-                return $target->acceptHorizontalRule(new HorizontalRule());
-            }
+                function () {
+                    $this->stack->acceptHorizontalRule(new HorizontalRule());
+                },
+                function (Text $part) {
+                    $this->next->parseBlock($part);
+                }
+            );
         }
-
-        return $next($line, $target);
     }
 
 }

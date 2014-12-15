@@ -5,23 +5,35 @@ namespace FluxBB\Markdown\Parser;
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\ListBlock;
 use FluxBB\Markdown\Node\ListItem;
-use FluxBB\Markdown\Node\Node;
 
-class ListParser implements ParserInterface
+class ListParser extends AbstractParser
 {
 
-    public function parseLine(Text $line, Node $target, callable $next)
+    /**
+     * Parse the given block content.
+     *
+     * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
+     * in the chain.
+     *
+     * @param Text $block
+     * @return void
+     */
+    public function parseBlock(Text $block)
     {
         $pattern = '/^[ ]{0,3}-[ ]+/';
 
-        if ($line->match($pattern)) {
-            $line->replace($pattern, '');
+        $block->handle(
+            $pattern,
+            function (Text $line) use ($pattern) {
+                $line->replace($pattern, '');
 
-            $list = new ListBlock(new ListItem($line));
-            $target = $target->acceptListBlock($list);
-        }
-
-        return $next($line, $target);
+                $list = new ListBlock(new ListItem($line));
+                $this->stack->acceptListBlock($list);
+            },
+            function (Text $part) {
+                $this->next->parseBlock($part);
+            }
+        );
     }
 
 }

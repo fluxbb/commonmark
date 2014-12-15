@@ -4,23 +4,29 @@ namespace FluxBB\Markdown;
 
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Document;
-use FluxBB\Markdown\Node\Node;
+use FluxBB\Markdown\Node\Paragraph;
+use FluxBB\Markdown\Node\Stack;
+use FluxBB\Markdown\Parser\AbstractParser;
 use FluxBB\Markdown\Parser\BlankLineParser;
 use FluxBB\Markdown\Parser\BlockquoteParser;
 use FluxBB\Markdown\Parser\CodeBlockParser;
 use FluxBB\Markdown\Parser\HeaderParser;
 use FluxBB\Markdown\Parser\HorizontalRuleParser;
 use FluxBB\Markdown\Parser\ListParser;
-use FluxBB\Markdown\Parser\ParagraphParser;
 use FluxBB\Markdown\Parser\ParserInterface;
 
-class DocumentParser
+class DocumentParser implements ParserInterface
 {
 
     /**
      * @var ParserInterface[]
      */
     protected $parsers = [];
+
+    /**
+     * @var Stack
+     */
+    protected $stack;
 
 
     /**
@@ -39,12 +45,15 @@ class DocumentParser
      */
     public function parse($markdown)
     {
-        $target = $root = new Document();
+        $root = new Document();
+        $this->stack = new Stack($root);
+
         $parser = $this->buildParserStack();
 
-        $this->getLines(new Text($markdown))->reduce(function ($target, Text $line) use ($parser) {
-            return call_user_func($parser, $line, $target);
-        }, $target);
+        $text = new Text($markdown);
+        $this->prepare($text);
+
+        $parser->parseBlock($text);
 
         $this->parseInlineContent($root);
 
@@ -55,9 +64,9 @@ class DocumentParser
      * Preprocess the text and return a collection of lines.
      *
      * @param Text $text
-     * @return \FluxBB\Markdown\Common\Collection
+     * @return void
      */
-    protected function getLines(Text $text)
+    protected function prepare(Text $text)
     {
         // Unify line endings
         $text->replaceString("\r\n", "\n");
@@ -70,8 +79,6 @@ class DocumentParser
             $tabWidth = 4;
             return $string . str_repeat(' ', $tabWidth - $string->getLength() % $tabWidth);
         });
-
-        return $text->split('/\n/');
     }
 
     /**
@@ -100,21 +107,19 @@ class DocumentParser
             new HorizontalRuleParser(),
             new ListParser(),
             new HeaderParser(),
-            new ParagraphParser(),
         ];
     }
 
     /**
      * Build the nested stack of closures that executes the parsers in the correct order.
      *
-     * @return callable
+     * @return ParserInterface
      */
     protected function buildParserStack()
     {
         $parsers = array_reverse($this->parsers);
-        $initial = $this->getInitialClosure();
 
-        return array_reduce($parsers, $this->getParserClosure(), $initial);
+        return array_reduce($parsers, $this->prepareParser(), $this);
     }
 
     /**
@@ -122,25 +127,27 @@ class DocumentParser
      *
      * @return callable
      */
-    protected function getParserClosure()
+    protected function prepareParser()
     {
-        return function ($stack, ParserInterface $parser) {
-            return function (Text $line, Node $target) use ($stack, $parser) {
-                return $parser->parseLine($line, $target, $stack);
-            };
+        return function (ParserInterface $stack, AbstractParser $parser) {
+            $parser->setNextParser($stack);
+            $parser->setStack($this->stack);
+
+            return $parser;
         };
     }
 
     /**
-     * Create the fallback closure that simply returns the target node and throws away any content.
+     * Parse the given block content.
      *
-     * @return callable
+     * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
+     * in the chain.
+     *
+     * @param Text $block
+     * @return void
      */
-    protected function getInitialClosure()
+    public function parseBlock(Text $block)
     {
-        return function (Text $line, Node $target) {
-            return $target;
-        };
+        $this->stack->acceptParagraph(new Paragraph($block));
     }
-
 }

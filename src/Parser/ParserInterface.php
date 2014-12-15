@@ -3,24 +3,19 @@
 namespace FluxBB\Markdown\Parser;
 
 use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\Node;
 
 interface ParserInterface
 {
 
     /**
-     * Parse the given line.
+     * Parse the given block content.
      *
-     * Any newly created nodes should be pushed to the given target node. If parsing of the line was not complete or not
-     * done at all, the given closure should be called to pass on control to the next parser in the chain.
+     * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
+     * in the chain.
      *
-     * This method should return the node that was last to be created.
-     *
-     * @param Text $line
-     * @param Node $target
-     * @param callable $next
-     * @return \FluxBB\Markdown\Node\Node
+     * @param Text $block
+     * @return void
      */
-    public function parseLine(Text $line, Node $target, callable $next);
+    public function parseBlock(Text $block);
 
 }

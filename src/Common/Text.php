@@ -201,6 +201,45 @@ class Text implements \Serializable
     }
 
     /**
+     * Find the given regular expression and execute callbacks on it and its surroundings.
+     *
+     * @param string   $pattern       The pattern to search for. It can be either a string or an array with strings.
+     * @param callable $resultHandler A callback that will be passed an array of matched elements in the subject string.
+     * @param callable $partHandler   A callback that will be passed any remaining parts of the subject string.
+     *
+     * @return Text
+     */
+    public function handle($pattern, $resultHandler, $partHandler)
+    {
+        $nodes = [];
+
+        $text = preg_replace_callback($pattern, function ($matches) use ($resultHandler, &$nodes) {
+            $nodes[] = $matches;
+
+            return "\0";
+        }, $this->text);
+
+        $parts = explode("\0", $text);
+
+        $match = 0;
+        foreach ($nodes as $node) {
+            if ($parts[$match] !== '') $partHandler(new static($parts[$match]));
+
+            $args = array_map(function ($item) {
+                return new static($item);
+            }, $node);
+
+            call_user_func_array($resultHandler, $args);
+
+            $match++;
+        }
+
+        if ($parts[$match] !== '') $partHandler(new static($parts[$match]));
+
+        return $this;
+    }
+
+    /**
      * Replace all occurrences of the search string with the replacement string
      *
      * @param string|array $search  The value being searched for, otherwise known as the needle. An array may be used to designate multiple needles.

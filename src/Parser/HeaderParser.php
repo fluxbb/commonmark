@@ -4,29 +4,38 @@ namespace FluxBB\Markdown\Parser;
 
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Heading;
-use FluxBB\Markdown\Node\Node;
 
-class HeaderParser implements ParserInterface
+class HeaderParser extends AbstractParser
 {
 
-    public function parseLine(Text $line, Node $target, callable $next)
+    /**
+     * Parse the given block content.
+     *
+     * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
+     * in the chain.
+     *
+     * @param Text $block
+     * @return void
+     */
+    public function parseBlock(Text $block)
     {
-        // TODO: If a heading is found, there should be nothing else to parse.
-        if (preg_match('{
-            ^[ ]{0,3}       # Optional leading spaces
-            (\#{1,6})       # $1 = string of #\'s
-            (([ ].+?)??)    # $2 = Header text
-            ([ ]\#*[ ]*)?   # optional closing #\'s (not counted)
-            $
-        }x', $line->getString(), $matches)) {
-            $marks = $matches[1];
-            $content = new Text($matches[2]);
-            $level = strlen($marks);
+        $block->handle(
+            '{
+                ^[ ]{0,3}       # Optional leading spaces
+                (\#{1,6})       # $1 = string of #\'s
+                (([ ].+?)??)    # $2 = Header text
+                ([ ]\#*[ ]*)?   # optional closing #\'s (not counted)
+                $
+            }x',
+            function (Text $whole, Text $marks, Text $content) {
+                $level = $marks->getLength();
 
-            return $target->acceptHeading(new Heading($content->trim(), $level));
-        }
-
-        return $next($line, $target);
+                $this->stack->acceptHeading(new Heading($content->trim(), $level));
+            },
+            function (Text $part) {
+                $this->next->parseBlock($part);
+            }
+        );
     }
 
 }

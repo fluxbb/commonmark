@@ -4,22 +4,32 @@ namespace FluxBB\Markdown\Parser;
 
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Blockquote;
-use FluxBB\Markdown\Node\Node;
 
-class BlockquoteParser implements ParserInterface
+class BlockquoteParser extends AbstractParser
 {
 
-    public function parseLine(Text $line, Node $target, callable $next)
+    /**
+     * Parse the given block content.
+     *
+     * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
+     * in the chain.
+     *
+     * @param Text $block
+     * @return void
+     */
+    public function parseBlock(Text $block)
     {
-        $pattern = '/^[ ]{0,3}\>[ ]?/';
+        $block->handle(
+            '/^[ ]{0,3}\>([ ]?)/m',
+            function (Text $whole, Text $content) {
+                $this->stack->acceptBlockquote(new Blockquote());
 
-        if ($line->match($pattern)) {
-            $line->replace($pattern, '');
-
-            $target = $target->acceptBlockquote(new Blockquote());
-        }
-
-        return $next($line, $target);
+                $this->next->parseBlock($content);
+            },
+            function (Text $part) {
+                $this->next->parseBlock($part);
+            }
+        );
     }
 
 }
