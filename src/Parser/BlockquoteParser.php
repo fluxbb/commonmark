@@ -20,7 +20,7 @@ class BlockquoteParser extends AbstractParser
     public function parseBlock(Text $block)
     {
         $block->handle(
-            '/^[ ]{0,3}\>([ ]?)/m',
+            '/^[ ]{0,3}\>[ ]?(.+)/m',
             function (Text $whole, Text $content) {
                 $this->stack->acceptBlockquote(new Blockquote());
 
