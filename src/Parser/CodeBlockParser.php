@@ -23,6 +23,10 @@ class CodeBlockParser extends AbstractParser
             }mx',
             function (Text $whole, Text $code) {
                 // TODO: Prepare contents
+
+                // Remove indent
+                $code->replace('/^(\t|[ ]{1,4})/m', '');
+
                 $this->stack->acceptCodeBlock(new CodeBlock($code));
             },
             function(Text $part) {

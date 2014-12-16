@@ -16,7 +16,7 @@ class CodeBlock extends Node implements NodeAcceptorInterface
 
     public function __construct(Text $text)
     {
-        $this->lines = new Collection([$text->replace('/^[ ]{4}/', '')]);
+        $this->lines = new Collection([$text]);
     }
 
     public function acceptBlankLine(BlankLine $blankLine)
