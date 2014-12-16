@@ -5,7 +5,7 @@ namespace FluxBB\Markdown\Parser;
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Heading;
 
-class HeaderParser extends AbstractParser
+class AtxHeaderParser extends AbstractParser
 {
 
     /**
