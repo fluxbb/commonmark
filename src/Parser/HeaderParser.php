@@ -26,7 +26,7 @@ class HeaderParser extends AbstractParser
                 (([ ].+?)??)    # $2 = Header text
                 ([ ]\#*[ ]*)?   # optional closing #\'s (not counted)
                 $
-            }x',
+            }mx',
             function (Text $whole, Text $marks, Text $content) {
                 $level = $marks->getLength();
 

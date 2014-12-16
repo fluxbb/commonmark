@@ -65,7 +65,7 @@ class HorizontalRuleParser extends AbstractParser
 
     protected function getPattern($mark)
     {
-        return '/^[ ]{0,3}(' . preg_quote($mark, '/') . '[ ]*){3,}[ \t]*$/';
+        return '/^[ ]{0,3}(' . preg_quote($mark, '/') . '[ ]*){3,}[ \t]*$/m';
     }
 
 }
