@@ -148,6 +148,8 @@ class DocumentParser implements ParserInterface
      */
     public function parseBlock(Text $block)
     {
-        $this->stack->acceptParagraph(new Paragraph($block));
+        if (! $block->copy()->trim()->isEmpty()) {
+            $this->stack->acceptParagraph(new Paragraph($block));
+        }
     }
 }
