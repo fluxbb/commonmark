@@ -6,7 +6,6 @@ use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\Stack;
 use FluxBB\Markdown\Parser\AbstractParser;
-use FluxBB\Markdown\Parser\BlankLineParser;
 use FluxBB\Markdown\Parser\BlockquoteParser;
 use FluxBB\Markdown\Parser\CodeBlockParser;
 use FluxBB\Markdown\Parser\FencedCodeBlockParser;
