@@ -14,6 +14,7 @@ use FluxBB\Markdown\Parser\HorizontalRuleParser;
 use FluxBB\Markdown\Parser\ListParser;
 use FluxBB\Markdown\Parser\ParagraphParser;
 use FluxBB\Markdown\Parser\ParserInterface;
+use FluxBB\Markdown\Parser\SetextHeaderParser;
 
 class DocumentParser implements ParserInterface
 {
@@ -104,6 +105,7 @@ class DocumentParser implements ParserInterface
             new FencedCodeBlockParser(),
             new CodeBlockParser(),
             new BlockquoteParser(),
+            new SetextHeaderParser(),
             new HorizontalRuleParser(),
             new ListParser(),
             new AtxHeaderParser(),
