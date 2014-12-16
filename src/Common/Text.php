@@ -213,7 +213,7 @@ class Text implements \Serializable
     {
         $nodes = [];
 
-        $text = preg_replace_callback($pattern, function ($matches) use ($resultHandler, &$nodes) {
+        $text = preg_replace_callback($pattern, function ($matches) use (&$nodes) {
             $nodes[] = $matches;
 
             return "\0";
