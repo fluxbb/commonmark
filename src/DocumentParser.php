@@ -9,6 +9,7 @@ use FluxBB\Markdown\Parser\AbstractParser;
 use FluxBB\Markdown\Parser\BlankLineParser;
 use FluxBB\Markdown\Parser\BlockquoteParser;
 use FluxBB\Markdown\Parser\CodeBlockParser;
+use FluxBB\Markdown\Parser\FencedCodeBlockParser;
 use FluxBB\Markdown\Parser\HeaderParser;
 use FluxBB\Markdown\Parser\HorizontalRuleParser;
 use FluxBB\Markdown\Parser\ListParser;
@@ -102,6 +103,7 @@ class DocumentParser implements ParserInterface
     {
         $this->parsers = [
             new BlankLineParser(),
+            new FencedCodeBlockParser(),
             new CodeBlockParser(),
             new BlockquoteParser(),
             new HorizontalRuleParser(),
