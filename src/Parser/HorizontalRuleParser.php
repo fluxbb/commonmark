@@ -19,19 +19,53 @@ class HorizontalRuleParser extends AbstractParser
      */
     public function parseBlock(Text $block)
     {
-        $marks = ['*', '-', '_'];
+        $this->parseStars($block);
+    }
 
-        foreach ($marks as $mark) {
-            $block->handle(
-                '/^[ ]{0,3}(' . preg_quote($mark, '/') . '[ ]*){3,}[ \t]*$/',
-                function () {
-                    $this->stack->acceptHorizontalRule(new HorizontalRule());
-                },
-                function (Text $part) {
-                    $this->next->parseBlock($part);
-                }
-            );
-        }
+    protected function parseStars(Text $block)
+    {
+        $this->parse(
+            $block, '*',
+            function (Text $part) {
+                $this->parseDashes($part);
+            }
+        );
+    }
+
+    protected function parseDashes(Text $block)
+    {
+        $this->parse(
+            $block, '-',
+            function (Text $part) {
+                $this->parseUnderscores($part);
+            }
+        );
+    }
+
+    protected function parseUnderscores(Text $block)
+    {
+        $this->parse(
+            $block, '_',
+            function (Text $part) {
+                $this->next->parseBlock($part);
+            }
+        );
+    }
+
+    protected function parse(Text $block, $mark, callable $next)
+    {
+        $block->handle(
+            $this->getPattern($mark),
+            function () {
+                $this->stack->acceptHorizontalRule(new HorizontalRule());
+            },
+            $next
+        );
+    }
+
+    protected function getPattern($mark)
+    {
+        return '/^[ ]{0,3}(' . preg_quote($mark, '/') . '[ ]*){3,}[ \t]*$/';
     }
 
 }
