@@ -3,6 +3,7 @@
 namespace FluxBB\Markdown\Parser;
 
 use FluxBB\Markdown\Common\Text;
+use FluxBB\Markdown\Node\BlankLine;
 use FluxBB\Markdown\Node\Paragraph;
 
 class ParagraphParser extends AbstractParser
@@ -20,9 +21,13 @@ class ParagraphParser extends AbstractParser
     public function parseBlock(Text $block)
     {
         $block->handle(
-            '/^(.+)$/m',
+            '/^(.*)$/m',
             function (Text $line) {
-                $this->stack->acceptParagraph(new Paragraph($line));
+                if ($line->copy()->trim()->isEmpty()) {
+                    $this->stack->acceptBlankLine(new BlankLine($line));
+                } else {
+                    $this->stack->acceptParagraph(new Paragraph($line));
+                }
             },
             function(Text $part) {
                 $this->next->parseBlock($part);

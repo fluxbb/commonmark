@@ -102,7 +102,6 @@ class DocumentParser implements ParserInterface
     protected function registerDefaultParsers()
     {
         $this->parsers = [
-            new BlankLineParser(),
             new FencedCodeBlockParser(),
             new CodeBlockParser(),
             new BlockquoteParser(),
