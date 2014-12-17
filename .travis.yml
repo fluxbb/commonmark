@@ -33,3 +33,11 @@ after_success:
   - vendor/bin/markbench benchmark --parser=fluxbb/markdown --profile=blank
   - vendor/bin/markbench benchmark --parser=fluxbb/markdown --profile=default
   - vendor/bin/markbench benchmark --parser=fluxbb/markdown --profile=github-sample
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/b85fb5b2dfad0466dee2
+    on_success: always
+    on_failure: always
+    on_start: false
