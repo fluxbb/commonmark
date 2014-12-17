@@ -15,21 +15,26 @@ before_script:
   - travis_retry composer require --no-update satooshi/php-coveralls:dev-master sensiolabs/security-checker:dev-master
   - travis_retry composer update --dev --no-interaction
   - sudo easy_install Pygments
-  - git clone https://github.com/jgm/CommonMark.git
-  - chmod a+x bin/markdown
+  - git clone https://github.com/jgm/CommonMark.git spec
+  - chmod a+x bin/commonmark
 
 script:
   - mkdir -p build/logs
   - vendor/bin/phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
-  - cd CommonMark && python test/spec_tests.py --program ../bin/markdown
   - php vendor/bin/security-checker security:check composer.lock
-
-after_script:
-  - php vendor/bin/coveralls
+  - cd spec && python test/spec_tests.py --program ../bin/commonmark
 
 after_success:
   - composer require --no-update composer/composer:*@dev
   - composer require kzykhys/markbench:*@dev
-  - vendor/bin/markbench benchmark --parser=fluxbb/markdown --profile=blank
-  - vendor/bin/markbench benchmark --parser=fluxbb/markdown --profile=default
-  - vendor/bin/markbench benchmark --parser=fluxbb/markdown --profile=github-sample
+  - vendor/bin/markbench benchmark --parser=fluxbb/commonmark --profile=blank
+  - vendor/bin/markbench benchmark --parser=fluxbb/commonmark --profile=default
+  - vendor/bin/markbench benchmark --parser=fluxbb/commonmark --profile=github-sample
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/b85fb5b2dfad0466dee2
+    on_success: always
+    on_failure: always
+    on_start: false
