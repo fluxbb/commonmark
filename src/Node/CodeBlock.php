@@ -13,10 +13,16 @@ class CodeBlock extends Node implements NodeAcceptorInterface
      */
     protected $lines;
 
+    /**
+     * @var Text
+     */
+    protected $language;
 
-    public function __construct(Text $text)
+
+    public function __construct(Text $text, Text $language = null)
     {
         $this->lines = new Collection([$text]);
+        $this->language = $language;
     }
 
     public function acceptBlankLine(BlankLine $blankLine)

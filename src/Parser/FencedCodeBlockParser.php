@@ -26,8 +26,7 @@ class FencedCodeBlockParser extends AbstractParser
                     ([`~])            #2 the fence character (` or ~)
                     \2{2,}            # at least two remaining fence characters
                 )
-                [ ]*
-                ([a-zA-Z0-9]*?)?      #3 code language [optional]
+                ([^`]*?)?             #3 code language [optional]
                 \n+
                 (.*?)\n               #4 code block
                 (?:(\1\2*)|\z)        # closing fence or end of document
@@ -39,7 +38,7 @@ class FencedCodeBlockParser extends AbstractParser
             $code->replace('/\A\n+/', '');
             $code->replace('/\s+\z/', '');*/
 
-            $this->stack->acceptCodeBlock(new CodeBlock($code));
+            $this->stack->acceptCodeBlock(new CodeBlock($code, $lang->trim()));
         }, function (Text $part) {
             $this->next->parseBlock($part);
         });
