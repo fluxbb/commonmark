@@ -2,16 +2,15 @@
 
 namespace FluxBB\Markdown\Node;
 
-use FluxBB\Markdown\Common\Collection;
 use FluxBB\Markdown\Common\Text;
 
 class CodeBlock extends Node implements NodeAcceptorInterface
 {
 
     /**
-     * @var Collection
+     * @var Text
      */
-    protected $lines;
+    protected $content;
 
     /**
      * @var string
@@ -21,39 +20,13 @@ class CodeBlock extends Node implements NodeAcceptorInterface
 
     public function __construct(Text $text, $language = '')
     {
-        $this->lines = new Collection([$text]);
+        $this->content = $text;
         $this->language = $language;
-    }
-
-    public function acceptBlankLine(BlankLine $blankLine)
-    {
-        $this->lines->add($blankLine->getContent()->replace('/^[ ]{0,4}/', ''));
-
-        return $this;
-    }
-
-    public function acceptCodeBlock(CodeBlock $codeBlock)
-    {
-        $codeBlock->lines->each(function (Text $line) {
-            $this->lines->add($line);
-        });
-
-        return $this;
     }
 
     public function getContent()
     {
-        $content = new Text($this->lines->join("\n"));
-
-        // Just in case we added blank lines at the end, we remove them, and finally add back the trailing newline.
-        $content->replace('/(\n[ ]*)*$/', '')->append("\n");
-
-        return $content;
-    }
-
-    public function getLines()
-    {
-        return $this->lines;
+        return $this->content;
     }
 
     public function hasLanguage()
