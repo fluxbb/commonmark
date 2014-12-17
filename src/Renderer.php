@@ -108,7 +108,8 @@ class Renderer implements NodeVisitorInterface
     public function visitCodeBlock(CodeBlock $codeBlock)
     {
         $this->buffer
-            ->append('<pre><code>')
+            ->append('<pre><code')
+            ->append($codeBlock->hasLanguage() ? ' class="language-' . $codeBlock->getLanguage() . '">' : '>')
             ->append($codeBlock->getContent()->escapeHtml())
             ->append('</code></pre>')
             ->append("\n");

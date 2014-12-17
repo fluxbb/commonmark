@@ -14,12 +14,12 @@ class CodeBlock extends Node implements NodeAcceptorInterface
     protected $lines;
 
     /**
-     * @var Text
+     * @var string
      */
     protected $language;
 
 
-    public function __construct(Text $text, Text $language = null)
+    public function __construct(Text $text, $language = null)
     {
         $this->lines = new Collection([$text]);
         $this->language = $language;
@@ -54,6 +54,16 @@ class CodeBlock extends Node implements NodeAcceptorInterface
     public function getLines()
     {
         return $this->lines;
+    }
+
+    public function hasLanguage()
+    {
+        return ! is_null($this->language);
+    }
+
+    public function getLanguage()
+    {
+        return $this->language;
     }
 
     public function visit(NodeVisitorInterface $visitor)

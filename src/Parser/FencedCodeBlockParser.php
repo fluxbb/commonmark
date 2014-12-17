@@ -43,11 +43,13 @@ class FencedCodeBlockParser extends AbstractParser
                 $code->replace("/^[ ]{0,$leading}/m", '');
             }
 
+            $language = explode(' ', $lang->trim())[0];
+
             /*$this->markdown->emit('detab', array($code));
             $code->replace('/\A\n+/', '');
             $code->replace('/\s+\z/', '');*/
 
-            $this->stack->acceptCodeBlock(new CodeBlock($code, $lang->trim()));
+            $this->stack->acceptCodeBlock(new CodeBlock($code, $language));
         }, function (Text $part) {
             $this->next->parseBlock($part);
         });
