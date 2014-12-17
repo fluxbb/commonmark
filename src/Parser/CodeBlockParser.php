@@ -13,9 +13,9 @@ class CodeBlockParser extends AbstractParser
         $block->handle(
             '{
                 (?:\n\n|\A)
-                (                      # $1 = the code block -- one or more lines, starting with a space/tab
+                (                      # $1 = the code block -- one or more lines, starting with at least four spaces
                   (?:
-                    (?:[ ]{4} | \t)    # Lines must start with a tab or a tab-width of spaces
+                    (?:[ ]{4})         # Lines must start with four spaces
                     .*\n+
                   )+
                 )
