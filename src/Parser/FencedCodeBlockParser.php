@@ -33,9 +33,6 @@ class FencedCodeBlockParser extends AbstractParser
                 (?:(\n[ ]{0,3}\2\3*[ ]*)|\z)  #  Closing fence or end of document
             )
         }smx', function (Text $whole, Text $whitespace, Text $fence, Text $fenceChar, Text $lang, Text $code) {
-            // Escape contents of code tags
-            $code->escapeHtml(ENT_NOQUOTES);
-
             $leading = $whitespace->getLength();
 
             // Remove all leading whitespace from content lines
