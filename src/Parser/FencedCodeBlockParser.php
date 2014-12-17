@@ -30,7 +30,7 @@ class FencedCodeBlockParser extends AbstractParser
                 ([a-zA-Z0-9]*?)?      #3 code language [optional]
                 \n+
                 (.*?)\n               #4 code block
-                \1\2*                 # closing fence - at least as long as the opening one
+                (?:(\1\2*)|\z)        # closing fence or end of document
             )
         }smx', function (Text $whole, Text $fence, Text $fenceChar, Text $lang, Text $code) {
             $code->escapeHtml(ENT_NOQUOTES);
