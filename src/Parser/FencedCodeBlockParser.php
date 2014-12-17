@@ -20,31 +20,25 @@ class FencedCodeBlockParser extends AbstractParser
     public function parseBlock(Text $block)
     {
         $block->handle('{
-            (?<=\n|\A)
-            (?:
+            ^(?:
                 ([ ]{0,3})                  #1 Initial indentation
                 (                           #2 Fence
                     ([`~])                  #3 The fence character (` or ~)
                     \3{2,}                  #  At least two remaining fence characters
                 )
-                ([^`]*?)?                   #4 Code language [optional]
-                \n
-                (.*?)                       #5 Code block
-                (?:([ ]{0,3}\2\3*[ ]*)|\z)  #  Closing fence or end of document
-            )
-        }sx', function (Text $whole, Text $whitespace, Text $fence, Text $fenceChar, Text $lang, Text $code) {
+                ([^`\n]*?)?                 #4 Code language [optional]
+                \n(.*?)                     #5 Code block
+                (?:(?<=\n)([ ]{0,3}\2\3*[ ]*)|\z)  #  Closing fence or end of document
+            )$
+        }msx', function (Text $whole, Text $whitespace, Text $fence, Text $fenceChar, Text $lang, Text $code) {
             $leading = $whitespace->getLength();
+
+            $language = explode(' ', $lang->trim())[0];
 
             // Remove all leading whitespace from content lines
             if ($leading > 0) {
                 $code->replace("/^[ ]{0,$leading}/m", '');
             }
-
-            $language = explode(' ', $lang->trim())[0];
-
-            /*$this->markdown->emit('detab', array($code));
-            $code->replace('/\A\n+/', '');
-            $code->replace('/\s+\z/', '');*/
 
             $this->stack->acceptCodeBlock(new CodeBlock($code, $language));
         }, function (Text $part) {
