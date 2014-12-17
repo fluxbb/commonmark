@@ -22,13 +22,17 @@ class FencedCodeBlockParser extends AbstractParser
         $block->handle('{
             (?:\n\n|\A)
             (?:
-                ([`~]{3})[ ]*         #1 fence ` or ~
-                    ([a-zA-Z0-9]*?)?  #2 language [optional]
+                (                     #1 fence
+                    ([`~])            #2 the fence character (` or ~)
+                    \2{2,}            # at least two remaining fence characters
+                )
+                [ ]*
+                ([a-zA-Z0-9]*?)?      #3 code language [optional]
                 \n+
-                (.*?)\n                #3 code block
-                \1                    # matched #1
+                (.*?)\n               #4 code block
+                \1\2*                 # closing fence - at least as long as the opening one
             )
-        }smx', function (Text $w, Text $fence, Text $lang, Text $code) {
+        }smx', function (Text $whole, Text $fence, Text $fenceChar, Text $lang, Text $code) {
             $code->escapeHtml(ENT_NOQUOTES);
 
             /*$this->markdown->emit('detab', array($code));
