@@ -20,19 +20,19 @@ class FencedCodeBlockParser extends AbstractParser
     public function parseBlock(Text $block)
     {
         $block->handle('{
-            (?:\n\n|\A)
+            (?<=\n|\A)
             (?:
-                ([ ]{0,3})                    #1 Initial indentation
-                (                             #2 Fence
-                    ([`~])                    #3 The fence character (` or ~)
-                    \3{2,}                    #  At least two remaining fence characters
+                ([ ]{0,3})                  #1 Initial indentation
+                (                           #2 Fence
+                    ([`~])                  #3 The fence character (` or ~)
+                    \3{2,}                  #  At least two remaining fence characters
                 )
-                ([^`]*?)?                     #4 Code language [optional]
-                \n+
-                (.*?)                         #5 Code block
-                (?:(\n[ ]{0,3}\2\3*[ ]*)|\z)  #  Closing fence or end of document
+                ([^`]*?)?                   #4 Code language [optional]
+                \n
+                (.*?)                       #5 Code block
+                (?:([ ]{0,3}\2\3*[ ]*)|\z)  #  Closing fence or end of document
             )
-        }smx', function (Text $whole, Text $whitespace, Text $fence, Text $fenceChar, Text $lang, Text $code) {
+        }sx', function (Text $whole, Text $whitespace, Text $fence, Text $fenceChar, Text $lang, Text $code) {
             $leading = $whitespace->getLength();
 
             // Remove all leading whitespace from content lines
