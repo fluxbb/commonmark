@@ -73,8 +73,6 @@ class DocumentParser implements ParserInterface
         $text->replaceString("\r\n", "\n");
         $text->replaceString("\r", "\n");
 
-        $text->append("\n\n");
-
         // Replace tabs by spaces
         $text->replace('/(.*?)\t/', function (Text $whole, Text $string) {
             $tabWidth = 4;
