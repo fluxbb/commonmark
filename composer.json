@@ -1,6 +1,6 @@
 {
-    "name": "fluxbb/markdown",
-    "description": "An extensible markdown parser for PHP 5.4+",
+    "name": "fluxbb/commonmark",
+    "description": "Object-oriented and extensible PHP 5.4+ CommonMark spec-compliant Markdown parser",
     "keywords": ["markdown", "commonmark", "parser"],
     "license": "MIT",
     "authors": [
