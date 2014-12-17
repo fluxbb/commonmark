@@ -22,17 +22,26 @@ class FencedCodeBlockParser extends AbstractParser
         $block->handle('{
             (?:\n\n|\A)
             (?:
-                (                     #1 fence
-                    ([`~])            #2 the fence character (` or ~)
-                    \2{2,}            # at least two remaining fence characters
+                ([ ]{0,3})                    #1 Initial indentation
+                (                             #2 Fence
+                    ([`~])                    #3 The fence character (` or ~)
+                    \3{2,}                    #  At least two remaining fence characters
                 )
-                ([^`]*?)?             #3 code language [optional]
+                ([^`]*?)?                     #4 Code language [optional]
                 \n+
-                (.*?)\n               #4 code block
-                (?:(\1\2*)|\z)        # closing fence or end of document
+                (.*?)                         #5 Code block
+                (?:(\n[ ]{0,3}\2\3*[ ]*)|\z)  #  Closing fence or end of document
             )
-        }smx', function (Text $whole, Text $fence, Text $fenceChar, Text $lang, Text $code) {
+        }smx', function (Text $whole, Text $whitespace, Text $fence, Text $fenceChar, Text $lang, Text $code) {
+            // Escape contents of code tags
             $code->escapeHtml(ENT_NOQUOTES);
+
+            $leading = $whitespace->getLength();
+
+            // Remove all leading whitespace from content lines
+            if ($leading > 0) {
+                $code->replace("/^[ ]{0,$leading}/m", '');
+            }
 
             /*$this->markdown->emit('detab', array($code));
             $code->replace('/\A\n+/', '');
