@@ -4,7 +4,7 @@
 use FluxBB\Markdown\Console\Application;
 
 if (PHP_SAPI !== 'cli') {
-    echo 'The Markdown parser command should be run on the CLI environment.' . PHP_EOL;
+    echo 'The CommonMark parser command should be run on the CLI environment.' . PHP_EOL;
 }
 
 $paths = [
@@ -22,5 +22,5 @@ foreach($paths as $path) {
     }
 }
 
-$app = new Application('Ciconia', \FluxBB\Markdown\Parser::VERSION);
+$app = new Application('FluxBB CommonMark', \FluxBB\Markdown\Parser::VERSION);
 $app->run();

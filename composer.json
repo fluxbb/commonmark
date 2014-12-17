@@ -33,7 +33,7 @@
     "suggest": {
         "kzykhys/pygments": ">=1.0"
     },
-    "bin": ["bin/markdown"],
+    "bin": ["bin/commonmark"],
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
