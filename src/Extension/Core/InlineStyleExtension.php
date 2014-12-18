@@ -63,16 +63,21 @@ class InlineStyleExtension implements ExtensionInterface, RendererAwareInterface
             return;
         }
 
-        /** @noinspection PhpUnusedParameterInspection */
-        $text->replace('{ ([^\*_\s]?) (\*|_) (?=\S) (.+?) (?<=\S) \2 ([^\*_\s]?) }sx', function (Text $w, Text $prevChar, Text $a, Text $target, Text $nextChar) {
-            if (!$prevChar->isEmpty() && !$nextChar->isEmpty() && $target->contains(' ')) {
-                $this->getEmitter()->emit('escape.special_chars', [$w->replaceString(['*', '_'], ['\\*', '\\_'])]);
-
-                return $w;
+        // Stars
+        $text->replace(
+            '{ (\*) (?=\S) (.+?) (?<=\S) \1 }sx',
+            function (Text $w, Text $a, Text $target) {
+                return $this->getRenderer()->renderItalicText($target);
             }
+        );
 
-            return $prevChar . $this->getRenderer()->renderItalicText($target) . $nextChar;
-        });
+        // Underscores
+        $text->replace(
+            '{ (?<![A-Za-z0-9]) (_) (?=\S) (.+?) (?<=\S) \1 (?![A-Za-z0-9]) }sx',
+            function (Text $w, Text $a, Text $target) {
+                return $this->getRenderer()->renderItalicText($target);
+            }
+        );
     }
 
     /**
