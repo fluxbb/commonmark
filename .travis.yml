@@ -10,11 +10,11 @@ matrix:
   allow_failures:
     - php: hhvm
 
+sudo: false
+
 before_script:
-  - travis_retry composer self-update
   - travis_retry composer require --no-update satooshi/php-coveralls:dev-master sensiolabs/security-checker:dev-master
   - travis_retry composer update --dev --no-interaction
-  - sudo easy_install Pygments
   - git clone https://github.com/jgm/CommonMark.git spec
   - chmod a+x bin/commonmark
 
