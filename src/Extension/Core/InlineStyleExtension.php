@@ -65,7 +65,7 @@ class InlineStyleExtension implements ExtensionInterface, RendererAwareInterface
 
         // Stars
         $text->replace(
-            '{ (\*) (?=\S) (.+?) (?<=\S) \1 }sx',
+            '{ (\*) (?![\s*]) (.+?) (?<!\s) \1 }sx',
             function (Text $w, Text $a, Text $target) {
                 return $this->getRenderer()->renderItalicText($target);
             }
@@ -73,7 +73,7 @@ class InlineStyleExtension implements ExtensionInterface, RendererAwareInterface
 
         // Underscores
         $text->replace(
-            '{ (?<![A-Za-z0-9]) (_) (?=\S) (.+?) (?<=\S) \1 (?![A-Za-z0-9]) }sx',
+            '{ (?<![A-Za-z0-9]) (_) (?![\s_]) (.+?) (?<!\s) \1 (?![A-Za-z0-9]) }sx',
             function (Text $w, Text $a, Text $target) {
                 return $this->getRenderer()->renderItalicText($target);
             }
