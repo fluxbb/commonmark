@@ -2,7 +2,7 @@
 
 namespace FluxBB\Markdown\Node;
 
-abstract class Node implements NodeAcceptorInterface
+abstract class Node implements NodeAcceptorInterface, InlineNodeAcceptorInterface
 {
 
     /**

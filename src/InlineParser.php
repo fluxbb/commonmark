@@ -3,13 +3,6 @@
 namespace FluxBB\Markdown;
 
 use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Event\EmitterAwareInterface;
-use FluxBB\Markdown\Extension\Core\CodeExtension;
-use FluxBB\Markdown\Extension\Core\EscaperExtension;
-use FluxBB\Markdown\Extension\Core\ImageExtension;
-use FluxBB\Markdown\Extension\Core\InlineStyleExtension;
-use FluxBB\Markdown\Extension\Core\LinkExtension;
-use FluxBB\Markdown\Extension\Core\WhitespaceExtension;
 use FluxBB\Markdown\Node\Blockquote;
 use FluxBB\Markdown\Node\Code;
 use FluxBB\Markdown\Node\CodeBlock;
@@ -17,48 +10,46 @@ use FluxBB\Markdown\Node\Emphasis;
 use FluxBB\Markdown\Node\Heading;
 use FluxBB\Markdown\Node\HorizontalRule;
 use FluxBB\Markdown\Node\Image;
+use FluxBB\Markdown\Node\InlineNodeAcceptorInterface;
 use FluxBB\Markdown\Node\Link;
 use FluxBB\Markdown\Node\ListBlock;
 use FluxBB\Markdown\Node\ListItem;
-use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Node\NodeVisitorInterface;
 use FluxBB\Markdown\Node\Paragraph;
 use FluxBB\Markdown\Node\HardBreak;
 use FluxBB\Markdown\Node\String;
 use FluxBB\Markdown\Node\StrongEmphasis;
-use FluxBB\Markdown\Renderer\InlineRenderer;
-use FluxBB\Markdown\Renderer\RendererAwareInterface;
+use FluxBB\Markdown\Parser\AbstractInlineParser;
+use FluxBB\Markdown\Parser\Inline\EmphasisParser;
+use FluxBB\Markdown\Parser\Inline\StrongEmphasisParser;
+use FluxBB\Markdown\Parser\InlineParserInterface;
 
-class InlineParser implements NodeVisitorInterface
+class InlineParser implements NodeVisitorInterface, InlineParserInterface
 {
 
     /**
-     * @var Markdown
+     * @var InlineParserInterface[]
      */
-    protected $markdown;
+    protected $parsers;
 
     /**
-     * @var \FluxBB\Markdown\Renderer\RendererInterface
+     * The tip of the parser stack.
+     *
+     * @var InlineParserInterface
      */
-    protected $renderer;
-
-    /**
-     * @var \FluxBB\Markdown\Common\Text[]
-     */
-    protected $blobs;
+    protected $parser;
 
 
     public function __construct()
     {
-        $this->renderer = new InlineRenderer($this);
-        $this->markdown = new Markdown($this->renderer);
+        $this->registerDefaultParsers();
 
-        $this->registerExtensions();
+        $this->parser = $this->buildParserStack();
     }
 
     public function enterParagraph(Paragraph $paragraph)
     {
-        $this->parseInline($paragraph, $paragraph->getText());
+        $this->parser->parseInline($paragraph->getText(), $paragraph);
     }
 
     public function leaveParagraph(Paragraph $paragraph)
@@ -98,7 +89,7 @@ class InlineParser implements NodeVisitorInterface
 
     public function enterHeading(Heading $heading)
     {
-        $this->parseInline($heading, $heading->getText());
+        $this->parser->parseInline($heading->getText(), $heading);
     }
 
     public function leaveHeading(Heading $heading)
@@ -151,53 +142,58 @@ class InlineParser implements NodeVisitorInterface
         return;
     }
 
-    public function addBlob($blob)
+    /**
+     * Register all standard parsers.
+     *
+     * @return void
+     */
+    protected function registerDefaultParsers()
     {
-        $this->blobs[] = $blob;
-    }
-
-    protected function parseInline(Node $node, Text $text)
-    {
-        $this->blobs = [];
-        $this->markdown->emit('inline', [$text]);
-
-        $text->split('/\\0/')->each(function (Text $part) use ($node) {
-            $node->addInline(new String($part->getString()));
-            if (count($this->blobs)) {
-                $blob = array_shift($this->blobs);
-                $node->addInline(is_string($blob) ? new String($blob) : $blob);
-            }
-        });
-    }
-
-    private function registerExtensions()
-    {
-        foreach ($this->getExtensions() as $extension) {
-            if ($extension instanceof RendererAwareInterface) {
-                $extension->setRenderer($this->renderer);
-            }
-
-            if ($extension instanceof EmitterAwareInterface) {
-                $extension->setEmitter($this->markdown);
-            }
-
-            $extension->register($this->markdown);
-        }
+        $this->parsers = [
+            new StrongEmphasisParser(),
+            new EmphasisParser(),
+        ];
     }
 
     /**
-     * @return \FluxBB\Markdown\Extension\ExtensionInterface[]
+     * Build the nested stack of closures that executes the parsers in the correct order.
+     *
+     * @return InlineParserInterface
      */
-    private function getExtensions()
+    protected function buildParserStack()
     {
-        return [
-            new WhitespaceExtension(),
-            new LinkExtension(),
-            new CodeExtension(),
-            new ImageExtension(),
-            new InlineStyleExtension(),
-            new EscaperExtension(),
-        ];
+        $parsers = array_reverse($this->parsers);
+
+        return array_reduce($parsers, $this->prepareParser(), $this);
+    }
+
+    /**
+     * Create the closure that returns another closure to be passed to each parser.
+     *
+     * @return callable
+     */
+    protected function prepareParser()
+    {
+        return function (InlineParserInterface $stack, AbstractInlineParser $parser) {
+            $parser->setNextParser($stack);
+
+            return $parser;
+        };
+    }
+
+    /**
+     * Parse the given content.
+     *
+     * Any newly created nodes should be appended to the given target. Any remaining content should be passed to the
+     * next parser in the chain.
+     *
+     * @param Text $content
+     * @param InlineNodeAcceptorInterface $target
+     * @return void
+     */
+    public function parseInline(Text $content, InlineNodeAcceptorInterface $target)
+    {
+        $target->addInline(new String($content->getString()));
     }
 
 }
