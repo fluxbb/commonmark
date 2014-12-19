@@ -47,7 +47,7 @@ class CommonMarkCommand extends Command
         }
 
         $parser = new DocumentParser();
-        $document = $parser->parse($content);
+        $document = $parser->convert($content);
 
         $renderer = new Renderer();
         $html = $renderer->render($document);

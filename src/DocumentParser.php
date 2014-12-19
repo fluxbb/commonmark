@@ -44,7 +44,7 @@ class DocumentParser implements ParserInterface
      * @param string $markdown
      * @return Document
      */
-    public function parse($markdown)
+    public function convert($markdown)
     {
         $root = new Document();
         $this->stack = new Stack($root);
@@ -54,7 +54,7 @@ class DocumentParser implements ParserInterface
         $text = new Text($markdown);
         $this->prepare($text);
 
-        $parser->parseBlock($text);
+        $parser->parse($text);
 
         $this->parseInlineContent($root);
 
@@ -139,15 +139,15 @@ class DocumentParser implements ParserInterface
     }
 
     /**
-     * Parse the given block content.
+     * Parse the given content.
      *
      * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
      * in the chain.
      *
-     * @param Text $block
+     * @param Text $content
      * @return void
      */
-    public function parseBlock(Text $block)
+    public function parse(Text $content)
     {
         // Do nothing. This is just the fallback.
     }
