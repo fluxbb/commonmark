@@ -42,7 +42,10 @@ class CodeSpanParser extends AbstractInlineParser
                 (?!`)
             }sx',
             function (Text $whole, Text $b, Text $code) use ($target) {
-                $target->addInline(new Code($code->trim()->escapeHtml()));
+                // Replace multiple whitespace characters in a row with a single space
+                $code->trim()->replaceString("\n", ' ')->replace('/[\s]{2,}/', ' ');
+
+                $target->addInline(new Code($code->escapeHtml()));
             },
             function (Text $part) use ($target) {
                 $this->next->parseInline($part, $target);
