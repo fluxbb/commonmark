@@ -11,19 +11,19 @@ class ListParser extends AbstractParser
 {
 
     /**
-     * Parse the given block content.
+     * Parse the given content.
      *
      * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
      * in the chain.
      *
-     * @param Text $block
+     * @param Text $content
      * @return void
      */
-    public function parseBlock(Text $block)
+    public function parse(Text $content)
     {
         $pattern = '/^[ ]{0,3}-[ ]+/';
 
-        $block->handle(
+        $content->handle(
             $pattern,
             function (Text $line) use ($pattern) {
                 $line->replace($pattern, '');
@@ -32,7 +32,7 @@ class ListParser extends AbstractParser
                 $this->stack->acceptListBlock($list);
             },
             function (Text $part) {
-                $this->next->parseBlock($part);
+                $this->next->parse($part);
             }
         );
     }

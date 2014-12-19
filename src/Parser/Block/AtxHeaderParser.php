@@ -10,17 +10,17 @@ class AtxHeaderParser extends AbstractParser
 {
 
     /**
-     * Parse the given block content.
+     * Parse the given content.
      *
      * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
      * in the chain.
      *
-     * @param Text $block
+     * @param Text $content
      * @return void
      */
-    public function parseBlock(Text $block)
+    public function parse(Text $content)
     {
-        $block->handle(
+        $content->handle(
             '{
                 ^[ ]{0,3}       # Optional leading spaces
                 (\#{1,6})       # $1 = string of #\'s
@@ -34,7 +34,7 @@ class AtxHeaderParser extends AbstractParser
                 $this->stack->acceptHeading(new Heading($content->trim(), $level));
             },
             function (Text $part) {
-                $this->next->parseBlock($part);
+                $this->next->parse($part);
             }
         );
     }

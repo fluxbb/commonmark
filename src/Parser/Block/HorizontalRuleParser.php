@@ -10,52 +10,52 @@ class HorizontalRuleParser extends AbstractParser
 {
 
     /**
-     * Parse the given block content.
+     * Parse the given content.
      *
      * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
      * in the chain.
      *
-     * @param Text $block
+     * @param Text $content
      * @return void
      */
-    public function parseBlock(Text $block)
+    public function parse(Text $content)
     {
-        $this->parseStars($block);
+        $this->parseStars($content);
     }
 
-    protected function parseStars(Text $block)
+    protected function parseStars(Text $content)
     {
-        $this->parse(
-            $block, '*',
+        $this->handle(
+            $content, '*',
             function (Text $part) {
                 $this->parseDashes($part);
             }
         );
     }
 
-    protected function parseDashes(Text $block)
+    protected function parseDashes(Text $content)
     {
-        $this->parse(
-            $block, '-',
+        $this->handle(
+            $content, '-',
             function (Text $part) {
                 $this->parseUnderscores($part);
             }
         );
     }
 
-    protected function parseUnderscores(Text $block)
+    protected function parseUnderscores(Text $content)
     {
-        $this->parse(
-            $block, '_',
+        $this->handle(
+            $content, '_',
             function (Text $part) {
-                $this->next->parseBlock($part);
+                $this->next->parse($part);
             }
         );
     }
 
-    protected function parse(Text $block, $mark, callable $next)
+    protected function handle(Text $content, $mark, callable $next)
     {
-        $block->handle(
+        $content->handle(
             $this->getPattern($mark),
             function () {
                 $this->stack->acceptHorizontalRule(new HorizontalRule());

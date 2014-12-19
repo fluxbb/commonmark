@@ -8,14 +8,14 @@ interface ParserInterface
 {
 
     /**
-     * Parse the given block content.
+     * Parse the given content.
      *
      * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
      * in the chain.
      *
-     * @param Text $block
+     * @param Text $content
      * @return void
      */
-    public function parseBlock(Text $block);
+    public function parse(Text $content);
 
 }

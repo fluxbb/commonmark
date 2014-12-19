@@ -9,9 +9,18 @@ use FluxBB\Markdown\Parser\AbstractParser;
 class CodeBlockParser extends AbstractParser
 {
 
-    public function parseBlock(Text $block)
+    /**
+     * Parse the given content.
+     *
+     * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
+     * in the chain.
+     *
+     * @param Text $content
+     * @return void
+     */
+    public function parse(Text $content)
     {
-        $block->handle(
+        $content->handle(
             '{
                 (?:\n\n|\A)
                 (                      # $1 = the code block -- one or more lines, starting with at least four spaces
@@ -31,7 +40,7 @@ class CodeBlockParser extends AbstractParser
                 $this->stack->acceptCodeBlock(new CodeBlock($code));
             },
             function(Text $part) {
-                $this->next->parseBlock($part);
+                $this->next->parse($part);
             }
         );
     }
