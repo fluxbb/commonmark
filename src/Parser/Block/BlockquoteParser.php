@@ -1,12 +1,12 @@
 <?php
 
-namespace FluxBB\Markdown\Parser;
+namespace FluxBB\Markdown\Parser\Block;
 
 use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\ListBlock;
-use FluxBB\Markdown\Node\ListItem;
+use FluxBB\Markdown\Node\Blockquote;
+use FluxBB\Markdown\Parser\AbstractParser;
 
-class ListParser extends AbstractParser
+class BlockquoteParser extends AbstractParser
 {
 
     /**
@@ -20,15 +20,12 @@ class ListParser extends AbstractParser
      */
     public function parseBlock(Text $block)
     {
-        $pattern = '/^[ ]{0,3}-[ ]+/';
-
         $block->handle(
-            $pattern,
-            function (Text $line) use ($pattern) {
-                $line->replace($pattern, '');
+            '/^[ ]{0,3}\>[ ]?(.+)/m',
+            function (Text $whole, Text $content) {
+                $this->stack->acceptBlockquote(new Blockquote());
 
-                $list = new ListBlock(new ListItem($line));
-                $this->stack->acceptListBlock($list);
+                $this->next->parseBlock($content);
             },
             function (Text $part) {
                 $this->next->parseBlock($part);

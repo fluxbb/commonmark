@@ -6,15 +6,15 @@ use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\Stack;
 use FluxBB\Markdown\Parser\AbstractParser;
-use FluxBB\Markdown\Parser\BlockquoteParser;
-use FluxBB\Markdown\Parser\CodeBlockParser;
-use FluxBB\Markdown\Parser\FencedCodeBlockParser;
-use FluxBB\Markdown\Parser\AtxHeaderParser;
-use FluxBB\Markdown\Parser\HorizontalRuleParser;
-use FluxBB\Markdown\Parser\ListParser;
-use FluxBB\Markdown\Parser\ParagraphParser;
+use FluxBB\Markdown\Parser\Block\AtxHeaderParser;
+use FluxBB\Markdown\Parser\Block\BlockquoteParser;
+use FluxBB\Markdown\Parser\Block\CodeBlockParser;
+use FluxBB\Markdown\Parser\Block\FencedCodeBlockParser;
+use FluxBB\Markdown\Parser\Block\HorizontalRuleParser;
+use FluxBB\Markdown\Parser\Block\ListParser;
+use FluxBB\Markdown\Parser\Block\ParagraphParser;
+use FluxBB\Markdown\Parser\Block\SetextHeaderParser;
 use FluxBB\Markdown\Parser\ParserInterface;
-use FluxBB\Markdown\Parser\SetextHeaderParser;
 
 class DocumentParser implements ParserInterface
 {

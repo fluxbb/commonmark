@@ -1,9 +1,10 @@
 <?php
 
-namespace FluxBB\Markdown\Parser;
+namespace FluxBB\Markdown\Parser\Block;
 
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\CodeBlock;
+use FluxBB\Markdown\Parser\AbstractParser;
 
 class CodeBlockParser extends AbstractParser
 {

@@ -1,11 +1,12 @@
 <?php
 
-namespace FluxBB\Markdown\Parser;
+namespace FluxBB\Markdown\Parser\Block;
 
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Node;
+use FluxBB\Markdown\Parser\AbstractParser;
 
-class LinkReferenceParser implements ParserInterface
+class LinkReferenceParser extends AbstractParser
 {
 
     /**
@@ -54,6 +55,20 @@ class LinkReferenceParser implements ParserInterface
         }, function (Text $part) {
             // Parse block
         });
+    }
+
+    /**
+     * Parse the given block content.
+     *
+     * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
+     * in the chain.
+     *
+     * @param Text $block
+     * @return void
+     */
+    public function parseBlock(Text $block)
+    {
+        // TODO: Implement parseBlock() method.
     }
 
 }

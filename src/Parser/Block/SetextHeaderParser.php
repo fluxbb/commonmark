@@ -1,11 +1,12 @@
 <?php
 
-namespace FluxBB\Markdown\Parser;
+namespace FluxBB\Markdown\Parser\Block;
 
 use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\Blockquote;
+use FluxBB\Markdown\Node\Heading;
+use FluxBB\Markdown\Parser\AbstractParser;
 
-class BlockquoteParser extends AbstractParser
+class SetextHeaderParser extends AbstractParser
 {
 
     /**
@@ -20,11 +21,13 @@ class BlockquoteParser extends AbstractParser
     public function parseBlock(Text $block)
     {
         $block->handle(
-            '/^[ ]{0,3}\>[ ]?(.+)/m',
-            function (Text $whole, Text $content) {
-                $this->stack->acceptBlockquote(new Blockquote());
+            '{^(.+)[ \t]*\n[ \t]{0,3}(=+|-+)[ \t]*\n+}m',
+            function (Text $whole, Text $content, Text $mark) {
+                $level = (substr($mark, 0, 1) == '=') ? 1 : 2;
 
-                $this->next->parseBlock($content);
+                // TODO: Parse content as inline.
+
+                $this->stack->acceptHeading(new Heading($content->trim(), $level));
             },
             function (Text $part) {
                 $this->next->parseBlock($part);
