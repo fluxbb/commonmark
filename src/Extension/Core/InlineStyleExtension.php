@@ -44,7 +44,7 @@ class InlineStyleExtension implements ExtensionInterface, RendererAwareInterface
 
         // Stars
         $text->replace(
-            '{ (\*\*) (?![\s*]) (.+?) (?<!\s) \1 }sx',
+            '{ (\*\*) (?![\s*]) (.+) (?<![\s*]) \1 }sx',
             function (Text $w, Text $a, Text $target) {
                 return $this->getRenderer()->renderBoldText($target);
             }
@@ -52,7 +52,7 @@ class InlineStyleExtension implements ExtensionInterface, RendererAwareInterface
 
         // Underscores
         $text->replace(
-            '{ (?<![A-Za-z0-9]) (__) (?![\s_]) (.+?) (?<!\s) \1 (?![A-Za-z0-9]) }sx',
+            '{ (?<![A-Za-z0-9]) (__) (?![\s_]) (.+) (?<![\s_]) \1 (?![A-Za-z0-9]) }sx',
             function (Text $w, Text $a, Text $target) {
                 return $this->getRenderer()->renderBoldText($target);
             }
@@ -70,7 +70,7 @@ class InlineStyleExtension implements ExtensionInterface, RendererAwareInterface
 
         // Stars
         $text->replace(
-            '{ (\*) (?![\s*]) (.+?) (?<!\s) \1 }sx',
+            '{ (\*) (?![\s*]) (.+?) (?<![\s*]) \1 }sx',
             function (Text $w, Text $a, Text $target) {
                 return $this->getRenderer()->renderItalicText($target);
             }
@@ -78,7 +78,7 @@ class InlineStyleExtension implements ExtensionInterface, RendererAwareInterface
 
         // Underscores
         $text->replace(
-            '{ (?<![A-Za-z0-9]) (_) (?![\s_]) (.+?) (?<!\s) \1 (?![A-Za-z0-9]) }sx',
+            '{ (?<![A-Za-z0-9]) (_) (?![\s_]) (.+?) (?<![\s_]) \1 (?![A-Za-z0-9]) }sx',
             function (Text $w, Text $a, Text $target) {
                 return $this->getRenderer()->renderItalicText($target);
             }
