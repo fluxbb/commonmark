@@ -38,7 +38,7 @@ class CodeSpanParser extends AbstractInlineParser
                 (?<!`)
                 \1          # Matching closer
                 (?!`)
-            }x',
+            }sx',
             function (Text $whole, Text $b, Text $code) use ($target) {
                 $target->addInline(new Code($code->trim()->escapeHtml()));
             },
