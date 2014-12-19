@@ -21,6 +21,8 @@ use FluxBB\Markdown\Node\String;
 use FluxBB\Markdown\Node\StrongEmphasis;
 use FluxBB\Markdown\Parser\AbstractInlineParser;
 use FluxBB\Markdown\Parser\Inline\EmphasisParser;
+use FluxBB\Markdown\Parser\Inline\ImageParser;
+use FluxBB\Markdown\Parser\Inline\LinkParser;
 use FluxBB\Markdown\Parser\Inline\StrongEmphasisParser;
 use FluxBB\Markdown\Parser\InlineParserInterface;
 
@@ -150,6 +152,8 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
     protected function registerDefaultParsers()
     {
         $this->parsers = [
+            new LinkParser(),
+            new ImageParser(),
             new StrongEmphasisParser(),
             new EmphasisParser(),
         ];
