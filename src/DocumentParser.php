@@ -62,7 +62,9 @@ class DocumentParser implements ParserInterface
     }
 
     /**
-     * Preprocess the text and return a collection of lines.
+     * Preprocess the text.
+     *
+     * This unifies line endings and replaces tabs by spaces.
      *
      * @param Text $text
      * @return void
