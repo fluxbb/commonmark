@@ -3,7 +3,6 @@
 namespace FluxBB\Markdown\Parser\Block;
 
 use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\Node;
 use FluxBB\Markdown\Parser\AbstractParser;
 
 class LinkReferenceParser extends AbstractParser
@@ -20,14 +19,18 @@ class LinkReferenceParser extends AbstractParser
     protected $titles = [];
 
 
-    public function parseLine(Text $line, Node $target, callable $next)
+    /**
+     * Parse the given content.
+     *
+     * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
+     * in the chain.
+     *
+     * @param Text $content
+     * @return void
+     */
+    public function parse(Text $content)
     {
-        return $next($line, $target);
-    }
-
-    public function parse(Text $text, Node $target, callable $next)
-    {
-        $text->handle('{
+        $content->handle('{
             ^[ ]{0,4}\[(.+)\]:   # id = $1
               [ \t]*
               \n?               # maybe *one* newline
@@ -44,7 +47,7 @@ class LinkReferenceParser extends AbstractParser
                 [ \t]*
             )?  # title is optional
             (?:\n+|\Z)
-        }xm', function (Text $whole, Text $id, Text $url, Text $title = null) use ($target) {
+        }xm', function (Text $whole, Text $id, Text $url, Text $title = null) {
             $id = $id->lower()->getString();
 
             $this->links[$id] = $url;
@@ -53,22 +56,8 @@ class LinkReferenceParser extends AbstractParser
                 $this->titles[$id] = $title;
             }
         }, function (Text $part) {
-            // Parse block
+            $this->next->parse($part);
         });
-    }
-
-    /**
-     * Parse the given block content.
-     *
-     * Any newly created nodes should be pushed to the stack. Any remaining content should be passed to the next parser
-     * in the chain.
-     *
-     * @param Text $block
-     * @return void
-     */
-    public function parseBlock(Text $block)
-    {
-        // TODO: Implement parseBlock() method.
     }
 
 }
