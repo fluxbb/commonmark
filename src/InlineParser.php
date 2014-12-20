@@ -23,6 +23,7 @@ use FluxBB\Markdown\Parser\AbstractInlineParser;
 use FluxBB\Markdown\Parser\Inline\CodeSpanParser;
 use FluxBB\Markdown\Parser\Inline\EmphasisParser;
 use FluxBB\Markdown\Parser\Inline\ImageParser;
+use FluxBB\Markdown\Parser\Inline\LineBreakParser;
 use FluxBB\Markdown\Parser\Inline\LinkParser;
 use FluxBB\Markdown\Parser\Inline\StrongEmphasisParser;
 use FluxBB\Markdown\Parser\InlineParserInterface;
@@ -154,6 +155,7 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
     {
         $this->parsers = [
             new CodeSpanParser(),
+            new LineBreakParser(),
             new LinkParser(),
             new ImageParser(),
             new StrongEmphasisParser(),

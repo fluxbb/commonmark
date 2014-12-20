@@ -164,7 +164,7 @@ class Renderer implements NodeVisitorInterface
 
     public function visitHardBreak(HardBreak $softBreak)
     {
-        $this->buffer->append('<br />');
+        $this->buffer->append("<br />\n");
     }
 
     protected function renderInlineElements(Node $node)
