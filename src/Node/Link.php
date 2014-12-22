@@ -2,30 +2,38 @@
 
 namespace FluxBB\Markdown\Node;
 
+use FluxBB\Markdown\Common\Text;
+
 class Link extends Node implements NodeAcceptorInterface
 {
 
+    /**
+     * @var Text
+     */
     protected $href;
 
     /**
-     * @var string
+     * @var Text
      */
     protected $content;
 
 
-    public function __construct($href, $content)
+    public function __construct(Text $href, Text $content)
     {
         $this->href = $href;
         $this->content = $content;
     }
 
+    /**
+     * @return Text
+     */
     public function getHref()
     {
         return $this->href;
     }
 
     /**
-     * @return string
+     * @return Text
      */
     public function getContent()
     {

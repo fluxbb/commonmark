@@ -140,9 +140,9 @@ class Renderer implements NodeVisitorInterface
     {
         $this->buffer
             ->append('<a href="')
-            ->append($link->getHref())
+            ->append($link->getHref()->escapeHtml())
             ->append('">')
-            ->append($link->getContent())
+            ->append($link->getContent()->escapeHtml())
             ->append('</a>');
     }
 
