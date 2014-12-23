@@ -2,6 +2,7 @@
 
 namespace FluxBB\Markdown\Parser\Block;
 
+use FluxBB\Markdown\Common\Collection;
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Parser\AbstractParser;
 
@@ -9,15 +10,21 @@ class LinkReferenceParser extends AbstractParser
 {
 
     /**
-     * @var Text[]
+     * @var Collection
      */
     protected $links = [];
 
     /**
-     * @var Text[]
+     * @var Collection
      */
     protected $titles = [];
 
+
+    public function __construct(Collection $links, Collection $titles)
+    {
+        $this->links = $links;
+        $this->titles = $titles;
+    }
 
     /**
      * Parse the given content.
@@ -31,7 +38,7 @@ class LinkReferenceParser extends AbstractParser
     public function parse(Text $content)
     {
         $content->handle('{
-            ^[ ]{0,4}\[(.+)\]:   # id = $1
+            ^[ ]{0,3}\[(.+)\]:   # id = $1
               [ \t]*
               \n?               # maybe *one* newline
               [ \t]*
@@ -50,10 +57,10 @@ class LinkReferenceParser extends AbstractParser
         }xm', function (Text $whole, Text $id, Text $url, Text $title = null) {
             $id = $id->lower()->getString();
 
-            $this->links[$id] = $url;
+            $this->links->set($id, $url);
 
             if ($title) {
-                $this->titles[$id] = $title;
+                $this->titles->set($id, $title);
             }
         }, function (Text $part) {
             $this->next->parse($part);

@@ -2,6 +2,7 @@
 
 namespace FluxBB\Markdown;
 
+use FluxBB\Markdown\Common\Collection;
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Document;
 use FluxBB\Markdown\Node\Stack;
@@ -11,6 +12,7 @@ use FluxBB\Markdown\Parser\Block\BlockquoteParser;
 use FluxBB\Markdown\Parser\Block\CodeBlockParser;
 use FluxBB\Markdown\Parser\Block\FencedCodeBlockParser;
 use FluxBB\Markdown\Parser\Block\HorizontalRuleParser;
+use FluxBB\Markdown\Parser\Block\LinkReferenceParser;
 use FluxBB\Markdown\Parser\Block\ListParser;
 use FluxBB\Markdown\Parser\Block\ParagraphParser;
 use FluxBB\Markdown\Parser\Block\SetextHeaderParser;
@@ -18,6 +20,16 @@ use FluxBB\Markdown\Parser\ParserInterface;
 
 class DocumentParser implements ParserInterface
 {
+
+    /**
+     * @var Collection
+     */
+    protected $links;
+
+    /**
+     * @var Collection
+     */
+    protected $titles;
 
     /**
      * @var ParserInterface[]
@@ -35,6 +47,9 @@ class DocumentParser implements ParserInterface
      */
     public function __construct()
     {
+        $this->links = new Collection();
+        $this->titles = new Collection();
+
         $this->registerDefaultParsers();
     }
 
@@ -104,6 +119,7 @@ class DocumentParser implements ParserInterface
         $this->parsers = [
             new FencedCodeBlockParser(),
             new CodeBlockParser(),
+            new LinkReferenceParser($this->links, $this->titles),
             new BlockquoteParser(),
             new SetextHeaderParser(),
             new HorizontalRuleParser(),
