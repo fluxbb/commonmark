@@ -150,8 +150,15 @@ class Renderer implements NodeVisitorInterface
     {
         $this->buffer
             ->append('<img src="')
-            ->append($image->getSource())
-            ->append('" />');
+            ->append($image->getSource()->escapeHtml())
+            ->append('" alt="')
+            ->append($image->getAltText());
+
+        if (! $image->getTitleText()->isEmpty()) {
+            $this->buffer->append('" title="')->append($image->getTitleText()->escapeHtml());
+        }
+
+        $this->buffer->append('" />');
     }
 
     public function visitCode(Code $code)

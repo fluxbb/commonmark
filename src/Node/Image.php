@@ -2,20 +2,47 @@
 
 namespace FluxBB\Markdown\Node;
 
+use FluxBB\Markdown\Common\Text;
+
 class Image extends Node implements NodeAcceptorInterface
 {
 
     protected $source;
 
+    protected $altText;
 
-    public function __construct($source)
+    protected $titleText;
+
+
+    public function __construct(Text $source, Text $altText, Text $titleText = null)
     {
         $this->source = $source;
+        $this->altText = $altText;
+        $this->titleText = $titleText ?: new Text();
     }
 
+    /**
+     * @return Text
+     */
     public function getSource()
     {
         return $this->source;
+    }
+
+    /**
+     * @return Text
+     */
+    public function getAltText()
+    {
+        return $this->altText;
+    }
+
+    /**
+     * @return Text
+     */
+    public function getTitleText()
+    {
+        return $this->titleText;
     }
 
     /**

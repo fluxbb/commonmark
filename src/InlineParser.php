@@ -158,8 +158,8 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
             new CodeSpanParser(),
             new LineBreakParser(),
             new AutolinkParser(),
-            new LinkParser(),
             new ImageParser(),
+            new LinkParser(),
             new StrongEmphasisParser(),
             new EmphasisParser(),
         ];

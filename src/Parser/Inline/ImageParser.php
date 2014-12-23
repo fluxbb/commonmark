@@ -51,8 +51,7 @@ class ImageParser extends AbstractInlineParser
                 )
             }xs',
             function (Text $w, Text $whole, Text $alt, Text $url, Text $a = null, Text $q = null, Text $title = null) use ($target) {
-                // TODO: Alt text, title
-                $target->addInline(new Image($url->escapeHtml()));
+                $target->addInline(new Image($url, $alt, $title));
             },
             function (Text $part) use ($target) {
                 $this->next->parseInline($part, $target);
