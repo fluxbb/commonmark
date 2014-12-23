@@ -34,14 +34,43 @@ class AutolinkParser extends AbstractInlineParser
         $protocols = implode('|', $this->getValidProtocols());
 
         $content->handle(
+            // TODO: Also disallow control characters in $url
             '{<((?:'.$protocols.'):[^<>\s]*)>}i',
             function (Text $w, Text $url) use ($target) {
                 $target->addInline(new Link($url, $url->copy()));
             },
             function (Text $part) use ($target) {
-                $this->next->parseInline($part, $target);
+                $this->parseEmail($part, $target);
             }
         );
+    }
+
+    protected function parseEmail(Text $content, InlineNodeAcceptorInterface $target)
+    {
+        if ($content->contains('@')) {
+            $content->handle(
+                '{
+                    <
+                    (?:mailto:)?
+                    (
+                        [a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+
+                        \@
+                        [a-zA-Z0-9]
+                        (?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?
+                        (?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*
+                    )
+                    >
+                }ix',
+                function (Text $w, Text $email) use ($target) {
+                    $target->addInline(new Link($email->prepend('mailto:'), $email->copy()));
+                },
+                function (Text $part) use ($target) {
+                    $this->next->parseInline($part, $target);
+                }
+            );
+        } else {
+            $this->next->parseInline($content, $target);
+        }
     }
 
     /**
