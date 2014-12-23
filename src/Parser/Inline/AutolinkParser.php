@@ -34,7 +34,7 @@ class AutolinkParser extends AbstractInlineParser
         $protocols = implode('|', $this->getValidProtocols());
 
         $content->handle(
-            '{<((?:'.$protocols.'):[^\'">\s]+)>}i',
+            '{<((?:'.$protocols.'):[^<>\s]*)>}i',
             function (Text $w, Text $url) use ($target) {
                 $target->addInline(new Link($url, $url->copy()));
             },
