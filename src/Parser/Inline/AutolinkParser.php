@@ -62,7 +62,8 @@ class AutolinkParser extends AbstractInlineParser
                     >
                 }ix',
                 function (Text $w, Text $email) use ($target) {
-                    $target->addInline(new Link($email->prepend('mailto:'), $email->copy()));
+                    $text = $email->copy();
+                    $target->addInline(new Link($email->prepend('mailto:'), $text));
                 },
                 function (Text $part) use ($target) {
                     $this->next->parseInline($part, $target);
