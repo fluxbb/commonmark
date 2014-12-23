@@ -117,7 +117,7 @@ class Renderer implements NodeVisitorInterface
 
     public function visitString(String $string)
     {
-        $this->buffer->append($string->getContent());
+        $this->buffer->append($string->getContent()->escapeHtml());
     }
 
     public function visitEmphasis(Emphasis $emphasis)

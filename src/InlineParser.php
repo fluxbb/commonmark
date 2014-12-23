@@ -203,7 +203,7 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
      */
     public function parseInline(Text $content, InlineNodeAcceptorInterface $target)
     {
-        $target->addInline(new String($content->getString()));
+        $target->addInline(new String($content));
     }
 
 }
