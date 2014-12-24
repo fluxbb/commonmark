@@ -2,6 +2,7 @@
 
 namespace FluxBB\Markdown;
 
+use FluxBB\Markdown\Common\Tag;
 use FluxBB\Markdown\Common\Text;
 use FluxBB\Markdown\Node\Blockquote;
 use FluxBB\Markdown\Node\Code;
@@ -102,7 +103,7 @@ class Renderer implements NodeVisitorInterface
 
     public function visitHorizontalRule(HorizontalRule $horizontalRule)
     {
-        $this->buffer->append("<hr />\n");
+        $this->buffer->append(Tag::inline('hr'))->append("\n");
     }
 
     public function visitCodeBlock(CodeBlock $codeBlock)
@@ -122,56 +123,55 @@ class Renderer implements NodeVisitorInterface
 
     public function visitEmphasis(Emphasis $emphasis)
     {
-        $this->buffer
-            ->append('<em>')
-            ->append($emphasis->getContent())
-            ->append('</em>');
+        $tag = Tag::block('em');
+        $tag->setText($emphasis->getContent());
+
+        $this->buffer->append($tag);
     }
 
     public function visitStrongEmphasis(StrongEmphasis $strongEmphasis)
     {
-        $this->buffer
-            ->append('<strong>')
-            ->append($strongEmphasis->getContent())
-            ->append('</strong>');
+        $tag = Tag::block('strong');
+        $tag->setText($strongEmphasis->getContent());
+
+        $this->buffer->append($tag);
     }
 
     public function visitLink(Link $link)
     {
-        $this->buffer
-            ->append('<a href="')
-            ->append($link->getHref()->escapeHtml())
-            ->append('">')
-            ->append($link->getContent()->escapeHtml())
-            ->append('</a>');
+        $tag = Tag::block('a');
+        $tag->setAttribute('href', $link->getHref()->escapeHtml());
+        $tag->setText($link->getContent()->escapeHtml());
+
+        $this->buffer->append($tag);
     }
 
     public function visitImage(Image $image)
     {
-        $this->buffer
-            ->append('<img src="')
-            ->append($image->getSource()->escapeHtml())
-            ->append('" alt="')
-            ->append($image->getAltText());
+        $tag = Tag::inline('img');
+        $tag->setAttributes([
+            'src' => $image->getSource()->escapeHtml(),
+            'alt' => $image->getAltText()->escapeHtml(),
+        ]);
 
         if (! $image->getTitleText()->isEmpty()) {
-            $this->buffer->append('" title="')->append($image->getTitleText()->escapeHtml());
+            $tag->setAttribute('title', $image->getTitleText()->escapeHtml());
         }
 
-        $this->buffer->append('" />');
+        $this->buffer->append($tag);
     }
 
     public function visitCode(Code $code)
     {
-        $this->buffer
-            ->append('<code>')
-            ->append($code->getContent())
-            ->append('</code>');
+        $tag = Tag::block('code');
+        $tag->setText($code->getContent());
+
+        $this->buffer->append($tag);
     }
 
     public function visitHardBreak(HardBreak $softBreak)
     {
-        $this->buffer->append("<br />\n");
+        $this->buffer->append(Tag::inline('br'))->append("\n");
     }
 
     protected function renderInlineElements(Node $node)

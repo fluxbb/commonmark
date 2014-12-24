@@ -70,6 +70,34 @@ class Tag
     }
 
     /**
+     * Block tag constructor
+     *
+     * @param string $name
+     * @return static
+     */
+    public static function block($name)
+    {
+        $tag = new static($name);
+        $tag->setType(static::TYPE_BLOCK);
+
+        return $tag;
+    }
+
+    /**
+     * Inline tag constructor
+     *
+     * @param string $name
+     * @return static
+     */
+    public static function inline($name)
+    {
+        $tag = new static($name);
+        $tag->setType(static::TYPE_INLINE);
+
+        return $tag;
+    }
+
+    /**
      * Sets the inner text
      *
      * @param Text|string $text A string to set
