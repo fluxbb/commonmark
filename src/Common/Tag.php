@@ -43,7 +43,7 @@ class Tag
     /**
      * @var string
      */
-    private $emptyTagSuffix = '>';
+    private $emptyTagSuffix = ' />';
 
     /**
      * Creates a new Tag object
