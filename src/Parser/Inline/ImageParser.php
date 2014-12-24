@@ -33,24 +33,23 @@ class ImageParser extends AbstractInlineParser
     {
         $content->handle(
             '{
-                (               # wrap whole match in $1
-                  !\[
-                    (.*?)       # alt text = $2
-                  \]
-                  \(            # literal paren
-                    [ \t]*
-                    <?(\S+?)>?  # src url = $3
-                    [ \t]*
-                    (           # $4
-                      ([\'"])   # quote char = $5
-                      (.*?)     # title = $6
-                      \5        # matching quote
-                      [ \t]*
-                    )?          # title is optional
-                  \)
-                )
+                (?<!\\\\)!
+                \[
+                (.*?)       # alt text = $1
+                \]
+                \(            # literal paren
+                [ \t]*
+                <?(\S+?)>?  # src url = $2
+                [ \t]*
+                (           # $3
+                  ([\'"])   # quote char = $4
+                  (.*?)     # title = $5
+                  \5        # matching quote
+                  [ \t]*
+                )?          # title is optional
+                \)
             }xs',
-            function (Text $w, Text $whole, Text $alt, Text $url, Text $a = null, Text $q = null, Text $title = null) use ($target) {
+            function (Text $w, Text $alt, Text $url, Text $a = null, Text $q = null, Text $title = null) use ($target) {
                 $target->addInline(new Image($url, $alt, $title));
             },
             function (Text $part) use ($target) {
