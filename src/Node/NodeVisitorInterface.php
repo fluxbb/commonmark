@@ -21,9 +21,7 @@ interface NodeVisitorInterface
 
     public function leaveListItem(ListItem $listItem);
 
-    public function enterHeading(Heading $heading);
-
-    public function leaveHeading(Heading $heading);
+    public function visitHeading(Heading $heading);
 
     public function visitHorizontalRule(HorizontalRule $horizontalRule);
 

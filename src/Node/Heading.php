@@ -33,9 +33,7 @@ class Heading extends Node implements NodeAcceptorInterface
 
     public function visit(NodeVisitorInterface $visitor)
     {
-        $visitor->enterHeading($this);
-
-        $visitor->leaveHeading($this);
+        $visitor->visitHeading($this);
     }
 
 }

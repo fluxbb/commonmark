@@ -21,6 +21,7 @@ use FluxBB\Markdown\Node\Paragraph;
 use FluxBB\Markdown\Node\HardBreak;
 use FluxBB\Markdown\Node\String;
 use FluxBB\Markdown\Node\StrongEmphasis;
+use SplStack;
 
 class Renderer implements NodeVisitorInterface
 {
@@ -29,6 +30,17 @@ class Renderer implements NodeVisitorInterface
      * @var Text
      */
     protected $buffer;
+
+    /**
+     * @var SplStack
+     */
+    protected $stack;
+
+
+    public function __construct()
+    {
+        $this->stack = new SplStack();
+    }
 
     public function render(Document $document)
     {
@@ -41,64 +53,66 @@ class Renderer implements NodeVisitorInterface
 
     public function enterParagraph(Paragraph $paragraph)
     {
-        $this->buffer
-            ->append('<p>');
-
+        $this->pushBuffer();
         $this->renderInlineElements($paragraph);
     }
 
     public function leaveParagraph(Paragraph $paragraph)
     {
-        $this->buffer->append("</p>\n");
+        $tag = Tag::block('p');
+        $tag->setText($this->popBuffer());
+
+        $this->buffer->append($tag)->append("\n");
     }
 
     public function enterBlockquote(Blockquote $blockquote)
     {
-        $this->buffer->append("<blockquote>\n");
+        // TODO: Linebreak after opening tag
+        $this->pushBuffer();
     }
 
     public function leaveBlockquote(Blockquote $blockquote)
     {
-        $this->buffer->append("</blockquote>\n");
+        $tag = Tag::block('blockquote');
+        $tag->setText($this->popBuffer());
+
+        $this->buffer->append($tag)->append("\n");
     }
 
     public function enterListBlock(ListBlock $listBlock)
     {
-        $this->buffer->append("<ul>\n");
+        // TODO: Linebreak after opening tag
+        $this->pushBuffer();
     }
 
     public function leaveListBlock(ListBlock $listBlock)
     {
-        $this->buffer->append("</ul>\n");
+        $tag = Tag::block('ul')->setText($this->popBuffer());
+
+        $this->buffer->append($tag)->append("\n");
     }
 
     public function enterListItem(ListItem $listItem)
     {
-        $this->buffer->append('<li>');
+        $this->pushBuffer();
     }
 
     public function leaveListItem(ListItem $listItem)
     {
-        $this->buffer->append("</li>\n");
+        $tag = Tag::block('li')->setText($this->popBuffer());
+
+        $this->buffer->append($tag)->append("\n");
     }
 
-    public function enterHeading(Heading $heading)
+    public function visitHeading(Heading $heading)
     {
-        $this->buffer
-            ->append('<h')
-            ->append($heading->getLevel())
-            ->append('>');
+        $tag = Tag::block('h' . $heading->getLevel());
 
+        $this->pushBuffer();
         $this->renderInlineElements($heading);
-    }
+        $tag->setText($this->popBuffer());
 
-    public function leaveHeading(Heading $heading)
-    {
-        $this->buffer
-            ->append('</h')
-            ->append($heading->getLevel())
-            ->append('>')
-            ->append("\n");
+        $this->buffer->append($tag)->append("\n");
     }
 
     public function visitHorizontalRule(HorizontalRule $horizontalRule)
@@ -108,12 +122,17 @@ class Renderer implements NodeVisitorInterface
 
     public function visitCodeBlock(CodeBlock $codeBlock)
     {
-        $this->buffer
-            ->append('<pre><code')
-            ->append($codeBlock->hasLanguage() ? ' class="language-' . $codeBlock->getLanguage() . '">' : '>')
-            ->append($codeBlock->getContent()->escapeHtml())
-            ->append('</code></pre>')
-            ->append("\n");
+        $preTag = Tag::block('pre');
+        $codeTag = Tag::block('code');
+
+        if ($codeBlock->hasLanguage()) {
+            $codeTag->setAttribute('class', 'language-' . $codeBlock->getLanguage());
+        }
+
+        $codeTag->setText($codeBlock->getContent()->escapeHtml());
+        $preTag->setText($codeTag->render());
+
+        $this->buffer->append($preTag)->append("\n");
     }
 
     public function visitString(String $string)
@@ -172,6 +191,22 @@ class Renderer implements NodeVisitorInterface
     public function visitHardBreak(HardBreak $softBreak)
     {
         $this->buffer->append(Tag::inline('br'))->append("\n");
+    }
+
+    protected function pushBuffer()
+    {
+        $this->stack->push($this->buffer);
+
+        $this->buffer = new Text();
+    }
+
+    protected function popBuffer()
+    {
+        $buffer = $this->buffer;
+
+        $this->buffer = $this->stack->pop();
+
+        return $buffer;
     }
 
     protected function renderInlineElements(Node $node)
