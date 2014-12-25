@@ -44,7 +44,7 @@ class ImageParser extends AbstractInlineParser
                 (           # $3
                   ([\'"])   # quote char = $4
                   (.*?)     # title = $5
-                  \5        # matching quote
+                  \4        # matching quote
                   [ \t]*
                 )?          # title is optional
                 \)
