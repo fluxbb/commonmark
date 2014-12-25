@@ -48,6 +48,7 @@ class LinkParser extends AbstractInlineParser
                         ([\'"])         # quote char = $4
                         (.*?)           # Title = $5
                         \4              # matching quote
+                        [ \t]*
                     )?                  # title is optional
                 \)
             }xs',
