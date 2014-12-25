@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Parser;
+namespace FluxBB\CommonMark\Parser;
 
 abstract class AbstractInlineParser implements InlineParserInterface
 {

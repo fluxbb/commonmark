@@ -6,7 +6,7 @@ class TagTest extends \PHPUnit_Framework_TestCase
 
     public function testSetText()
     {
-        $tag = new \FluxBB\Markdown\Common\Tag('p');
+        $tag = new \FluxBB\CommonMark\Common\Tag('p');
         $tag->setText('content');
         $text = $tag->getText();
 
@@ -15,8 +15,8 @@ class TagTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderTag()
     {
-        $tag = new \FluxBB\Markdown\Common\Tag('div');
-        $tag->setType(\FluxBB\Markdown\Common\Tag::TYPE_BLOCK);
+        $tag = new \FluxBB\CommonMark\Common\Tag('div');
+        $tag->setType(\FluxBB\CommonMark\Common\Tag::TYPE_BLOCK);
         $tag->setText('foo');
         $tag->setName('p');
 
@@ -24,7 +24,7 @@ class TagTest extends \PHPUnit_Framework_TestCase
 
         $tag->setEmptyTagSuffix('/>');
         $this->assertEquals('/>', $tag->getEmptyTagSuffix());
-        $this->assertEquals(\FluxBB\Markdown\Common\Tag::TYPE_BLOCK, $tag->getType());
+        $this->assertEquals(\FluxBB\CommonMark\Common\Tag::TYPE_BLOCK, $tag->getType());
 
         $tag->setText('');
         $this->assertEquals('<p></p>', $tag);
@@ -32,7 +32,7 @@ class TagTest extends \PHPUnit_Framework_TestCase
 
     public function testAttributes()
     {
-        $tag = new \FluxBB\Markdown\Common\Tag('p');
+        $tag = new \FluxBB\CommonMark\Common\Tag('p');
         $tag->setAttribute('class', 'attr-class');
         $tag->setAttribute('id', 'attr-id');
 

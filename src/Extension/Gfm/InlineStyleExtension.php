@@ -1,13 +1,13 @@
 <?php
 
-namespace FluxBB\Markdown\Extension\Gfm;
+namespace FluxBB\CommonMark\Extension\Gfm;
 
-use FluxBB\Markdown\Common\Tag;
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Markdown;
-use FluxBB\Markdown\Renderer\RendererAwareInterface;
-use FluxBB\Markdown\Renderer\RendererAwareTrait;
+use FluxBB\CommonMark\Common\Tag;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Markdown;
+use FluxBB\CommonMark\Renderer\RendererAwareInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareTrait;
 
 /**
  * Original source code from GitHub Flavored Markdown

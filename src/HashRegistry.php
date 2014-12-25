@@ -1,9 +1,9 @@
 <?php
 
-namespace FluxBB\Markdown;
+namespace FluxBB\CommonMark;
 
-use FluxBB\Markdown\Common\Collection;
-use FluxBB\Markdown\Common\Text;
+use FluxBB\CommonMark\Common\Collection;
+use FluxBB\CommonMark\Common\Text;
 
 /**
  * Manages hashes and raw text

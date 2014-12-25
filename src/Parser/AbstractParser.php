@@ -1,9 +1,9 @@
 <?php
 
-namespace FluxBB\Markdown\Parser;
+namespace FluxBB\CommonMark\Parser;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\NodeAcceptorInterface;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\NodeAcceptorInterface;
 
 abstract class AbstractParser implements ParserInterface
 {

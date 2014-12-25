@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Node;
+namespace FluxBB\CommonMark\Node;
 
 abstract class Container extends Node implements NodeAcceptorInterface
 {

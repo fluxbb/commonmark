@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Exception;
+namespace FluxBB\CommonMark\Exception;
 
 class MarkdownException extends \Exception
 {

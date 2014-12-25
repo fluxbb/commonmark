@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Diagnose;
+namespace FluxBB\CommonMark\Diagnose;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>

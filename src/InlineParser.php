@@ -1,33 +1,33 @@
 <?php
 
-namespace FluxBB\Markdown;
+namespace FluxBB\CommonMark;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\Blockquote;
-use FluxBB\Markdown\Node\Code;
-use FluxBB\Markdown\Node\CodeBlock;
-use FluxBB\Markdown\Node\Emphasis;
-use FluxBB\Markdown\Node\Heading;
-use FluxBB\Markdown\Node\HorizontalRule;
-use FluxBB\Markdown\Node\Image;
-use FluxBB\Markdown\Node\InlineNodeAcceptorInterface;
-use FluxBB\Markdown\Node\Link;
-use FluxBB\Markdown\Node\ListBlock;
-use FluxBB\Markdown\Node\ListItem;
-use FluxBB\Markdown\Node\NodeVisitorInterface;
-use FluxBB\Markdown\Node\Paragraph;
-use FluxBB\Markdown\Node\HardBreak;
-use FluxBB\Markdown\Node\String;
-use FluxBB\Markdown\Node\StrongEmphasis;
-use FluxBB\Markdown\Parser\AbstractInlineParser;
-use FluxBB\Markdown\Parser\Inline\AutolinkParser;
-use FluxBB\Markdown\Parser\Inline\CodeSpanParser;
-use FluxBB\Markdown\Parser\Inline\EmphasisParser;
-use FluxBB\Markdown\Parser\Inline\ImageParser;
-use FluxBB\Markdown\Parser\Inline\LineBreakParser;
-use FluxBB\Markdown\Parser\Inline\LinkParser;
-use FluxBB\Markdown\Parser\Inline\StrongEmphasisParser;
-use FluxBB\Markdown\Parser\InlineParserInterface;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Blockquote;
+use FluxBB\CommonMark\Node\Code;
+use FluxBB\CommonMark\Node\CodeBlock;
+use FluxBB\CommonMark\Node\Emphasis;
+use FluxBB\CommonMark\Node\Heading;
+use FluxBB\CommonMark\Node\HorizontalRule;
+use FluxBB\CommonMark\Node\Image;
+use FluxBB\CommonMark\Node\InlineNodeAcceptorInterface;
+use FluxBB\CommonMark\Node\Link;
+use FluxBB\CommonMark\Node\ListBlock;
+use FluxBB\CommonMark\Node\ListItem;
+use FluxBB\CommonMark\Node\NodeVisitorInterface;
+use FluxBB\CommonMark\Node\Paragraph;
+use FluxBB\CommonMark\Node\HardBreak;
+use FluxBB\CommonMark\Node\String;
+use FluxBB\CommonMark\Node\StrongEmphasis;
+use FluxBB\CommonMark\Parser\AbstractInlineParser;
+use FluxBB\CommonMark\Parser\Inline\AutolinkParser;
+use FluxBB\CommonMark\Parser\Inline\CodeSpanParser;
+use FluxBB\CommonMark\Parser\Inline\EmphasisParser;
+use FluxBB\CommonMark\Parser\Inline\ImageParser;
+use FluxBB\CommonMark\Parser\Inline\LineBreakParser;
+use FluxBB\CommonMark\Parser\Inline\LinkParser;
+use FluxBB\CommonMark\Parser\Inline\StrongEmphasisParser;
+use FluxBB\CommonMark\Parser\InlineParserInterface;
 
 class InlineParser implements NodeVisitorInterface, InlineParserInterface
 {

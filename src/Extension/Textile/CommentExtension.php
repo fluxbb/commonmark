@@ -1,10 +1,10 @@
 <?php
 
-namespace FluxBB\Markdown\Extension\Textile;
+namespace FluxBB\CommonMark\Extension\Textile;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Markdown;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Markdown;
 
 /**
  * [Experimental] Comments

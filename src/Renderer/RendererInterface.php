@@ -1,9 +1,9 @@
 <?php
 
-namespace FluxBB\Markdown\Renderer;
+namespace FluxBB\CommonMark\Renderer;
 
-use FluxBB\Markdown\Common\Tag;
-use FluxBB\Markdown\Common\Text;
+use FluxBB\CommonMark\Common\Tag;
+use FluxBB\CommonMark\Common\Text;
 
 /**
  * RendererInterface must be implemented by classes that renders result of Markdown

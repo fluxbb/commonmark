@@ -1,11 +1,11 @@
 <?php
 
-namespace FluxBB\Markdown\Parser\Inline;
+namespace FluxBB\CommonMark\Parser\Inline;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\Emphasis;
-use FluxBB\Markdown\Node\InlineNodeAcceptorInterface;
-use FluxBB\Markdown\Parser\AbstractInlineParser;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Emphasis;
+use FluxBB\CommonMark\Node\InlineNodeAcceptorInterface;
+use FluxBB\CommonMark\Parser\AbstractInlineParser;
 
 class EmphasisParser extends AbstractInlineParser
 {

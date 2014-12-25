@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Node;
+namespace FluxBB\CommonMark\Node;
 
 class HardBreak extends Node implements NodeAcceptorInterface
 {

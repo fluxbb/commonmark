@@ -1,8 +1,8 @@
 <?php
 
-namespace FluxBB\Markdown\Diagnose;
+namespace FluxBB\CommonMark\Diagnose;
 
-use FluxBB\Markdown\Markdown as BaseMarkdown;
+use FluxBB\CommonMark\Markdown as BaseMarkdown;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 /**

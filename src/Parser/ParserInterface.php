@@ -1,8 +1,8 @@
 <?php
 
-namespace FluxBB\Markdown\Parser;
+namespace FluxBB\CommonMark\Parser;
 
-use FluxBB\Markdown\Common\Text;
+use FluxBB\CommonMark\Common\Text;
 
 interface ParserInterface
 {

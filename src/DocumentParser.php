@@ -1,22 +1,22 @@
 <?php
 
-namespace FluxBB\Markdown;
+namespace FluxBB\CommonMark;
 
-use FluxBB\Markdown\Common\Collection;
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\Document;
-use FluxBB\Markdown\Node\Stack;
-use FluxBB\Markdown\Parser\AbstractParser;
-use FluxBB\Markdown\Parser\Block\AtxHeaderParser;
-use FluxBB\Markdown\Parser\Block\BlockquoteParser;
-use FluxBB\Markdown\Parser\Block\CodeBlockParser;
-use FluxBB\Markdown\Parser\Block\FencedCodeBlockParser;
-use FluxBB\Markdown\Parser\Block\HorizontalRuleParser;
-use FluxBB\Markdown\Parser\Block\LinkReferenceParser;
-use FluxBB\Markdown\Parser\Block\ListParser;
-use FluxBB\Markdown\Parser\Block\ParagraphParser;
-use FluxBB\Markdown\Parser\Block\SetextHeaderParser;
-use FluxBB\Markdown\Parser\ParserInterface;
+use FluxBB\CommonMark\Common\Collection;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Document;
+use FluxBB\CommonMark\Node\Stack;
+use FluxBB\CommonMark\Parser\AbstractParser;
+use FluxBB\CommonMark\Parser\Block\AtxHeaderParser;
+use FluxBB\CommonMark\Parser\Block\BlockquoteParser;
+use FluxBB\CommonMark\Parser\Block\CodeBlockParser;
+use FluxBB\CommonMark\Parser\Block\FencedCodeBlockParser;
+use FluxBB\CommonMark\Parser\Block\HorizontalRuleParser;
+use FluxBB\CommonMark\Parser\Block\LinkReferenceParser;
+use FluxBB\CommonMark\Parser\Block\ListParser;
+use FluxBB\CommonMark\Parser\Block\ParagraphParser;
+use FluxBB\CommonMark\Parser\Block\SetextHeaderParser;
+use FluxBB\CommonMark\Parser\ParserInterface;
 
 class DocumentParser implements ParserInterface
 {

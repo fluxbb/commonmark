@@ -1,10 +1,10 @@
 <?php
 
-namespace FluxBB\Markdown\Console\Command;
+namespace FluxBB\CommonMark\Console\Command;
 
-use FluxBB\Markdown\DocumentParser;
-use FluxBB\Markdown\Parser;
-use FluxBB\Markdown\Renderer;
+use FluxBB\CommonMark\DocumentParser;
+use FluxBB\CommonMark\Parser;
+use FluxBB\CommonMark\Renderer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\HelpCommand;
 use Symfony\Component\Console\Input\InputArgument;

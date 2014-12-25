@@ -1,26 +1,26 @@
 <?php
 
-namespace FluxBB\Markdown;
+namespace FluxBB\CommonMark;
 
-use FluxBB\Markdown\Common\Tag;
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\Blockquote;
-use FluxBB\Markdown\Node\Code;
-use FluxBB\Markdown\Node\CodeBlock;
-use FluxBB\Markdown\Node\Document;
-use FluxBB\Markdown\Node\Emphasis;
-use FluxBB\Markdown\Node\Heading;
-use FluxBB\Markdown\Node\HorizontalRule;
-use FluxBB\Markdown\Node\Image;
-use FluxBB\Markdown\Node\Link;
-use FluxBB\Markdown\Node\ListBlock;
-use FluxBB\Markdown\Node\ListItem;
-use FluxBB\Markdown\Node\Node;
-use FluxBB\Markdown\Node\NodeVisitorInterface;
-use FluxBB\Markdown\Node\Paragraph;
-use FluxBB\Markdown\Node\HardBreak;
-use FluxBB\Markdown\Node\String;
-use FluxBB\Markdown\Node\StrongEmphasis;
+use FluxBB\CommonMark\Common\Tag;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Blockquote;
+use FluxBB\CommonMark\Node\Code;
+use FluxBB\CommonMark\Node\CodeBlock;
+use FluxBB\CommonMark\Node\Document;
+use FluxBB\CommonMark\Node\Emphasis;
+use FluxBB\CommonMark\Node\Heading;
+use FluxBB\CommonMark\Node\HorizontalRule;
+use FluxBB\CommonMark\Node\Image;
+use FluxBB\CommonMark\Node\Link;
+use FluxBB\CommonMark\Node\ListBlock;
+use FluxBB\CommonMark\Node\ListItem;
+use FluxBB\CommonMark\Node\Node;
+use FluxBB\CommonMark\Node\NodeVisitorInterface;
+use FluxBB\CommonMark\Node\Paragraph;
+use FluxBB\CommonMark\Node\HardBreak;
+use FluxBB\CommonMark\Node\String;
+use FluxBB\CommonMark\Node\StrongEmphasis;
 use SplStack;
 
 class Renderer implements NodeVisitorInterface

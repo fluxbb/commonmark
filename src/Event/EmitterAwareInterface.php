@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Event;
+namespace FluxBB\CommonMark\Event;
 
 /**
  * EmitterAwareInterface should be implemented by classes that depends on EmitterInterface

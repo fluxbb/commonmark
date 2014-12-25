@@ -1,11 +1,11 @@
 <?php
 
-namespace FluxBB\Markdown\Parser\Block;
+namespace FluxBB\CommonMark\Parser\Block;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\BlankLine;
-use FluxBB\Markdown\Node\Paragraph;
-use FluxBB\Markdown\Parser\AbstractParser;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\BlankLine;
+use FluxBB\CommonMark\Node\Paragraph;
+use FluxBB\CommonMark\Parser\AbstractParser;
 
 class ParagraphParser extends AbstractParser
 {

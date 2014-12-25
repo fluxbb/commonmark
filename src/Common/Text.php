@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Common;
+namespace FluxBB\CommonMark\Common;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>

@@ -1,11 +1,11 @@
 <?php
 
-namespace FluxBB\Markdown\Parser\Inline;
+namespace FluxBB\CommonMark\Parser\Inline;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\InlineNodeAcceptorInterface;
-use FluxBB\Markdown\Node\Link;
-use FluxBB\Markdown\Parser\AbstractInlineParser;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\InlineNodeAcceptorInterface;
+use FluxBB\CommonMark\Node\Link;
+use FluxBB\CommonMark\Parser\AbstractInlineParser;
 
 class LinkParser extends AbstractInlineParser
 {

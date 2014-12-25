@@ -1,12 +1,12 @@
 <?php
 
-namespace FluxBB\Markdown\Extension\Core;
+namespace FluxBB\CommonMark\Extension\Core;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Renderer\RendererAwareInterface;
-use FluxBB\Markdown\Renderer\RendererAwareTrait;
-use FluxBB\Markdown\Markdown;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareTrait;
+use FluxBB\CommonMark\Markdown;
 
 /**
  * Converts block and line code

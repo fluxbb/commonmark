@@ -1,8 +1,8 @@
 <?php
 
-namespace FluxBB\Markdown\Extension;
+namespace FluxBB\CommonMark\Extension;
 
-use FluxBB\Markdown\Markdown;
+use FluxBB\CommonMark\Markdown;
 
 /**
  * FluxBB extensions must implement ExtensionInterface to register listeners to Markdown

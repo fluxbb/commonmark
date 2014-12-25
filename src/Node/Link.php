@@ -1,8 +1,8 @@
 <?php
 
-namespace FluxBB\Markdown\Node;
+namespace FluxBB\CommonMark\Node;
 
-use FluxBB\Markdown\Common\Text;
+use FluxBB\CommonMark\Common\Text;
 
 class Link extends Node implements NodeAcceptorInterface
 {

@@ -1,7 +1,7 @@
 <?php
 
-use FluxBB\Markdown\Parser;
-use FluxBB\Markdown\Renderer\XhtmlRenderer;
+use FluxBB\CommonMark\Parser;
+use FluxBB\CommonMark\Renderer\XhtmlRenderer;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -36,7 +36,7 @@ class CoreExtensionsTest extends PHPUnit_Framework_TestCase
      * @param string $expected Expected output
      *
      * @dataProvider strictModeProvider
-     * @expectedException \FluxBB\Markdown\Exception\SyntaxError
+     * @expectedException \FluxBB\CommonMark\Exception\SyntaxError
      */
     public function testStrictMode($name, $markdown, $expected)
     {

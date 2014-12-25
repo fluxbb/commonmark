@@ -1,9 +1,9 @@
 <?php
 
-namespace FluxBB\Markdown\Diagnose;
+namespace FluxBB\CommonMark\Diagnose;
 
-use FluxBB\Markdown\Parser as BaseCiconia;
-use FluxBB\Markdown\Common\Text;
+use FluxBB\CommonMark\Parser as BaseCiconia;
+use FluxBB\CommonMark\Common\Text;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>

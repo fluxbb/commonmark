@@ -1,11 +1,11 @@
 <?php
 
-namespace FluxBB\Markdown\Renderer;
+namespace FluxBB\CommonMark\Renderer;
 
-use FluxBB\Markdown\Common\Tag;
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Event\EmitterAwareInterface;
-use FluxBB\Markdown\Event\EmitterAwareTrait;
+use FluxBB\CommonMark\Common\Tag;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Event\EmitterAwareInterface;
+use FluxBB\CommonMark\Event\EmitterAwareTrait;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

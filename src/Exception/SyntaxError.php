@@ -1,10 +1,10 @@
 <?php
 
-namespace FluxBB\Markdown\Exception;
+namespace FluxBB\CommonMark\Exception;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Markdown;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Markdown;
 
 /**
  * Syntax Error ("strict" mode)

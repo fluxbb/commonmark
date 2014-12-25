@@ -1,12 +1,12 @@
 <?php
 
-use FluxBB\Markdown\Parser;
-use FluxBB\Markdown\Extension\Gfm\FencedCodeBlockExtension;
-use FluxBB\Markdown\Extension\Gfm\InlineStyleExtension;
-use FluxBB\Markdown\Extension\Gfm\TableExtension;
-use FluxBB\Markdown\Extension\Gfm\TaskListExtension;
-use FluxBB\Markdown\Extension\Gfm\UrlAutoLinkExtension;
-use FluxBB\Markdown\Extension\Gfm\WhiteSpaceExtension;
+use FluxBB\CommonMark\Parser;
+use FluxBB\CommonMark\Extension\Gfm\FencedCodeBlockExtension;
+use FluxBB\CommonMark\Extension\Gfm\InlineStyleExtension;
+use FluxBB\CommonMark\Extension\Gfm\TableExtension;
+use FluxBB\CommonMark\Extension\Gfm\TaskListExtension;
+use FluxBB\CommonMark\Extension\Gfm\UrlAutoLinkExtension;
+use FluxBB\CommonMark\Extension\Gfm\WhiteSpaceExtension;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -58,7 +58,7 @@ class GfmExtensionsTest extends PHPUnit_Framework_TestCase
      * @param string $expected Expected output
      *
      * @dataProvider strictModeProvider
-     * @expectedException \FluxBB\Markdown\Exception\SyntaxError
+     * @expectedException \FluxBB\CommonMark\Exception\SyntaxError
      */
     public function testStrictMode($name, $markdown, $expected)
     {

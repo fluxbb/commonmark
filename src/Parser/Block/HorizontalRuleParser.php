@@ -1,10 +1,10 @@
 <?php
 
-namespace FluxBB\Markdown\Parser\Block;
+namespace FluxBB\CommonMark\Parser\Block;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\HorizontalRule;
-use FluxBB\Markdown\Parser\AbstractParser;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\HorizontalRule;
+use FluxBB\CommonMark\Parser\AbstractParser;
 
 class HorizontalRuleParser extends AbstractParser
 {

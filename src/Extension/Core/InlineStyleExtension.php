@@ -1,14 +1,14 @@
 <?php
 
-namespace FluxBB\Markdown\Extension\Core;
+namespace FluxBB\CommonMark\Extension\Core;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Event\EmitterAwareInterface;
-use FluxBB\Markdown\Event\EmitterAwareTrait;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Renderer\RendererAwareInterface;
-use FluxBB\Markdown\Renderer\RendererAwareTrait;
-use FluxBB\Markdown\Markdown;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Event\EmitterAwareInterface;
+use FluxBB\CommonMark\Event\EmitterAwareTrait;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareTrait;
+use FluxBB\CommonMark\Markdown;
 
 /**
  * Original source code from Markdown.pl

@@ -1,10 +1,10 @@
 <?php
 
-namespace FluxBB\Markdown\Extension\Gfm;
+namespace FluxBB\CommonMark\Extension\Gfm;
 
-use FluxBB\Markdown\Common\Tag;
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Extension\Core\ListExtension;
+use FluxBB\CommonMark\Common\Tag;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Extension\Core\ListExtension;
 
 /**
  * Further, lists can be turned into Task Lists by prefacing list items with [ ] or [x] (incomplete or complete, respectively).

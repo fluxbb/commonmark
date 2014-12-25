@@ -5,12 +5,12 @@ class SyntaxErrorTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @expectedException FluxBB\Markdown\Exception\SyntaxError
+     * @expectedException FluxBB\CommonMark\Exception\SyntaxError
      * @expectedExceptionMessage [link] Unable to find id "id" in Reference-style link at line 3
      */
     public function testSyntaxErrorPointsRightLineNumber()
     {
-        $md = new \FluxBB\Markdown\Parser();
+        $md = new \FluxBB\CommonMark\Parser();
         $md->render(<<< EOL
 This is a paragraph
 

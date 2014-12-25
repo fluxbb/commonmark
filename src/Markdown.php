@@ -1,13 +1,13 @@
 <?php
 
-namespace FluxBB\Markdown;
+namespace FluxBB\CommonMark;
 
-use FluxBB\Markdown\Common\Collection;
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Event\EmitterAwareInterface;
-use FluxBB\Markdown\Event\EmitterInterface;
-use FluxBB\Markdown\Event\EmitterTrait;
-use FluxBB\Markdown\Renderer\RendererInterface;
+use FluxBB\CommonMark\Common\Collection;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Event\EmitterAwareInterface;
+use FluxBB\CommonMark\Event\EmitterInterface;
+use FluxBB\CommonMark\Event\EmitterTrait;
+use FluxBB\CommonMark\Renderer\RendererInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

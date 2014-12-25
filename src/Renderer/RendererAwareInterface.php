@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Renderer;
+namespace FluxBB\CommonMark\Renderer;
 
 /**
  * RendererAwareInterface should be implemented by extension classes that depends on RendererInterface

@@ -1,9 +1,9 @@
 <?php
 
-namespace FluxBB\Markdown\Node;
+namespace FluxBB\CommonMark\Node;
 
-use FluxBB\Markdown\Common\Collection;
-use FluxBB\Markdown\Common\Text;
+use FluxBB\CommonMark\Common\Collection;
+use FluxBB\CommonMark\Common\Text;
 
 class Paragraph extends Node implements NodeAcceptorInterface
 {

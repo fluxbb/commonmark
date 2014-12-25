@@ -1,12 +1,12 @@
 <?php
 
-namespace FluxBB\Markdown\Extension\Textile;
+namespace FluxBB\CommonMark\Extension\Textile;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Markdown;
-use FluxBB\Markdown\Renderer\RendererAwareInterface;
-use FluxBB\Markdown\Renderer\RendererAwareTrait;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Markdown;
+use FluxBB\CommonMark\Renderer\RendererAwareInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareTrait;
 
 /**
  * [Experimental] Textile Headers

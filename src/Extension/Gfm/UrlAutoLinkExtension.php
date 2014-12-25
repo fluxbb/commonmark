@@ -1,10 +1,10 @@
 <?php
 
-namespace FluxBB\Markdown\Extension\Gfm;
+namespace FluxBB\CommonMark\Extension\Gfm;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Markdown;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Markdown;
 
 /**
  * Turn standard URL into markdown URL (http://example.com -> <http://example.com>)

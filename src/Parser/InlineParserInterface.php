@@ -1,9 +1,9 @@
 <?php
 
-namespace FluxBB\Markdown\Parser;
+namespace FluxBB\CommonMark\Parser;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Node\InlineNodeAcceptorInterface;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\InlineNodeAcceptorInterface;
 
 interface InlineParserInterface
 {

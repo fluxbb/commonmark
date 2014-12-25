@@ -1,7 +1,7 @@
 <?php
 
-use FluxBB\Markdown\Console\Application;
-use FluxBB\Markdown\Console\Command\MarkdownCommand;
+use FluxBB\CommonMark\Console\Application;
+use FluxBB\CommonMark\Console\Command\MarkdownCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
