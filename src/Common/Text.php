@@ -161,6 +161,30 @@ class Text implements \Serializable
     }
 
     /**
+     * Checks whether the text begins with $text
+     *
+     * @param string $text
+     *
+     * @return bool
+     */
+    public function startsWith($text)
+    {
+        return strpos($this->text, $text) === 0;
+    }
+
+    /**
+     * Checks whether the text ends with $text
+     *
+     * @param string $text
+     *
+     * @return bool
+     */
+    public function endsWith($text)
+    {
+        return $text === substr($this->text, -strlen($text));
+    }
+
+    /**
      * Convert special characters to HTML entities
      *
      * @param int $option

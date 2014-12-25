@@ -33,23 +33,29 @@ class LinkParser extends AbstractInlineParser
     {
         $content->handle(
             '{
-                #(               # wrap whole match in $1
-                  \[
-                    (' . $this->getNestedBrackets() . ')    # link text = $2
-                  \]
-                  \(            # literal paren
+                \[
+                    (' . $this->getNestedBrackets() . ')    # link text = $1
+                \]
+                \(                      # literal paren
                     [ \t]*
-                    <?(.*?)>?   # href = $3
+                    (                   # href = $2
+                        (?:[\S]*)
+                        |
+                        (?:<[^<>\\n]*>)
+                    )
                     [ \t]*
-                    (           # $4
-                      ([\'"])   # quote char = $5
-                      (.*?)     # Title = $6
-                      \4        # matching quote
-                    )?          # title is optional
-                  \)
-                #)
+                    (                   # $3
+                        ([\'"])         # quote char = $4
+                        (.*?)           # Title = $5
+                        \4              # matching quote
+                    )?                  # title is optional
+                \)
             }xs',
             function (Text $whole, Text $linkText, Text $url, Text $a = null, Text $q = null, Text $title = null) use ($target) {
+                if ($url->startsWith('<') && $url->endsWith('>')) {
+                    $url->ltrim('<')->rtrim('>')->replaceString(' ', '%20');
+                }
+
                 $target->addInline(new Link($url, $linkText, $title));
             },
             function (Text $part) use ($target) {
