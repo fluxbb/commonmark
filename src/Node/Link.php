@@ -17,11 +17,17 @@ class Link extends Node implements NodeAcceptorInterface
      */
     protected $content;
 
+    /**
+     * @var Text
+     */
+    protected $titleText;
 
-    public function __construct(Text $href, Text $content)
+
+    public function __construct(Text $href, Text $content, Text $titleText = null)
     {
         $this->href = $href;
         $this->content = $content;
+        $this->titleText = $titleText ?: new Text();
     }
 
     /**
@@ -38,6 +44,14 @@ class Link extends Node implements NodeAcceptorInterface
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * @return Text
+     */
+    public function getTitleText()
+    {
+        return $this->titleText;
     }
 
     /**

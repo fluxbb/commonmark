@@ -50,8 +50,7 @@ class LinkParser extends AbstractInlineParser
                 #)
             }xs',
             function (Text $whole, Text $linkText, Text $url, Text $a = null, Text $q = null, Text $title = null) use ($target) {
-                // TODO: title
-                $target->addInline(new Link($url, $linkText));
+                $target->addInline(new Link($url, $linkText, $title));
             },
             function (Text $part) use ($target) {
                 $this->next->parseInline($part, $target);
