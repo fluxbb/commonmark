@@ -95,6 +95,16 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
+     * Returns all indices of the collection
+     *
+     * @return array
+     */
+    public function keys()
+    {
+        return array_keys($this->objects);
+    }
+
+    /**
      * Remove
      *
      * @param string $name The index

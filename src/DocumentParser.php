@@ -105,7 +105,7 @@ class DocumentParser implements ParserInterface
      */
     protected function parseInlineContent(Document $root)
     {
-        $inlineParser = new InlineParser;
+        $inlineParser = new InlineParser($this->links, $this->titles);
         $root->visit($inlineParser);
     }
 

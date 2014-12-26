@@ -66,6 +66,36 @@ class LinkParser extends AbstractInlineParser
                 $target->addInline(new Link($url, $linkText, $title));
             },
             function (Text $part) use ($target) {
+                $this->parseReferenceLink($part, $target);
+            }
+        );
+    }
+
+    protected function parseReferenceLink(Text $content, InlineNodeAcceptorInterface $target)
+    {
+        $references = implode('|', array_map(function ($reference) {
+            return preg_quote($reference);
+        }, $this->context->getReferences()));
+
+        $content->handle(
+            '/
+                (?:
+                    \[
+                        (' . $this->getNestedBrackets() . ')    # link text = $1
+                    \]
+                )
+                [ \t\n]*
+                \[
+                    (' . $references . ')                       # label = $2
+                \]
+            /x',
+            function (Text $whole, Text $linkText, Text $label) use ($target) {
+                $url = $this->context->getReferenceUrl($label);
+                $title = $this->context->getReferenceTitle($label);
+
+                $target->addInline(new Link($url, $linkText, $title));
+            },
+            function (Text $part) use ($target) {
                 $this->next->parseInline($part, $target);
             }
         );

@@ -2,6 +2,7 @@
 
 namespace FluxBB\CommonMark;
 
+use FluxBB\CommonMark\Common\Collection;
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Blockquote;
 use FluxBB\CommonMark\Node\Code;
@@ -44,12 +45,40 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
      */
     protected $parser;
 
+    /**
+     * @var Collection
+     */
+    protected $links;
 
-    public function __construct()
+    /**
+     * @var Collection
+     */
+    protected $titles;
+
+
+    public function __construct(Collection $links, Collection $titles)
     {
+        $this->links = $links;
+        $this->titles = $titles;
+
         $this->registerDefaultParsers();
 
         $this->parser = $this->buildParserStack();
+    }
+
+    public function getReferences()
+    {
+        return $this->links->keys();
+    }
+
+    public function getReferenceUrl($reference)
+    {
+        return $this->links->get($reference);
+    }
+
+    public function getReferenceTitle($reference)
+    {
+        return $this->titles->exists($reference) ? $this->titles->get($reference) : new Text();
     }
 
     public function enterParagraph(Paragraph $paragraph)
@@ -181,6 +210,7 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
     {
         return function (InlineParserInterface $stack, AbstractInlineParser $parser) {
             $parser->setNextParser($stack);
+            $parser->setContext($this);
 
             return $parser;
         };
