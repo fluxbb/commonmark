@@ -83,8 +83,8 @@ class LinkParser extends AbstractInlineParser
                     \[
                         (' . $this->getNestedBrackets() . ')    # link text = $1
                     \]
+                    [ \t\n]*
                 )?
-                [ \t\n]*
                 \[
                     (' . $references . ')                       # label = $2
                 \]
