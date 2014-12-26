@@ -36,26 +36,32 @@ class LinkParser extends AbstractInlineParser
                 \[
                     (' . $this->getNestedBrackets() . ')    # link text = $1
                 \]
-                \(                      # literal paren
-                    [ \t]*
-                    (                   # href = $2
-                        (?:[\S]*)
+                \(                        # literal paren
+                    [ \t\n]*
+                    (?|                   # href = $2
+                        ([^\s<>]*)
                         |
-                        (?:<[^<>\\n]*>)
+                        <([^<>\\n]*)>
                     )
-                    [ \t]*
-                    (                   # $3
-                        ([\'"])         # quote char = $4
-                        (.*?)           # Title = $5
-                        \4              # matching quote
-                        [ \t]*
-                    )?                  # title is optional
+                    (?:
+                        [ \t\n]+
+                        (?|
+                            ([\'"])       # quote char = $3
+                            (.*)          # title = $4
+                            \3            # matching quote
+                            |
+                            \(            # opening paren
+                            ()            # empty quote = $3
+                            (.*)          # title = $4
+                            \)            # closing paren
+                        )
+                        [ \t\n]*
+                    )?                    # title is optional
                 \)
-            }xs',
-            function (Text $whole, Text $linkText, Text $url, Text $a = null, Text $q = null, Text $title = null) use ($target) {
-                if ($url->startsWith('<') && $url->endsWith('>')) {
-                    $url->ltrim('<')->rtrim('>')->replaceString(' ', '%20');
-                }
+            }x',
+            function (Text $whole, Text $linkText, Text $url, Text $q = null, Text $title = null) use ($target) {
+                // Replace special characters in the URL
+                $url->replaceString(' ', '%20');
 
                 $target->addInline(new Link($url, $linkText, $title));
             },
