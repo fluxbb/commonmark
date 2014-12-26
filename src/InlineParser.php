@@ -179,9 +179,9 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
     protected function registerDefaultParsers()
     {
         $this->parsers = [
+            new AutolinkParser(),
             new CodeSpanParser(),
             new LineBreakParser(),
-            new AutolinkParser(),
             new ImageParser(),
             new LinkParser(),
             new StrongEmphasisParser(),
