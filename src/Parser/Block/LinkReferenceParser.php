@@ -57,10 +57,13 @@ class LinkReferenceParser extends AbstractParser
         }xm', function (Text $whole, Text $id, Text $url, Text $title = null) {
             $id = $id->lower()->getString();
 
-            $this->links->set($id, $url);
+            // Throw away duplicate reference definitions
+            if ( ! $this->links->exists($id)) {
+                $this->links->set($id, $url);
 
-            if ($title) {
-                $this->titles->set($id, $title);
+                if ($title) {
+                    $this->titles->set($id, $title);
+                }
             }
         }, function (Text $part) {
             $this->next->parse($part);
