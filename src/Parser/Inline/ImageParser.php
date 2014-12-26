@@ -53,6 +53,41 @@ class ImageParser extends AbstractInlineParser
                 $target->addInline(new Image($url, $alt, $title));
             },
             function (Text $part) use ($target) {
+                $this->parseReferenceImage($part, $target);
+            }
+        );
+    }
+
+    protected function parseReferenceImage(Text $content, InlineNodeAcceptorInterface $target)
+    {
+        $references = implode('|', array_map(function ($reference) {
+            return preg_quote($reference);
+        }, $this->context->getReferences()));
+
+        $content->handle(
+            '{
+                (?<!\\\\)!
+                (?:
+                    \[
+                        (.*?)       # alt text = $1
+                    \]
+                    [ \t\n]*
+                )?
+                \[
+                    (' . $references .')
+                \]
+            }x',
+            function (Text $whole, Text $alt, Text $label) use ($target) {
+                $url = $this->context->getReferenceUrl($label);
+                $title = $this->context->getReferenceTitle($label);
+
+                if ($alt->isEmpty()) {
+                    $alt = $label;
+                }
+
+                $target->addInline(new Image($url, $alt, $title));
+            },
+            function (Text $part) use ($target) {
                 $this->next->parseInline($part, $target);
             }
         );
