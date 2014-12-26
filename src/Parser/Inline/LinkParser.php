@@ -83,7 +83,7 @@ class LinkParser extends AbstractInlineParser
                     \[
                         (' . $this->getNestedBrackets() . ')    # link text = $1
                     \]
-                )
+                )?
                 [ \t\n]*
                 \[
                     (' . $references . ')                       # label = $2
@@ -92,6 +92,10 @@ class LinkParser extends AbstractInlineParser
             function (Text $whole, Text $linkText, Text $label) use ($target) {
                 $url = $this->context->getReferenceUrl($label);
                 $title = $this->context->getReferenceTitle($label);
+
+                if ($linkText->isEmpty()) {
+                    $linkText = $label;
+                }
 
                 $target->addInline(new Link($url, $linkText, $title));
             },
