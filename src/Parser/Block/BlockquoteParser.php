@@ -4,9 +4,9 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Blockquote;
-use FluxBB\CommonMark\Parser\AbstractParser;
+use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
-class BlockquoteParser extends AbstractParser
+class BlockquoteParser extends AbstractBlockParser
 {
 
     /**
@@ -18,7 +18,7 @@ class BlockquoteParser extends AbstractParser
      * @param Text $content
      * @return void
      */
-    public function parse(Text $content)
+    public function parseBlock(Text $content)
     {
         $content->handle(
             '/
@@ -36,10 +36,10 @@ class BlockquoteParser extends AbstractParser
 
                 $this->stack->acceptBlockquote(new Blockquote());
 
-                $this->next->parse($content);
+                $this->next->parseBlock($content);
             },
             function (Text $part) {
-                $this->next->parse($part);
+                $this->next->parseBlock($part);
             }
         );
     }

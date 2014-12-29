@@ -6,7 +6,7 @@ use FluxBB\CommonMark\Common\Collection;
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Document;
 use FluxBB\CommonMark\Node\Stack;
-use FluxBB\CommonMark\Parser\AbstractParser;
+use FluxBB\CommonMark\Parser\AbstractBlockParser;
 use FluxBB\CommonMark\Parser\Block\AtxHeaderParser;
 use FluxBB\CommonMark\Parser\Block\BlockquoteParser;
 use FluxBB\CommonMark\Parser\Block\CodeBlockParser;
@@ -16,9 +16,9 @@ use FluxBB\CommonMark\Parser\Block\LinkReferenceParser;
 use FluxBB\CommonMark\Parser\Block\ListParser;
 use FluxBB\CommonMark\Parser\Block\ParagraphParser;
 use FluxBB\CommonMark\Parser\Block\SetextHeaderParser;
-use FluxBB\CommonMark\Parser\ParserInterface;
+use FluxBB\CommonMark\Parser\BlockParserInterface;
 
-class DocumentParser implements ParserInterface
+class DocumentParser implements BlockParserInterface
 {
 
     /**
@@ -32,7 +32,7 @@ class DocumentParser implements ParserInterface
     protected $titles;
 
     /**
-     * @var ParserInterface[]
+     * @var BlockParserInterface[]
      */
     protected $parsers = [];
 
@@ -69,7 +69,7 @@ class DocumentParser implements ParserInterface
         $text = new Text($markdown);
         $this->prepare($text);
 
-        $parser->parse($text);
+        $parser->parseBlock($text);
 
         $this->parseInlineContent($root);
 
@@ -132,7 +132,7 @@ class DocumentParser implements ParserInterface
     /**
      * Build the nested stack of closures that executes the parsers in the correct order.
      *
-     * @return ParserInterface
+     * @return BlockParserInterface
      */
     protected function buildParserStack()
     {
@@ -148,7 +148,7 @@ class DocumentParser implements ParserInterface
      */
     protected function prepareParser()
     {
-        return function (ParserInterface $stack, AbstractParser $parser) {
+        return function (BlockParserInterface $stack, AbstractBlockParser $parser) {
             $parser->setNextParser($stack);
             $parser->setStack($this->stack);
 
@@ -165,7 +165,7 @@ class DocumentParser implements ParserInterface
      * @param Text $content
      * @return void
      */
-    public function parse(Text $content)
+    public function parseBlock(Text $content)
     {
         // Do nothing. This is just the fallback.
     }

@@ -5,7 +5,7 @@ namespace FluxBB\CommonMark\Parser;
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\NodeAcceptorInterface;
 
-abstract class AbstractParser implements ParserInterface
+abstract class AbstractBlockParser implements BlockParserInterface
 {
 
     /**
@@ -14,12 +14,12 @@ abstract class AbstractParser implements ParserInterface
     protected $stack;
 
     /**
-     * @var ParserInterface
+     * @var BlockParserInterface
      */
     protected $next;
 
 
-    public function setNextParser(ParserInterface $next)
+    public function setNextParser(BlockParserInterface $next)
     {
         $this->next = $next;
     }

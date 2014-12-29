@@ -5,9 +5,9 @@ namespace FluxBB\CommonMark\Parser\Block;
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\ListBlock;
 use FluxBB\CommonMark\Node\ListItem;
-use FluxBB\CommonMark\Parser\AbstractParser;
+use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
-class ListParser extends AbstractParser
+class ListParser extends AbstractBlockParser
 {
 
     /**
@@ -19,7 +19,7 @@ class ListParser extends AbstractParser
      * @param Text $content
      * @return void
      */
-    public function parse(Text $content)
+    public function parseBlock(Text $content)
     {
         $pattern = '/^[ ]{0,3}-[ ]+/';
 
@@ -32,7 +32,7 @@ class ListParser extends AbstractParser
                 $this->stack->acceptListBlock($list);
             },
             function (Text $part) {
-                $this->next->parse($part);
+                $this->next->parseBlock($part);
             }
         );
     }

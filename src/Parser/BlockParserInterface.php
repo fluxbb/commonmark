@@ -4,7 +4,7 @@ namespace FluxBB\CommonMark\Parser;
 
 use FluxBB\CommonMark\Common\Text;
 
-interface ParserInterface
+interface BlockParserInterface
 {
 
     /**
@@ -16,6 +16,6 @@ interface ParserInterface
      * @param Text $content
      * @return void
      */
-    public function parse(Text $content);
+    public function parseBlock(Text $content);
 
 }

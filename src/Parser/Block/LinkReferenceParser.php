@@ -4,9 +4,9 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Collection;
 use FluxBB\CommonMark\Common\Text;
-use FluxBB\CommonMark\Parser\AbstractParser;
+use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
-class LinkReferenceParser extends AbstractParser
+class LinkReferenceParser extends AbstractBlockParser
 {
 
     /**
@@ -35,7 +35,7 @@ class LinkReferenceParser extends AbstractParser
      * @param Text $content
      * @return void
      */
-    public function parse(Text $content)
+    public function parseBlock(Text $content)
     {
         $content->handle('{
             ^[ ]{0,3}\[(.+)\]:   # id = $1
@@ -66,7 +66,7 @@ class LinkReferenceParser extends AbstractParser
                 }
             }
         }, function (Text $part) {
-            $this->next->parse($part);
+            $this->next->parseBlock($part);
         });
     }
 

@@ -4,9 +4,9 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\CodeBlock;
-use FluxBB\CommonMark\Parser\AbstractParser;
+use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
-class FencedCodeBlockParser extends AbstractParser
+class FencedCodeBlockParser extends AbstractBlockParser
 {
 
     /**
@@ -18,7 +18,7 @@ class FencedCodeBlockParser extends AbstractParser
      * @param Text $content
      * @return void
      */
-    public function parse(Text $content)
+    public function parseBlock(Text $content)
     {
         $content->handle('{
             ^(?:
@@ -43,7 +43,7 @@ class FencedCodeBlockParser extends AbstractParser
 
             $this->stack->acceptCodeBlock(new CodeBlock($code, $language));
         }, function (Text $part) {
-            $this->next->parse($part);
+            $this->next->parseBlock($part);
         });
     }
 

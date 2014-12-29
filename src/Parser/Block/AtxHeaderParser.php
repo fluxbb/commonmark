@@ -4,9 +4,9 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Heading;
-use FluxBB\CommonMark\Parser\AbstractParser;
+use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
-class AtxHeaderParser extends AbstractParser
+class AtxHeaderParser extends AbstractBlockParser
 {
 
     /**
@@ -18,7 +18,7 @@ class AtxHeaderParser extends AbstractParser
      * @param Text $content
      * @return void
      */
-    public function parse(Text $content)
+    public function parseBlock(Text $content)
     {
         $content->handle(
             '{
@@ -34,7 +34,7 @@ class AtxHeaderParser extends AbstractParser
                 $this->stack->acceptHeading(new Heading($content->trim(), $level));
             },
             function (Text $part) {
-                $this->next->parse($part);
+                $this->next->parseBlock($part);
             }
         );
     }

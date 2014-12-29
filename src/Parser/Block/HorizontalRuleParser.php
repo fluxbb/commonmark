@@ -4,9 +4,9 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\HorizontalRule;
-use FluxBB\CommonMark\Parser\AbstractParser;
+use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
-class HorizontalRuleParser extends AbstractParser
+class HorizontalRuleParser extends AbstractBlockParser
 {
 
     /**
@@ -18,7 +18,7 @@ class HorizontalRuleParser extends AbstractParser
      * @param Text $content
      * @return void
      */
-    public function parse(Text $content)
+    public function parseBlock(Text $content)
     {
         $this->parseStars($content);
     }
@@ -48,7 +48,7 @@ class HorizontalRuleParser extends AbstractParser
         $this->handle(
             $content, '_',
             function (Text $part) {
-                $this->next->parse($part);
+                $this->next->parseBlock($part);
             }
         );
     }
