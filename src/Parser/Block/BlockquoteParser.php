@@ -21,8 +21,19 @@ class BlockquoteParser extends AbstractParser
     public function parse(Text $content)
     {
         $content->handle(
-            '/^[ ]{0,3}\>[ ]?(.+)/m',
-            function (Text $whole, Text $content) {
+            '/
+                (
+                    [ ]{0,3}
+                    \>
+                    [ ]?
+                    [^\n]+
+                    (\n|$)
+                )+
+            /x',
+            function (Text $content) {
+                // Remove block quote marker plus surrounding whitespace on each line
+                $content->replace('/^[ ]{0,3}\>[ ]?/m', '');
+
                 $this->stack->acceptBlockquote(new Blockquote());
 
                 $this->next->parse($content);

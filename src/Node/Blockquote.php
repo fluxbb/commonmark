@@ -21,7 +21,7 @@ class Blockquote extends Container implements NodeAcceptorInterface
 
     public function acceptBlankLine(BlankLine $blankLine)
     {
-        return $this->parent;
+        return $this->addChild($blankLine);
     }
 
     public function acceptHorizontalRule(HorizontalRule $horizontalRule)
