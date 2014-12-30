@@ -22,7 +22,7 @@ script:
   - mkdir -p build/logs
   - vendor/bin/phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
   - php vendor/bin/security-checker security:check composer.lock
-  - cd spec && python test/spec_tests.py --program ../bin/commonmark
+  - cd spec && python3 test/spec_tests.py --program ../bin/commonmark
 
 after_success:
   - composer require --no-update composer/composer:*@dev
