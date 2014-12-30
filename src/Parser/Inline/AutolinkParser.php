@@ -37,7 +37,7 @@ class AutolinkParser extends AbstractInlineParser
             // TODO: Also disallow control characters in $url
             '{<((?:'.$protocols.'):[^<>\s]*)>}i',
             function (Text $w, Text $url) use ($target) {
-                $target->addInline(new Link($url, $url->copy()));
+                $target->addInline(new Link($url, $url->decodeEntities()));
             },
             function (Text $part) use ($target) {
                 $this->parseEmail($part, $target);
