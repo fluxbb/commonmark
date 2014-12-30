@@ -27,6 +27,7 @@ class ParagraphParser extends AbstractBlockParser
                 if ($line->copy()->trim()->isEmpty()) {
                     $this->stack->acceptBlankLine(new BlankLine($line));
                 } else {
+                    $line->decodeEntities();
                     $this->stack->acceptParagraph(new Paragraph($line));
                 }
             },

@@ -199,6 +199,18 @@ class Text implements \Serializable
     }
 
     /**
+     * Convert HTML entities to their corresponding UTF-8 characters.
+     *
+     * @return Text
+     */
+    public function decodeEntities()
+    {
+        $this->text = html_entity_decode($this->text, ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+
+        return $this;
+    }
+
+    /**
      * Perform a regular expression search and replace
      *
      * @param string          $pattern     The pattern to search for. It can be either a string or an array with strings.
