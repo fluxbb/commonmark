@@ -61,8 +61,11 @@ class LinkReferenceParser extends AbstractBlockParser
             if ( ! $this->links->exists($id)) {
                 $this->links->set($id, $url);
 
+                $url->decodeEntities();
+                $title->decodeEntities();
+
                 if ($title) {
-                    $this->titles->set($id, $title->decodeEntities());
+                    $this->titles->set($id, $title);
                 }
             }
         }, function (Text $part) {
