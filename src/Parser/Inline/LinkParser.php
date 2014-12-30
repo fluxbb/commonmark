@@ -63,6 +63,8 @@ class LinkParser extends AbstractInlineParser
                 // Replace special characters in the URL
                 $url->replaceString(' ', '%20');
 
+                $title->decodeEntities();
+
                 $target->addInline(new Link($url, $linkText, $title));
             },
             function (Text $part) use ($target) {
