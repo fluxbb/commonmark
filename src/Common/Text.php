@@ -193,7 +193,7 @@ class Text implements \Serializable
      */
     public function escapeHtml($option = ENT_QUOTES)
     {
-        $this->text = htmlspecialchars($this->text, $option, 'UTF-8', false);
+        $this->text = htmlspecialchars($this->text, $option, 'UTF-8', true);
 
         return $this;
     }
