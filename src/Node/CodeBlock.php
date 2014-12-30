@@ -13,15 +13,15 @@ class CodeBlock extends Node implements NodeAcceptorInterface
     protected $content;
 
     /**
-     * @var string
+     * @var Text
      */
     protected $language;
 
 
-    public function __construct(Text $text, $language = '')
+    public function __construct(Text $text, Text $language = null)
     {
         $this->content = $text;
-        $this->language = $language;
+        $this->language = $language ?: new Text();
     }
 
     public function getContent()
@@ -31,7 +31,7 @@ class CodeBlock extends Node implements NodeAcceptorInterface
 
     public function hasLanguage()
     {
-        return ! empty($this->language);
+        return ! $this->language->isEmpty();
     }
 
     public function getLanguage()

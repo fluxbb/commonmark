@@ -34,7 +34,8 @@ class FencedCodeBlockParser extends AbstractBlockParser
         }msx', function (Text $whole, Text $whitespace, Text $fence, Text $fenceChar, Text $lang, Text $code) {
             $leading = $whitespace->getLength();
 
-            $language = explode(' ', $lang->trim())[0];
+            $language = new Text(explode(' ', $lang->trim())[0]);
+            $language->decodeEntities();
 
             // Remove all leading whitespace from content lines
             if ($leading > 0) {
