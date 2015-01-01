@@ -64,7 +64,10 @@ class LinkParser extends AbstractInlineParser
                 $url->replaceString(' ', '%20');
 
                 $url->decodeEntities();
-                $title->decodeEntities();
+
+                if ($title) {
+                    $title->decodeEntities();
+                }
 
                 $target->addInline(new Link($url, $linkText, $title));
             },
