@@ -34,7 +34,7 @@ class HTMLBlockParser extends AbstractBlockParser
                 \<!\[CDATA\[.*?\]\]\>       # a CDATA section
             )
             .*?                      # match everything until...
-            (\\n[ ]*\\n|\Z)          # we encounter an empty line or the end
+            (\\n[ ]*(?=\\n)|\Z)      # we encounter an empty line or the end
         }imsx', function (Text $content) {
             $block = new HTMLBlock($content);
 
