@@ -26,7 +26,7 @@ class HTMLBlockParser extends AbstractBlockParser
             ^                        # starts at the beginning or with a newline
             [ ]{0,3}                 # up to 3 leading spaces allowed
             (?:                      # start with one of the following...
-                \<(?:'.$tags.')\s*/?\>|     # an opening HTML tag, or
+                \<(?:'.$tags.')\s*/?\>?|    # an opening HTML tag, or
                 \</(?:'.$tags.')\s*\>|      # a closing HTML tag, or
                 \<!--.*?--\>|               # a HTML comment, or
                 \<\?.*?\?\>|                # a processing instruction, or
