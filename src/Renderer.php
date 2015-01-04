@@ -123,7 +123,7 @@ class Renderer implements NodeVisitorInterface
 
     public function visitHTMLBlock(HTMLBlock $htmlBlock)
     {
-        $this->buffer->append($htmlBlock->getContent());
+        $this->buffer->append($htmlBlock->getContent())->append("\n");
     }
 
     public function visitCodeBlock(CodeBlock $codeBlock)
