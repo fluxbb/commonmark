@@ -16,7 +16,7 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "FluxBB\\Markdown\\": "src"
+            "FluxBB\\CommonMark\\": "src"
         }
     },
     "require": {

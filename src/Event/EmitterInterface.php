@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Event;
+namespace FluxBB\CommonMark\Event;
 
 /**
  * Central event manager (heavily inspired by Node.js's EventEmitter)

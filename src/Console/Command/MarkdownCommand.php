@@ -1,16 +1,16 @@
 <?php
 
-namespace FluxBB\Markdown\Console\Command;
+namespace FluxBB\CommonMark\Console\Command;
 
-use FluxBB\Markdown\Parser;
-use FluxBB\Markdown\Exception\SyntaxError;
-use FluxBB\Markdown\Extension\Gfm\FencedCodeBlockExtension;
-use FluxBB\Markdown\Extension\Gfm\InlineStyleExtension;
-use FluxBB\Markdown\Extension\Gfm\TableExtension;
-use FluxBB\Markdown\Extension\Gfm\TaskListExtension;
-use FluxBB\Markdown\Extension\Gfm\UrlAutoLinkExtension;
-use FluxBB\Markdown\Extension\Gfm\WhiteSpaceExtension;
-use FluxBB\Markdown\Renderer\XhtmlRenderer;
+use FluxBB\CommonMark\Parser;
+use FluxBB\CommonMark\Exception\SyntaxError;
+use FluxBB\CommonMark\Extension\Gfm\FencedCodeBlockExtension;
+use FluxBB\CommonMark\Extension\Gfm\InlineStyleExtension;
+use FluxBB\CommonMark\Extension\Gfm\TableExtension;
+use FluxBB\CommonMark\Extension\Gfm\TaskListExtension;
+use FluxBB\CommonMark\Extension\Gfm\UrlAutoLinkExtension;
+use FluxBB\CommonMark\Extension\Gfm\WhiteSpaceExtension;
+use FluxBB\CommonMark\Renderer\XhtmlRenderer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\HelpCommand;
 use Symfony\Component\Console\Helper\TableHelper;
@@ -131,12 +131,12 @@ class MarkdownCommand extends Command
      *
      * @param InputInterface $input The InputInterface instance
      *
-     * @return Parser|\FluxBB\Markdown\Diagnose\Ciconia
+     * @return Parser|\FluxBB\CommonMark\Diagnose\Ciconia
      */
     protected function createCiconia(InputInterface $input)
     {
         if ($input->getOption('diagnose')) {
-            $ciconia = new \FluxBB\Markdown\Diagnose\Ciconia();
+            $ciconia = new \FluxBB\CommonMark\Diagnose\Ciconia();
         } else {
             $ciconia = new Parser();
         }
@@ -202,12 +202,12 @@ class MarkdownCommand extends Command
      * Diagnose
      *
      * @param OutputInterface           $output
-     * @param \FluxBB\Markdown\Diagnose\Ciconia $ciconia
+     * @param \FluxBB\CommonMark\Diagnose\Ciconia $ciconia
      * @param string                    $content
      *
      * @return int
      */
-    protected function diagnose(OutputInterface $output, \FluxBB\Markdown\Diagnose\Ciconia $ciconia, $content)
+    protected function diagnose(OutputInterface $output, \FluxBB\CommonMark\Diagnose\Ciconia $ciconia, $content)
     {
         /* @var TableHelper $table */
         $table = $this->getHelper('table');

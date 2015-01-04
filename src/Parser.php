@@ -1,16 +1,16 @@
 <?php
 
-namespace FluxBB\Markdown;
+namespace FluxBB\CommonMark;
 
-use FluxBB\Markdown\Common\Collection;
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Event\EmitterAwareInterface;
-use FluxBB\Markdown\Extension\Core;
-use FluxBB\Markdown\Extension\Gfm;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Renderer\RendererAwareInterface;
-use FluxBB\Markdown\Renderer\RendererInterface;
-use FluxBB\Markdown\Renderer\XhtmlRenderer;
+use FluxBB\CommonMark\Common\Collection;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Event\EmitterAwareInterface;
+use FluxBB\CommonMark\Extension\Core;
+use FluxBB\CommonMark\Extension\Gfm;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareInterface;
+use FluxBB\CommonMark\Renderer\RendererInterface;
+use FluxBB\CommonMark\Renderer\XhtmlRenderer;
 
 /**
  * Ciconia - The New Markdown Parser
@@ -73,7 +73,7 @@ class Parser
     }
 
     /**
-     * @param \FluxBB\Markdown\Renderer\RendererInterface $renderer
+     * @param \FluxBB\CommonMark\Renderer\RendererInterface $renderer
      *
      * @return Parser
      */
@@ -85,7 +85,7 @@ class Parser
     }
 
     /**
-     * @return \FluxBB\Markdown\Renderer\RendererInterface
+     * @return \FluxBB\CommonMark\Renderer\RendererInterface
      */
     public function getRenderer()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Event;
+namespace FluxBB\CommonMark\Event;
 
 /**
  * Implementation of EmitterAwareInterface

@@ -1,11 +1,11 @@
 <?php
 
-namespace FluxBB\Markdown\Extension\Html;
+namespace FluxBB\CommonMark\Extension\Html;
 
-use FluxBB\Markdown\Common\Tag;
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Markdown;
+use FluxBB\CommonMark\Common\Tag;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Markdown;
 
 /**
  * [Experimental] Emmet-style HTML attributes

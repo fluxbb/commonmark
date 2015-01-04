@@ -1,7 +1,7 @@
 <?php
 
 
-use FluxBB\Markdown\Console\Application;
+use FluxBB\CommonMark\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 
 class ApplicationTest extends \PHPUnit_Framework_TestCase

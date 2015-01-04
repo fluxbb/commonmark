@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Common;
+namespace FluxBB\CommonMark\Common;
 
 /**
  * HTML/XHTML/XML tag definition
@@ -43,7 +43,7 @@ class Tag
     /**
      * @var string
      */
-    private $emptyTagSuffix = '>';
+    private $emptyTagSuffix = ' />';
 
     /**
      * Creates a new Tag object
@@ -67,6 +67,34 @@ class Tag
         $this->name       = $name;
         $this->attributes = new Collection();
         $this->text       = new Text();
+    }
+
+    /**
+     * Block tag constructor
+     *
+     * @param string $name
+     * @return static
+     */
+    public static function block($name)
+    {
+        $tag = new static($name);
+        $tag->setType(static::TYPE_BLOCK);
+
+        return $tag;
+    }
+
+    /**
+     * Inline tag constructor
+     *
+     * @param string $name
+     * @return static
+     */
+    public static function inline($name)
+    {
+        $tag = new static($name);
+        $tag->setType(static::TYPE_INLINE);
+
+        return $tag;
     }
 
     /**

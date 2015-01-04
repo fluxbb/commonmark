@@ -1,7 +1,7 @@
 <?php
 
-use FluxBB\Markdown\Markdown;
-use FluxBB\Markdown\Renderer\HtmlRenderer;
+use FluxBB\CommonMark\Markdown;
+use FluxBB\CommonMark\Renderer\HtmlRenderer;
 
 class MarkdownTest extends PHPUnit_Framework_TestCase
 {

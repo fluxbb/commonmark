@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Console\Command;
+namespace FluxBB\CommonMark\Console\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressHelper;

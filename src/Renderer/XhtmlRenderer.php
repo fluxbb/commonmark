@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Renderer;
+namespace FluxBB\CommonMark\Renderer;
 
 /**
  * Renders markdown result to XHTML format

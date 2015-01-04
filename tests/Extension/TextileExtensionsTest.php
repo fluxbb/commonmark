@@ -1,8 +1,8 @@
 <?php
-use FluxBB\Markdown\Parser;
-use FluxBB\Markdown\Extension\Textile\CommentExtension;
-use FluxBB\Markdown\Extension\Textile\DefinitionListExtension;
-use FluxBB\Markdown\Extension\Textile\HeaderExtension;
+use FluxBB\CommonMark\Parser;
+use FluxBB\CommonMark\Extension\Textile\CommentExtension;
+use FluxBB\CommonMark\Extension\Textile\DefinitionListExtension;
+use FluxBB\CommonMark\Extension\Textile\HeaderExtension;
 use Symfony\Component\Finder\Finder;
 
 /**

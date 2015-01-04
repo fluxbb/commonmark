@@ -1,7 +1,7 @@
 <?php
 
-use FluxBB\Markdown\Parser;
-use FluxBB\Markdown\Renderer\XhtmlRenderer;
+use FluxBB\CommonMark\Parser;
+use FluxBB\CommonMark\Renderer\XhtmlRenderer;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -21,7 +21,7 @@ class HtmlExtensionsTest extends PHPUnit_Framework_TestCase
     {
         $ciconia = new Parser(new XhtmlRenderer());
         $ciconia->addExtensions([
-            new \FluxBB\Markdown\Extension\Html\AttributesExtension()
+            new \FluxBB\CommonMark\Extension\Html\AttributesExtension()
         ]);
 
         $expected = str_replace("\r\n", "\n", $expected);

@@ -1,12 +1,12 @@
 <?php
 
-namespace FluxBB\Markdown\Extension\Core;
+namespace FluxBB\CommonMark\Extension\Core;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Renderer\RendererAwareInterface;
-use FluxBB\Markdown\Renderer\RendererAwareTrait;
-use FluxBB\Markdown\Markdown;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareTrait;
+use FluxBB\CommonMark\Markdown;
 
 /**
  * Original source code from Markdown.pl
@@ -84,7 +84,9 @@ class WhitespaceExtension implements ExtensionInterface, RendererAwareInterface
      */
     public function processHardBreak(Text $text)
     {
-        $text->replace('/ {2,}\n/', $this->getRenderer()->renderLineBreak() .  "\n");
+        $text->replace('/(\\\\\n)|( {2,}\n)/', function () {
+            return $this->getRenderer()->renderLineBreak() . "\n";
+        });
     }
 
     /**

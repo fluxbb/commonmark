@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use FluxBB\Markdown\Console\Application;
+use FluxBB\CommonMark\Console\Application;
 
 if (PHP_SAPI !== 'cli') {
     echo 'The CommonMark parser command should be run on the CLI environment.' . PHP_EOL;
@@ -22,5 +22,6 @@ foreach($paths as $path) {
     }
 }
 
-$app = new Application('FluxBB CommonMark', \FluxBB\Markdown\Parser::VERSION);
+$app = new Application('FluxBB CommonMark', \FluxBB\CommonMark\Parser::VERSION);
+$app->add(new \FluxBB\CommonMark\Console\Command\CommonMarkCommand());
 $app->run();

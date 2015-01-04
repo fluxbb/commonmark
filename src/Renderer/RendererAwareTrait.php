@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Renderer;
+namespace FluxBB\CommonMark\Renderer;
 
 /**
  * Implementation of RendererAwareInterface

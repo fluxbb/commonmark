@@ -1,6 +1,6 @@
 <?php
 
-use FluxBB\Markdown\Common\Text;
+use FluxBB\CommonMark\Common\Text;
 
 class TextTest extends \PHPUnit_Framework_TestCase
 {

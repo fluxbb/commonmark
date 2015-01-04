@@ -1,14 +1,14 @@
 <?php
 
-namespace FluxBB\Markdown\Extension\Core;
+namespace FluxBB\CommonMark\Extension\Core;
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Event\EmitterAwareInterface;
-use FluxBB\Markdown\Event\EmitterAwareTrait;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Renderer\RendererAwareInterface;
-use FluxBB\Markdown\Renderer\RendererAwareTrait;
-use FluxBB\Markdown\Markdown;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Event\EmitterAwareInterface;
+use FluxBB\CommonMark\Event\EmitterAwareTrait;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareTrait;
+use FluxBB\CommonMark\Markdown;
 
 /**
  * Original source code from Markdown.pl
@@ -42,16 +42,21 @@ class InlineStyleExtension implements ExtensionInterface, RendererAwareInterface
             return;
         }
 
-        /** @noinspection PhpUnusedParameterInspection */
-        $text->replace('{ ([^\*_\s]?) (\*\*|__) (?=\S) (.+?[*_]*) (?<=\S) \2 ([^\*_\s]?) }sx', function (Text $w, Text $prevChar, Text $a, Text $target, Text $nextChar) {
-            if (!$prevChar->isEmpty() && !$nextChar->isEmpty() && $target->contains(' ')) {
-                $this->getEmitter()->emit('escape.special_chars', [$w->replaceString(['*', '_'], ['\\*', '\\_'])]);
-
-                return $w;
+        // Stars
+        $text->replace(
+            '{ (\*\*) (?![\s*]) (.+) (?<![\s*]) \1 }sx',
+            function (Text $w, Text $a, Text $target) {
+                return $this->getRenderer()->renderBoldText($target);
             }
+        );
 
-            return $prevChar . $this->getRenderer()->renderBoldText($target) . $nextChar;
-        });
+        // Underscores
+        $text->replace(
+            '{ (?<![A-Za-z0-9]) (__) (?![\s_]) (.+) (?<![\s_]) \1 (?![A-Za-z0-9]) }sx',
+            function (Text $w, Text $a, Text $target) {
+                return $this->getRenderer()->renderBoldText($target);
+            }
+        );
     }
 
     /**
@@ -63,16 +68,21 @@ class InlineStyleExtension implements ExtensionInterface, RendererAwareInterface
             return;
         }
 
-        /** @noinspection PhpUnusedParameterInspection */
-        $text->replace('{ ([^\*_\s]?) (\*|_) (?=\S) (.+?) (?<=\S) \2 ([^\*_\s]?) }sx', function (Text $w, Text $prevChar, Text $a, Text $target, Text $nextChar) {
-            if (!$prevChar->isEmpty() && !$nextChar->isEmpty() && $target->contains(' ')) {
-                $this->getEmitter()->emit('escape.special_chars', [$w->replaceString(['*', '_'], ['\\*', '\\_'])]);
-
-                return $w;
+        // Stars
+        $text->replace(
+            '{ (\*) (?![\s*]) (.+?) (?<![\s*]) \1 }sx',
+            function (Text $w, Text $a, Text $target) {
+                return $this->getRenderer()->renderItalicText($target);
             }
+        );
 
-            return $prevChar . $this->getRenderer()->renderItalicText($target) . $nextChar;
-        });
+        // Underscores
+        $text->replace(
+            '{ (?<![A-Za-z0-9]) (_) (?![\s_]) (.+?) (?<![\s_]) \1 (?![A-Za-z0-9]) }sx',
+            function (Text $w, Text $a, Text $target) {
+                return $this->getRenderer()->renderItalicText($target);
+            }
+        );
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-use FluxBB\Markdown\Common\Collection;
+use FluxBB\CommonMark\Common\Collection;
 
 /**
  * Tests FluxBB\Common\Collection
@@ -36,13 +36,13 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testContains()
     {
-        $text = new \FluxBB\Markdown\Common\Text('item1');
+        $text = new \FluxBB\CommonMark\Common\Text('item1');
 
         $collection = new Collection();
         $collection->add($text);
 
         $this->assertTrue($collection->contains($text));
-        $this->assertFalse($collection->contains(new \FluxBB\Markdown\Common\Text('item1')));
+        $this->assertFalse($collection->contains(new \FluxBB\CommonMark\Common\Text('item1')));
     }
 
     public function testEach()

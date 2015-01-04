@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use FluxBB\Markdown\Console\Command\CompileCommand;
+use FluxBB\CommonMark\Console\Command\CompileCommand;
 use Symfony\Component\Console\Application;
 
 if (PHP_SAPI !== 'cli') {
@@ -23,6 +23,6 @@ foreach($paths as $path) {
     }
 }
 
-$app = new Application('Ciconia Compiler', \FluxBB\Markdown\Parser::VERSION);
+$app = new Application('Ciconia Compiler', \FluxBB\CommonMark\Parser::VERSION);
 $app->add(new CompileCommand());
 $app->run();

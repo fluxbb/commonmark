@@ -1,8 +1,8 @@
 <?php
 
-namespace FluxBB\Markdown\Console;
+namespace FluxBB\CommonMark\Console;
 
-use FluxBB\Markdown\Console\Command\MarkdownCommand;
+use FluxBB\CommonMark\Console\Command\MarkdownCommand;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -32,7 +32,7 @@ class Application extends BaseApplication
      */
     protected function getCommandName(InputInterface $input)
     {
-        return 'markdown';
+        return 'cm';
     }
 
     /**

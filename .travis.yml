@@ -15,14 +15,14 @@ sudo: false
 before_script:
   - travis_retry composer require --no-update satooshi/php-coveralls:dev-master sensiolabs/security-checker:dev-master
   - travis_retry composer update --dev --no-interaction
-  - git clone https://github.com/jgm/CommonMark.git spec
+  - wget https://github.com/jgm/CommonMark/archive/0.13.tar.gz && tar -xvf 0.13.tar.gz
   - chmod a+x bin/commonmark
 
 script:
   - mkdir -p build/logs
   - vendor/bin/phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
   - php vendor/bin/security-checker security:check composer.lock
-  - cd spec && python test/spec_tests.py --program ../bin/commonmark
+  - cd CommonMark-0.13 && python test/spec_tests.py --program ../bin/commonmark
 
 after_success:
   - composer require --no-update composer/composer:*@dev

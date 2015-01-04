@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Markdown\Common;
+namespace FluxBB\CommonMark\Common;
 
 /**
  * @author Kazuyuki Hayashi <hayashi@valnur.net>
@@ -161,6 +161,30 @@ class Text implements \Serializable
     }
 
     /**
+     * Checks whether the text begins with $text
+     *
+     * @param string $text
+     *
+     * @return bool
+     */
+    public function startsWith($text)
+    {
+        return strpos($this->text, $text) === 0;
+    }
+
+    /**
+     * Checks whether the text ends with $text
+     *
+     * @param string $text
+     *
+     * @return bool
+     */
+    public function endsWith($text)
+    {
+        return $text === substr($this->text, -strlen($text));
+    }
+
+    /**
      * Convert special characters to HTML entities
      *
      * @param int $option
@@ -169,7 +193,19 @@ class Text implements \Serializable
      */
     public function escapeHtml($option = ENT_QUOTES)
     {
-        $this->text = htmlspecialchars($this->text, $option, 'UTF-8', false);
+        $this->text = htmlspecialchars($this->text, $option, 'UTF-8', true);
+
+        return $this;
+    }
+
+    /**
+     * Convert HTML entities to their corresponding UTF-8 characters.
+     *
+     * @return Text
+     */
+    public function decodeEntities()
+    {
+        $this->text = html_entity_decode($this->text, ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
 
         return $this;
     }
@@ -196,6 +232,45 @@ class Text implements \Serializable
         } else {
             $this->text = preg_replace($pattern, $replacement, $this->text);
         }
+
+        return $this;
+    }
+
+    /**
+     * Find the given regular expression and execute callbacks on it and its surroundings.
+     *
+     * @param string   $pattern       The pattern to search for. It can be either a string or an array with strings.
+     * @param callable $resultHandler A callback that will be passed an array of matched elements in the subject string.
+     * @param callable $partHandler   A callback that will be passed any remaining parts of the subject string.
+     *
+     * @return Text
+     */
+    public function handle($pattern, $resultHandler, $partHandler)
+    {
+        $nodes = [];
+
+        $text = preg_replace_callback($pattern, function ($matches) use (&$nodes) {
+            $nodes[] = $matches;
+
+            return "\0";
+        }, $this->text);
+
+        $parts = explode("\0", $text);
+
+        $match = 0;
+        foreach ($nodes as $node) {
+            if ($parts[$match] !== '') $partHandler(new static($parts[$match]));
+
+            $args = array_map(function ($item) {
+                return new static($item);
+            }, $node);
+
+            call_user_func_array($resultHandler, $args);
+
+            $match++;
+        }
+
+        if ($parts[$match] !== '') $partHandler(new static($parts[$match]));
 
         return $this;
     }
@@ -280,6 +355,16 @@ class Text implements \Serializable
     public function getString()
     {
         return $this->text;
+    }
+
+    /**
+     * Copy this object.
+     *
+     * @return Text
+     */
+    public function copy()
+    {
+        return clone $this;
     }
 
     /**

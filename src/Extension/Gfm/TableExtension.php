@@ -1,16 +1,16 @@
 <?php
 
-namespace FluxBB\Markdown\Extension\Gfm;
+namespace FluxBB\CommonMark\Extension\Gfm;
 
-use FluxBB\Markdown\Common\Collection;
-use FluxBB\Markdown\Common\Tag;
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Exception\SyntaxError;
-use FluxBB\Markdown\Extension\ExtensionInterface;
-use FluxBB\Markdown\Markdown;
-use FluxBB\Markdown\Renderer\HtmlRenderer;
-use FluxBB\Markdown\Renderer\RendererAwareInterface;
-use FluxBB\Markdown\Renderer\RendererAwareTrait;
+use FluxBB\CommonMark\Common\Collection;
+use FluxBB\CommonMark\Common\Tag;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Exception\SyntaxError;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Markdown;
+use FluxBB\CommonMark\Renderer\HtmlRenderer;
+use FluxBB\CommonMark\Renderer\RendererAwareInterface;
+use FluxBB\CommonMark\Renderer\RendererAwareTrait;
 
 /**
  * Gfm tables
@@ -136,7 +136,7 @@ class TableExtension implements ExtensionInterface, RendererAwareInterface
     /**
      * @param Collection $rules
      *
-     * @return Collection|\FluxBB\Markdown\Common\Tag[]
+     * @return Collection|\FluxBB\CommonMark\Common\Tag[]
      */
     protected function createBaseTags(Collection $rules)
     {
@@ -163,7 +163,7 @@ class TableExtension implements ExtensionInterface, RendererAwareInterface
      * @param Text       $header
      * @param Collection $baseTags
      *
-     * @throws \FluxBB\Markdown\Exception\SyntaxError
+     * @throws \FluxBB\CommonMark\Exception\SyntaxError
      *
      * @return Collection
      */

@@ -39,7 +39,7 @@ Next, use Composer to install the library and its dependencies:
 ### Traditional Markdown
 
 ```php
-use FluxBB\Markdown\Parser;
+use FluxBB\CommonMark\Parser;
 
 $parser = new Parser();
 $html = $parser->render('Markdown is **awesome**');
@@ -54,7 +54,7 @@ Option             | Type    | Default | Description                   |
 **strict**         | boolean | false   | Throws exception if markdown contains syntax error |
 
 ``` php
-use FluxBB\Markdown\Parser;
+use FluxBB\CommonMark\Parser;
 
 $parser = new Parser();
 $html = $parser->render(
@@ -72,14 +72,14 @@ The parser renders XHTML by default.
 
 ### How to Extend
 
-Creating extensions is easy, you only need to implement the `FluxBB\Markdown\Extension\ExtensionInterface`.
+Creating extensions is easy, you only need to implement the `FluxBB\CommonMark\Extension\ExtensionInterface`.
 
 Your class must implement two methods.
 
-#### _void_ register(`FluxBB\Markdown\Markdown` $markdown)
+#### _void_ register(`FluxBB\CommonMark\Markdown` $markdown)
 
 Register any callbacks with the markdown event manager.
-`FluxBB\Markdown\Markdown` is an instance of the `FluxBB\Markdown\Event\EmitterInterface` (similar to Node's EventEmitter)
+`FluxBB\CommonMark\Markdown` is an instance of the `FluxBB\CommonMark\Event\EmitterInterface` (similar to Node's EventEmitter)
 
 #### _string_ getName()
 
@@ -93,8 +93,8 @@ This sample extension turns any `@username` mentions into links.
 ``` php
 <?php
 
-use FluxBB\Markdown\Common\Text;
-use FluxBB\Markdown\Extension\ExtensionInterface;
+use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Extension\ExtensionInterface;
 
 class MentionExtension implements ExtensionInterface
 {
@@ -102,7 +102,7 @@ class MentionExtension implements ExtensionInterface
     /**
      * {@inheritdoc}
      */
-    public function register(\FluxBB\Markdown\Markdown $markdown)
+    public function register(\FluxBB\CommonMark\Markdown $markdown)
     {
         $markdown->on('inline', [$this, 'processMentions']);
     }
@@ -135,7 +135,7 @@ Register your extension.
 
 require __DIR__ . '/vendor/autoload.php';
 
-$parser = new \FluxBB\Markdown\Parser();
+$parser = new \FluxBB\CommonMark\Parser();
 $parser->addExtension(new MentionExtension());
 echo $parser->render('@admin my email address is example@example.com!');
 ```
