@@ -22,15 +22,20 @@ class BlockquoteParser extends AbstractBlockParser
     {
         $content->handle(
             '/
-                (?=[\A\n])
-                (
+                ^
+                [ ]{0,3}        # up to 3 leading spaces
+                \>              # block quote marker
+                [ ]?            # an optional space
+                [^\n]+          # until end of line
+                (               # and repeat multiple times...
+                    \n
                     [ ]{0,3}
                     \>
                     [ ]?
                     [^\n]+
-                    (\n|$)
-                )+
-            /x',
+                )*
+                $
+            /mx',
             function (Text $content) {
                 // Remove block quote marker plus surrounding whitespace on each line
                 $content->replace('/^[ ]{0,3}\>[ ]?/m', '');
