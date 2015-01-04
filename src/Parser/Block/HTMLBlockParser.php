@@ -30,7 +30,7 @@ class HTMLBlockParser extends AbstractBlockParser
                 \</(?:'.$tags.')\s*\>|      # a closing HTML tag, or
                 \<!--.*?--\>|               # a HTML comment, or
                 \<\?.*?\?\>|                # a processing instruction, or
-                \<![A-Z]+\s+[^>]+\>|        # a declaration, or
+                \<![A-Z]+\s+[^>]+\>|        # an element type declaration, or
                 \<!\[CDATA\[.*?\]\]\>       # a CDATA section
             )
             .*?                      # match everything until...
