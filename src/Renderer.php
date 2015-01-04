@@ -11,6 +11,7 @@ use FluxBB\CommonMark\Node\Document;
 use FluxBB\CommonMark\Node\Emphasis;
 use FluxBB\CommonMark\Node\Heading;
 use FluxBB\CommonMark\Node\HorizontalRule;
+use FluxBB\CommonMark\Node\HTMLBlock;
 use FluxBB\CommonMark\Node\Image;
 use FluxBB\CommonMark\Node\Link;
 use FluxBB\CommonMark\Node\ListBlock;
@@ -118,6 +119,11 @@ class Renderer implements NodeVisitorInterface
     public function visitHorizontalRule(HorizontalRule $horizontalRule)
     {
         $this->buffer->append(Tag::inline('hr'))->append("\n");
+    }
+
+    public function visitHTMLBlock(HTMLBlock $htmlBlock)
+    {
+        $this->buffer->append($htmlBlock->getContent());
     }
 
     public function visitCodeBlock(CodeBlock $codeBlock)

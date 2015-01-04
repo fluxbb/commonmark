@@ -77,6 +77,11 @@ abstract class Node implements NodeAcceptorInterface, InlineNodeAcceptorInterfac
         return $this->parent->acceptHorizontalRule($horizontalRule);
     }
 
+    public function acceptHTMLBlock(HTMLBlock $htmlBlock)
+    {
+        return $this->parent->acceptHTMLBlock($htmlBlock);
+    }
+
     public function acceptBlankLine(BlankLine $blankLine)
     {
         return $this->parent->acceptBlankLine($blankLine);

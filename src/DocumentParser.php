@@ -12,6 +12,7 @@ use FluxBB\CommonMark\Parser\Block\BlockquoteParser;
 use FluxBB\CommonMark\Parser\Block\CodeBlockParser;
 use FluxBB\CommonMark\Parser\Block\FencedCodeBlockParser;
 use FluxBB\CommonMark\Parser\Block\HorizontalRuleParser;
+use FluxBB\CommonMark\Parser\Block\HTMLBlockParser;
 use FluxBB\CommonMark\Parser\Block\LinkReferenceParser;
 use FluxBB\CommonMark\Parser\Block\ListParser;
 use FluxBB\CommonMark\Parser\Block\ParagraphParser;
@@ -117,6 +118,7 @@ class DocumentParser implements BlockParserInterface
     protected function registerDefaultParsers()
     {
         $this->parsers = [
+            new HTMLBlockParser(),
             new FencedCodeBlockParser(),
             new CodeBlockParser(),
             new LinkReferenceParser($this->links, $this->titles),

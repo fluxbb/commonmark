@@ -42,6 +42,11 @@ class Stack implements NodeAcceptorInterface
         return $this->current = $this->current->acceptHorizontalRule($horizontalRule);
     }
 
+    public function acceptHTMLBlock(HTMLBlock $htmlBlock)
+    {
+        return $this->current = $this->current->acceptHTMLBlock($htmlBlock);
+    }
+
     public function acceptBlankLine(BlankLine $blankLine)
     {
         return $this->current = $this->current->acceptBlankLine($blankLine);

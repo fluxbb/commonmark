@@ -65,6 +65,11 @@ abstract class Container extends Node implements NodeAcceptorInterface
         return $this->addChild($horizontalRule);
     }
 
+    public function acceptHTMLBLock(HTMLBlock $htmlBlock)
+    {
+        return $this->addChild($htmlBlock);
+    }
+
     public function acceptBlankLine(BlankLine $blankLine)
     {
         return $this->addChild($blankLine);

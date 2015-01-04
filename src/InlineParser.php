@@ -10,6 +10,7 @@ use FluxBB\CommonMark\Node\CodeBlock;
 use FluxBB\CommonMark\Node\Emphasis;
 use FluxBB\CommonMark\Node\Heading;
 use FluxBB\CommonMark\Node\HorizontalRule;
+use FluxBB\CommonMark\Node\HTMLBlock;
 use FluxBB\CommonMark\Node\Image;
 use FluxBB\CommonMark\Node\InlineNodeAcceptorInterface;
 use FluxBB\CommonMark\Node\Link;
@@ -127,6 +128,11 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
     }
 
     public function visitHorizontalRule(HorizontalRule $horizontalRule)
+    {
+        return;
+    }
+
+    public function visitHTMLBLock(HTMLBlock $htmlBlock)
     {
         return;
     }

@@ -15,6 +15,8 @@ interface NodeAcceptorInterface
 
     public function acceptHorizontalRule(HorizontalRule $horizontalRule);
 
+    public function acceptHTMLBLock(HTMLBlock $htmlBlock);
+
     public function acceptBlankLine(BlankLine $blankLine);
 
     public function acceptCodeBlock(CodeBlock $codeBlock);

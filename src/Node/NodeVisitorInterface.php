@@ -25,6 +25,8 @@ interface NodeVisitorInterface
 
     public function visitHorizontalRule(HorizontalRule $horizontalRule);
 
+    public function visitHTMLBlock(HTMLBlock $htmlBlock);
+
     public function visitCodeBlock(CodeBlock $codeBlock);
 
     public function visitString(String $string);
