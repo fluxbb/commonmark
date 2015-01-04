@@ -30,7 +30,7 @@ class RawHTMLParser extends AbstractInlineParser
             \<\?.*?\?\>|                # a processing instruction, or
             \<![A-Z]+\s+[^>]+\>|        # an element type declaration, or
             \<!\[CDATA\[.*?\]\]\>       # a CDATA section
-        }ix', function (Text $content) use ($target) {
+        }isx', function (Text $content) use ($target) {
                 $target->addInline(new RawHTML($content));
             },
             function (Text $part) use ($target) {
