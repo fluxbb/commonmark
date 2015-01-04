@@ -23,11 +23,18 @@ class HTMLBlockParser extends AbstractBlockParser
         $tags = implode('|', $this->getValidTags());
 
         $content->handle('{
-            ^                    # starts at the beginning or with a newline
-            [ ]{0,3}             # up to 3 leading spaces allowed
-            \<(?:'.$tags.')\>    # start with a HTML tag
-            .*?                  # match everything until...
-            (\\n[ ]*\\n|\Z)      # we encounter an empty line or the end
+            ^                        # starts at the beginning or with a newline
+            [ ]{0,3}                 # up to 3 leading spaces allowed
+            (?:                      # start with one of the following...
+                \<(?:'.$tags.')\s*/?\>|     # an opening HTML tag, or
+                \</(?:'.$tags.')\s*\>|      # a closing HTML tag, or
+                \<!--.*?--\>|               # a HTML comment, or
+                \<\?.*?\?\>|                # a processing instruction, or
+                \<![A-Z]+\s+[^>]+\>|        # a declaration, or
+                \<!\[CDATA\[.*?\]\]\>       # a CDATA section
+            )
+            .*?                      # match everything until...
+            (\\n[ ]*\\n|\Z)          # we encounter an empty line or the end
         }imsx', function (Text $content) {
             $block = new HTMLBlock($content);
 
