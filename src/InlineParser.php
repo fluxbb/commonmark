@@ -19,6 +19,7 @@ use FluxBB\CommonMark\Node\ListItem;
 use FluxBB\CommonMark\Node\NodeVisitorInterface;
 use FluxBB\CommonMark\Node\Paragraph;
 use FluxBB\CommonMark\Node\HardBreak;
+use FluxBB\CommonMark\Node\RawHTML;
 use FluxBB\CommonMark\Node\String;
 use FluxBB\CommonMark\Node\StrongEmphasis;
 use FluxBB\CommonMark\Parser\AbstractInlineParser;
@@ -28,6 +29,7 @@ use FluxBB\CommonMark\Parser\Inline\EmphasisParser;
 use FluxBB\CommonMark\Parser\Inline\ImageParser;
 use FluxBB\CommonMark\Parser\Inline\LineBreakParser;
 use FluxBB\CommonMark\Parser\Inline\LinkParser;
+use FluxBB\CommonMark\Parser\Inline\RawHTMLParser;
 use FluxBB\CommonMark\Parser\Inline\StrongEmphasisParser;
 use FluxBB\CommonMark\Parser\InlineParserInterface;
 
@@ -172,6 +174,11 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
         return;
     }
 
+    public function visitRawHTML(RawHTML $rawHtml)
+    {
+        return;
+    }
+
     public function visitHardBreak(HardBreak $softBreak)
     {
         return;
@@ -187,6 +194,7 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
         $this->parsers = [
             new AutolinkParser(),
             new CodeSpanParser(),
+            new RawHTMLParser(),
             new LineBreakParser(),
             new ImageParser(),
             new LinkParser(),

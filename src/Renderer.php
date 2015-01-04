@@ -20,6 +20,7 @@ use FluxBB\CommonMark\Node\Node;
 use FluxBB\CommonMark\Node\NodeVisitorInterface;
 use FluxBB\CommonMark\Node\Paragraph;
 use FluxBB\CommonMark\Node\HardBreak;
+use FluxBB\CommonMark\Node\RawHTML;
 use FluxBB\CommonMark\Node\String;
 use FluxBB\CommonMark\Node\StrongEmphasis;
 use SplStack;
@@ -196,6 +197,11 @@ class Renderer implements NodeVisitorInterface
         $tag->setText($code->getContent());
 
         $this->buffer->append($tag);
+    }
+
+    public function visitRawHTML(RawHTML $rawHtml)
+    {
+        $this->buffer->append($rawHtml->getContent());
     }
 
     public function visitHardBreak(HardBreak $softBreak)

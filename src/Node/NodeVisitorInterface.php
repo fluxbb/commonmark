@@ -41,6 +41,8 @@ interface NodeVisitorInterface
 
     public function visitCode(Code $code);
 
+    public function visitRawHTML(RawHTML $rawHtml);
+
     public function visitHardBreak(HardBreak $softBreak);
 
 }
