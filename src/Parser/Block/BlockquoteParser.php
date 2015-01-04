@@ -22,6 +22,7 @@ class BlockquoteParser extends AbstractBlockParser
     {
         $content->handle(
             '/
+                (?=[\A\n])
                 (
                     [ ]{0,3}
                     \>
@@ -34,6 +35,7 @@ class BlockquoteParser extends AbstractBlockParser
                 // Remove block quote marker plus surrounding whitespace on each line
                 $content->replace('/^[ ]{0,3}\>[ ]?/m', '');
 
+                // TODO: Close blockquote when we're done.
                 $this->stack->acceptBlockquote(new Blockquote());
 
                 $this->next->parseBlock($content);
