@@ -24,7 +24,20 @@ class RawHTMLParser extends AbstractInlineParser
     public function parseInline(Text $content, InlineNodeAcceptorInterface $target)
     {
         $content->handle('{
-            \<[A-Z][A-Z0-9]*\s*/?\>|    # an opening HTML tag, or
+            \<[A-Z][A-Z0-9]*            # an opening HTML tag with
+                (?:                         # multiple attributes...
+                    \s*
+                    [A-Z_:][A-Z0-9_:.\-]*
+                    (?:
+                        \s*=\s*
+                        (?:
+                            [^ "\'=<>`]+|   # unquoted attribute values
+                            \'[^\']*\'|     # single-quoted attribute values
+                            "[^"]*"         # double-quoted attribute values
+                        )
+                    )?
+                )*
+                \s*/?\>|                # ...or
             \</[A-Z][A-Z0-9]*\s*\>|     # a closing HTML tag, or
             \<!--.*?--\>|               # a HTML comment, or
             \<\?.*?\?\>|                # a processing instruction, or
