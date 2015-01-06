@@ -217,7 +217,30 @@ class Text implements \Serializable
      */
     public function encodeUrl()
     {
-        $this->text = rawurlencode(rawurldecode($this->text));
+        $ignore = [
+            '%21' => '!',
+            '%23' => '#',
+            '%24' => '$',
+            '%26' => '&',
+            '%27' => '\'',
+            '%28' => '(',
+            '%29' => ')',
+            '%2A' => '*',
+            '%2B' => '+',
+            '%2C' => ',',
+            '%2D' => '-',
+            '%2E' => '.',
+            '%2F' => '/',
+            '%3A' => ':',
+            '%3B' => ';',
+            '%3D' => '=',
+            '%3F' => '?',
+            '%40' => '@',
+            '%5F' => '_',
+            '%7E' => '~',
+        ];
+
+        $this->text = strtr(rawurlencode(rawurldecode($this->text)), $ignore);
 
         return $this;
     }
