@@ -69,14 +69,13 @@ class Renderer implements NodeVisitorInterface
 
     public function enterBlockquote(Blockquote $blockquote)
     {
-        // TODO: Linebreak after opening tag
         $this->pushBuffer();
     }
 
     public function leaveBlockquote(Blockquote $blockquote)
     {
         $tag = Tag::block('blockquote');
-        $tag->setText($this->popBuffer());
+        $tag->setText($this->popBuffer()->prepend("\n"));
 
         $this->buffer->append($tag)->append("\n");
     }
