@@ -81,7 +81,7 @@ class LinkParser extends AbstractInlineParser
     protected function parseReferenceLink(Text $content, InlineNodeAcceptorInterface $target)
     {
         $references = implode('|', array_map(function ($reference) {
-            return preg_quote($reference);
+            return str_replace(' ', '[ ]', preg_quote($reference));
         }, $this->context->getReferences()));
 
         $content->handle(
