@@ -98,7 +98,7 @@ class LinkParser extends AbstractInlineParser
                 \]
             /ix',
             function (Text $whole, Text $linkText, Text $label) use ($target) {
-                $url = $this->context->getReferenceUrl($label->lower());
+                $url = $this->context->getReferenceUrl($label->copy()->lower());
                 $title = $this->context->getReferenceTitle($label);
 
                 if ($linkText->isEmpty()) {
