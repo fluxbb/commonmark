@@ -37,40 +37,44 @@ class LinkReferenceParser extends AbstractBlockParser
      */
     public function parseBlock(Text $content)
     {
-        $content->handle('{
-            ^[ ]{0,3}\[(.+)\]:   # id = $1
-              [ \t]*
-              \n?               # maybe *one* newline
-              [ \t]*
-            <?(\S+?)>?          # url = $2
-              [ \t]*
-              \n?               # maybe one newline
-              [ \t]*
-            (?:
-                (?<=\s)         # lookbehind for whitespace
-                ["\'(]
-                (.+?)           # title = $3
-                ["\')]
-                [ \t]*
-            )?  # title is optional
-            (?:\n+|\Z)
-        }xm', function (Text $whole, Text $id, Text $url, Text $title = null) {
-            $id = $id->lower()->getString();
+        $content->handle(
+            '{
+                ^[ ]{0,3}\[(.+)\]:  # id = $1
+                  [ \t]*
+                  \n?               # maybe *one* newline
+                  [ \t]*
+                <?(\S+?)>?          # url = $2
+                  [ \t]*
+                  \n?               # maybe one newline
+                  [ \t]*
+                (?:
+                    (?<=\s)         # lookbehind for whitespace
+                    ["\'(]
+                    (.+?)           # title = $3
+                    ["\')]
+                    [ \t]*
+                )?  # title is optional
+                (?:\n+|\Z)
+            }xm',
+            function (Text $whole, Text $id, Text $url, Text $title = null) {
+                $id = $id->lower()->getString();
 
-            // Throw away duplicate reference definitions
-            if ( ! $this->links->exists($id)) {
-                $this->links->set($id, $url);
+                // Throw away duplicate reference definitions
+                if ( ! $this->links->exists($id)) {
+                    $this->links->set($id, $url);
 
-                $url->decodeEntities();
+                    $url->decodeEntities();
 
-                if ($title) {
-                    $title->decodeEntities();
-                    $this->titles->set($id, $title);
+                    if ($title) {
+                        $title->decodeEntities();
+                        $this->titles->set($id, $title);
+                    }
                 }
+            },
+            function (Text $part) {
+                $this->next->parseBlock($part);
             }
-        }, function (Text $part) {
-            $this->next->parseBlock($part);
-        });
+        );
     }
 
 }

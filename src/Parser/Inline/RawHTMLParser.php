@@ -22,27 +22,29 @@ class RawHTMLParser extends AbstractInlineParser
      */
     public function parseInline(Text $content, InlineNodeAcceptorInterface $target)
     {
-        $content->handle('{
-            \<[A-Z][A-Z0-9]*            # an opening HTML tag with
-                (?:                         # multiple attributes...
-                    \s+
-                    [A-Z_:][A-Z0-9_:.\-]*
-                    (?:
-                        \s*=\s*
+        $content->handle(
+            '{
+                \<[A-Z][A-Z0-9]*            # an opening HTML tag with
+                    (?:                         # multiple attributes...
+                        \s+
+                        [A-Z_:][A-Z0-9_:.\-]*
                         (?:
-                            [^ "\'=<>`]+|   # unquoted attribute values
-                            \'[^\']*\'|     # single-quoted attribute values
-                            "[^"]*"         # double-quoted attribute values
-                        )
-                    )?
-                )*
-                \s*/?\>|                # ...or
-            \</[A-Z][A-Z0-9]*\s*\>|     # a closing HTML tag, or
-            \<!--.*?--\>|               # a HTML comment, or
-            \<\?.*?\?\>|                # a processing instruction, or
-            \<![A-Z]+\s+[^>]+\>|        # an element type declaration, or
-            \<!\[CDATA\[.*?\]\]\>       # a CDATA section
-        }isx', function (Text $content) use ($target) {
+                            \s*=\s*
+                            (?:
+                                [^ "\'=<>`]+|   # unquoted attribute values
+                                \'[^\']*\'|     # single-quoted attribute values
+                                "[^"]*"         # double-quoted attribute values
+                            )
+                        )?
+                    )*
+                    \s*/?\>|                # ...or
+                \</[A-Z][A-Z0-9]*\s*\>|     # a closing HTML tag, or
+                \<!--.*?--\>|               # a HTML comment, or
+                \<\?.*?\?\>|                # a processing instruction, or
+                \<![A-Z]+\s+[^>]+\>|        # an element type declaration, or
+                \<!\[CDATA\[.*?\]\]\>       # a CDATA section
+            }isx',
+            function (Text $content) use ($target) {
                 $target->addInline(new RawHTML($content));
             },
             function (Text $part) use ($target) {
