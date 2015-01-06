@@ -12,13 +12,6 @@ class Blockquote extends Container implements NodeAcceptorInterface
         return $paragraph;
     }
 
-    public function acceptBlockquote(Blockquote $blockquote)
-    {
-        $this->merge($blockquote);
-
-        return $this;
-    }
-
     public function acceptBlankLine(BlankLine $blankLine)
     {
         return $this->addChild($blankLine);
