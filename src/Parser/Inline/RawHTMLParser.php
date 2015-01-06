@@ -25,7 +25,7 @@ class RawHTMLParser extends AbstractInlineParser
         $content->handle('{
             \<[A-Z][A-Z0-9]*            # an opening HTML tag with
                 (?:                         # multiple attributes...
-                    \s*
+                    \s+
                     [A-Z_:][A-Z0-9_:.\-]*
                     (?:
                         \s*=\s*
