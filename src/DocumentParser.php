@@ -140,18 +140,20 @@ class DocumentParser implements BlockParserInterface
     {
         $parsers = array_reverse($this->parsers);
 
-        return array_reduce($parsers, $this->prepareParser(), $this);
+        return array_reduce($parsers, $this->prepareParser(reset($this->parsers)), $this);
     }
 
     /**
      * Create the closure that returns another closure to be passed to each parser.
      *
+     * @param BlockParserInterface $first
      * @return callable
      */
-    protected function prepareParser()
+    protected function prepareParser(BlockParserInterface $first)
     {
-        return function (BlockParserInterface $stack, AbstractBlockParser $parser) {
+        return function (BlockParserInterface $stack, AbstractBlockParser $parser) use ($first) {
             $parser->setNextParser($stack);
+            $parser->setFirstParser($first);
             $parser->setStack($this->stack);
 
             return $parser;

@@ -43,7 +43,7 @@ class BlockquoteParser extends AbstractBlockParser
                 // TODO: Close blockquote when we're done.
                 $this->stack->acceptBlockquote(new Blockquote());
 
-                $this->next->parseBlock($content);
+                $this->first->parseBlock($content);
             },
             function (Text $part) {
                 $this->next->parseBlock($part);
