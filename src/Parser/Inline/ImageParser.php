@@ -76,9 +76,9 @@ class ImageParser extends AbstractInlineParser
                 \[
                     (' . $references .')
                 \]
-            }x',
+            }ix',
             function (Text $whole, Text $alt, Text $label) use ($target) {
-                $url = $this->context->getReferenceUrl($label);
+                $url = $this->context->getReferenceUrl($label->lower());
                 $title = $this->context->getReferenceTitle($label);
 
                 if ($alt->isEmpty()) {
