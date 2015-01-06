@@ -3,7 +3,6 @@
 namespace FluxBB\CommonMark\Parser\Inline;
 
 use FluxBB\CommonMark\Common\Text;
-use FluxBB\CommonMark\Node\HardBreak;
 use FluxBB\CommonMark\Node\InlineNodeAcceptorInterface;
 use FluxBB\CommonMark\Node\RawHTML;
 use FluxBB\CommonMark\Parser\AbstractInlineParser;
