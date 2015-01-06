@@ -194,8 +194,8 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
     {
         $this->parsers = [
             new AutolinkParser(),
-            new CodeSpanParser(),
             new RawHTMLParser(),
+            new CodeSpanParser(),
             new LineBreakParser(),
             new ImageParser(),
             new LinkParser(),
