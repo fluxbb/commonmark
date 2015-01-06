@@ -48,10 +48,10 @@ class LinkReferenceParser extends AbstractBlockParser
                   |
                   <([^<>\\n]*)>         # or enclosed in angle brackets
                 )
+                (?:
                   [ \t]*
                   \n?               # maybe one newline
                   [ \t]*
-                (?:
                     (?<=\s)         # lookbehind for whitespace
                     ["\'(]
                     (.+?)           # title = $3
