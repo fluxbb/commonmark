@@ -211,6 +211,18 @@ class Text implements \Serializable
     }
 
     /**
+     * Escape special characters for use in an URL.
+     *
+     * @return Text
+     */
+    public function encodeUrl()
+    {
+        $this->text = rawurlencode(rawurldecode($this->text));
+
+        return $this;
+    }
+
+    /**
      * Perform a regular expression search and replace
      *
      * @param string          $pattern     The pattern to search for. It can be either a string or an array with strings.
