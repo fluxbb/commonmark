@@ -44,7 +44,7 @@ class LinkReferenceParser extends AbstractBlockParser
                   \n?               # maybe *one* newline
                   [ \t]*
                 (?|                 # url = $2
-                  ([^\s<>]*)            # either without spaces
+                  ([^\s<>]+)            # either without spaces
                   |
                   <([^<>\\n]*)>         # or enclosed in angle brackets
                 )

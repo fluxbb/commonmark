@@ -40,7 +40,7 @@ class LinkParser extends AbstractInlineParser
                 \(                        # literal paren
                     [ \t\n]*
                     (?|                   # href = $2
-                        ([^\s<>]*)
+                        ([^\s<>]+)
                         |
                         <([^<>\\n]*)>
                     )
