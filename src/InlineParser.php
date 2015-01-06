@@ -31,6 +31,7 @@ use FluxBB\CommonMark\Parser\Inline\LineBreakParser;
 use FluxBB\CommonMark\Parser\Inline\LinkParser;
 use FluxBB\CommonMark\Parser\Inline\RawHTMLParser;
 use FluxBB\CommonMark\Parser\Inline\StrongEmphasisParser;
+use FluxBB\CommonMark\Parser\Inline\TextParser;
 use FluxBB\CommonMark\Parser\InlineParserInterface;
 
 class InlineParser implements NodeVisitorInterface, InlineParserInterface
@@ -200,6 +201,7 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
             new LinkParser(),
             new StrongEmphasisParser(),
             new EmphasisParser(),
+            new TextParser(),
         ];
     }
 
@@ -242,8 +244,7 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
      */
     public function parseInline(Text $content, InlineNodeAcceptorInterface $target)
     {
-        $content->decodeEntities();
-        $target->addInline(new String($content));
+        // Do nothing. This is just the fallback.
     }
 
 }
