@@ -61,9 +61,12 @@ class LinkReferenceParser extends AbstractBlockParser
 
                 // Throw away duplicate reference definitions
                 if ( ! $this->links->exists($id)) {
-                    $this->links->set($id, $url);
-
                     $url->decodeEntities();
+
+                    // Replace special characters in the URL
+                    $url->encodeUrl();
+
+                    $this->links->set($id, $url);
 
                     if ($title) {
                         $title->decodeEntities();
