@@ -69,21 +69,20 @@ class Renderer implements NodeVisitorInterface
 
     public function enterBlockquote(Blockquote $blockquote)
     {
-        $this->pushBuffer();
+        $this->pushBuffer("\n");
     }
 
     public function leaveBlockquote(Blockquote $blockquote)
     {
         $tag = Tag::block('blockquote');
-        $tag->setText($this->popBuffer()->prepend("\n"));
+        $tag->setText($this->popBuffer());
 
         $this->buffer->append($tag)->append("\n");
     }
 
     public function enterListBlock(ListBlock $listBlock)
     {
-        // TODO: Linebreak after opening tag
-        $this->pushBuffer();
+        $this->pushBuffer("\n");
     }
 
     public function leaveListBlock(ListBlock $listBlock)
@@ -208,11 +207,11 @@ class Renderer implements NodeVisitorInterface
         $this->buffer->append(Tag::inline('br'))->append("\n");
     }
 
-    protected function pushBuffer()
+    protected function pushBuffer($text = '')
     {
         $this->stack->push($this->buffer);
 
-        $this->buffer = new Text();
+        $this->buffer = new Text($text);
     }
 
     protected function popBuffer()
