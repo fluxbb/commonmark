@@ -28,13 +28,13 @@ class BlockquoteParser extends AbstractBlockParser
                 [ ]{0,3}        # up to 3 leading spaces
                 \>              # block quote marker
                 [ ]?            # an optional space
-                [^\n]+          # until end of line
+                [^\n]*          # until end of line
                 (               # and repeat multiple times...
                     \n
                     [ ]{0,3}
                     \>
                     [ ]?
-                    [^\n]+
+                    [^\n]*
                 )*
                 $
             /mx',
