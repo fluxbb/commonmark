@@ -22,7 +22,7 @@ class Paragraph extends Node implements NodeAcceptorInterface
     public function getText()
     {
         return (new Text($this->lines->apply(function (Text $line) {
-            return $line->copy()->ltrim();
+            return $line->copy()->trim();
         })->join("\n")))->trim();
     }
 
