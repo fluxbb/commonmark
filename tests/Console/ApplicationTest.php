@@ -1,6 +1,5 @@
 <?php
 
-
 use FluxBB\CommonMark\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 
