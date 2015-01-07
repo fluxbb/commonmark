@@ -26,9 +26,8 @@ class CodeBlockParser extends AbstractBlockParser
             '{
                 ^
                 (?:                 # Ensure blank line before (or beginning of subject)
-                    (?<=\n\n)|
-                    (?<=\A\n)|
-                    (?<=\A)
+                    \A\s*\n?|
+                    \n\s*\n
                 )
                 [ ]{4}              # four leading spaces
                 .+
@@ -43,6 +42,9 @@ class CodeBlockParser extends AbstractBlockParser
                 $
             }mx',
             function (Text $code) use ($target) {
+                // Remove leading blank lines
+                $code->replace('/^(\s*\n)*/', '');
+
                 // Remove indent
                 $code->replace('/^[ ]{1,4}/m', '');
                 $code->append("\n");
