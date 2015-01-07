@@ -32,7 +32,7 @@ class BlockquoteParser extends AbstractBlockParser
                 (?:                 # lazy continuation
                     \n
                     [ ]{0,3}
-                    [^\-*=\ ].*
+                    [^\-*=\ \n].*
                 )*
                 $
             /mx',
