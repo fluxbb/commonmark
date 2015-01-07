@@ -23,7 +23,18 @@ class SetextHeaderParser extends AbstractBlockParser
     public function parseBlock(Text $content, Container $target)
     {
         $content->handle(
-            '{^(.+)[ \t]*\n[ \t]{0,3}(=+|-+)[ \t]*\n+}m',
+            '{
+                ^
+                [ ]{0,3}
+                ([^>\-*=\ ].*)
+                [ ]*
+                \n
+                [ ]{0,3}
+                (=+|-+)
+                [ ]*
+                \n*
+                $
+            }mx',
             function (Text $whole, Text $content, Text $mark) use ($target) {
                 $level = (substr($mark, 0, 1) == '=') ? 1 : 2;
 
