@@ -2,27 +2,37 @@
 
 namespace FluxBB\CommonMark\Node;
 
-use FluxBB\CommonMark\Common\Text;
-
 class ListItem extends Container
 {
+
+    protected $isTerse = false;
 
     protected $content;
 
 
-    public function __construct(Text $content)
+    public function shouldBeTerse()
     {
-        $this->content = $content;
+        return (count($this->children) == 1) &&
+               ($this->children[0] instanceof Paragraph) &&
+               $this->children[0]->spansMultipleLines();
+    }
+
+    public function terse()
+    {
+        $this->isTerse = true;
+
+        $this->content = $this->children[0]->getText();
+        $this->children = [];
+    }
+
+    public function isTerse()
+    {
+        return $this->isTerse;
     }
 
     public function getContent()
     {
         return $this->content;
-    }
-
-    public function acceptListBlock(ListBlock $listBlock)
-    {
-        return $this->parent->acceptListBlock($listBlock);
     }
 
     /**
@@ -41,4 +51,5 @@ class ListItem extends Container
 
         $visitor->leaveListItem($this);
     }
+
 }

@@ -57,13 +57,13 @@ class ListParser extends AbstractBlockParser
                 $curItem = substr(array_shift($lines), $indentLength) . "\n";
                 foreach ($lines as $line) {
                     if (strpos($line, $marker) === 0) {
-                        $list->addChild(new ListItem(new Text(rtrim($curItem))));
+                        $this->addItemToList($curItem, $list);
                         $curItem = '';
                     }
 
                     $curItem .= substr($line, $indentLength) . "\n";
                 }
-                $list->addChild(new ListItem(new Text(rtrim($curItem))));
+                $this->addItemToList($curItem, $list);
 
                 $target->acceptListBlock($list);
             },
@@ -71,6 +71,20 @@ class ListParser extends AbstractBlockParser
                 $this->next->parseBlock($part, $target);
             }
         );
+    }
+
+    protected function addItemToList($text, ListBlock $list)
+    {
+        $text = new Text(rtrim($text));
+        $item = new ListItem();
+
+        $list->addChild($item);
+
+        $this->first->parseBlock($text, $item);
+
+        if ($item->shouldBeTerse()) {
+            $item->terse();
+        }
     }
 
 }

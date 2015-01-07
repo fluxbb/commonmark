@@ -16,14 +16,24 @@ class Paragraph extends Node implements NodeAcceptorInterface
 
     public function __construct(Text $text)
     {
-        $this->lines = $text->split('/\n/');
+        $this->lines = $this->makeLines($text);
     }
 
     public function getText()
     {
-        return (new Text($this->lines->apply(function (Text $line) {
+        return $this->lines->join("\n");
+    }
+
+    public function spansMultipleLines()
+    {
+        return count($this->lines) > 0;
+    }
+
+    protected function makeLines(Text $text)
+    {
+        return $text->split('/\n/')->apply(function (Text $line) {
             return $line->copy()->trim();
-        })->join("\n")))->trim();
+        });
     }
 
     public function acceptParagraph(Paragraph $paragraph)
