@@ -66,7 +66,7 @@ class LinkReferenceParser extends AbstractBlockParser
                     ["\')]
                     [ \t]*
                 )?  # title is optional
-                (?:\n+|\Z)
+                $
             }xm',
             function (Text $whole, Text $id, Text $url, Text $title = null) {
                 $id = $id->lower()->getString();
