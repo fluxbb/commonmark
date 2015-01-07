@@ -38,8 +38,6 @@ class SetextHeaderParser extends AbstractBlockParser
             function (Text $whole, Text $content, Text $mark) use ($target) {
                 $level = (substr($mark, 0, 1) == '=') ? 1 : 2;
 
-                // TODO: Parse content as inline.
-
                 $target->acceptHeading(new Heading($content->trim(), $level));
             },
             function (Text $part) use ($target) {
