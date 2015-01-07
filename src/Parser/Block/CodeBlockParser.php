@@ -25,7 +25,11 @@ class CodeBlockParser extends AbstractBlockParser
         $content->handle(
             '{
                 ^
-                (?:(?<=\n\n)|\A)    # Ensure blank line before (or beginning of subject)
+                (?:                 # Ensure blank line before (or beginning of subject)
+                    (?<=\n\n)|
+                    (?<=\A\n)|
+                    (?<=\A)
+                )
                 [ ]{4}              # four leading spaces
                 .+
                 (?:                 # optionally more spaces
