@@ -16,7 +16,7 @@ class Paragraph extends Node implements NodeAcceptorInterface
 
     public function __construct(Text $text)
     {
-        $this->lines = new Collection([$text]);
+        $this->lines = $text->split('/\n/');
     }
 
     public function getText()
