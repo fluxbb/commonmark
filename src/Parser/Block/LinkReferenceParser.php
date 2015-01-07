@@ -39,14 +39,11 @@ class LinkReferenceParser extends AbstractBlockParser
      */
     public function parseBlock(Text $content, Container $target)
     {
+        $queue = new \SplQueue();
+
         $content->handle(
             '{
                 ^
-                (?:                 # Ensure blank line before (or beginning of subject)
-                    (?<=\n\n)|
-                    (?<=\A\n)|
-                    (?<=\A)
-                )
                 [ ]{0,3}\[(.+)\]:  # id = $1
                   [ \t]*
                   \n?               # maybe *one* newline
@@ -68,7 +65,20 @@ class LinkReferenceParser extends AbstractBlockParser
                 )?  # title is optional
                 $
             }xm',
-            function (Text $whole, Text $id, Text $url, Text $title = null) {
+            function (Text $whole, Text $id, Text $url, Text $title = null) use ($queue, $target) {
+                if (! $queue->isEmpty()) {
+                    $lastPart = $queue->dequeue();
+
+                    // If the previous line was not empty, we should not parse this as a link reference
+                    if (! $lastPart->match('/(^|\n *)\n$/')) {
+                        $lastPart->append($whole);
+                        $queue->enqueue($lastPart);
+                        return;
+                    }
+
+                    $this->parsePart($lastPart, $target);
+                }
+
                 $id = $id->lower()->getString();
 
                 // Throw away duplicate reference definitions
@@ -86,10 +96,20 @@ class LinkReferenceParser extends AbstractBlockParser
                     }
                 }
             },
-            function (Text $part) use ($target) {
-                $this->next->parseBlock($part, $target);
+            function (Text $part) use ($queue) {
+                if (! $queue->isEmpty()) {
+                    $lastPart = $queue->dequeue();
+                    $part->prepend($lastPart);
+                }
+
+                $queue->enqueue($part);
             }
         );
+    }
+
+    protected function parsePart(Text $part, Container $target)
+    {
+        $this->next->parseBlock($part, $target);
     }
 
 }
