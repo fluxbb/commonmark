@@ -24,16 +24,12 @@ class ParagraphParser extends AbstractBlockParser
     public function parseBlock(Text $content, Container $target)
     {
         $content->handle(
-            '/^(.*)$/m',
+            '/^\s*$/m',
             function (Text $line) use ($target) {
-                if ($line->copy()->trim()->isEmpty()) {
-                    $target->acceptBlankLine(new BlankLine($line));
-                } else {
-                    $target->acceptParagraph(new Paragraph($line));
-                }
+                $target->acceptBlankLine(new BlankLine($line));
             },
             function (Text $part) use ($target) {
-                $this->next->parseBlock($part, $target);
+                $target->acceptParagraph(new Paragraph($part));
             }
         );
     }
