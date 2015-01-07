@@ -118,6 +118,7 @@ class DocumentParser implements BlockParserInterface
     protected function registerDefaultParsers()
     {
         $this->parsers = [
+            new ListParser(),
             new HTMLBlockParser(),
             new FencedCodeBlockParser(),
             new CodeBlockParser(),
@@ -125,7 +126,6 @@ class DocumentParser implements BlockParserInterface
             new LinkReferenceParser($this->links, $this->titles),
             new SetextHeaderParser(),
             new HorizontalRuleParser(),
-            new ListParser(),
             new AtxHeaderParser(),
             new ParagraphParser(),
         ];
