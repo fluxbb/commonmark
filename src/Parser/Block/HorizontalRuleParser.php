@@ -3,6 +3,7 @@
 namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Node\HorizontalRule;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
@@ -16,49 +17,50 @@ class HorizontalRuleParser extends AbstractBlockParser
      * in the chain.
      *
      * @param Text $content
+     * @param Container $target
      * @return void
      */
-    public function parseBlock(Text $content)
+    public function parseBlock(Text $content, Container $target)
     {
-        $this->parseStars($content);
+        $this->parseStars($content, $target);
     }
 
-    protected function parseStars(Text $content)
+    protected function parseStars(Text $content, Container $target)
     {
         $this->handle(
-            $content, '*',
-            function (Text $part) {
-                $this->parseDashes($part);
+            $content, '*', $target,
+            function (Text $part) use ($target) {
+                $this->parseDashes($part, $target);
             }
         );
     }
 
-    protected function parseDashes(Text $content)
+    protected function parseDashes(Text $content, Container $target)
     {
         $this->handle(
-            $content, '-',
-            function (Text $part) {
-                $this->parseUnderscores($part);
+            $content, '-', $target,
+            function (Text $part) use ($target) {
+                $this->parseUnderscores($part, $target);
             }
         );
     }
 
-    protected function parseUnderscores(Text $content)
+    protected function parseUnderscores(Text $content, Container $target)
     {
         $this->handle(
-            $content, '_',
-            function (Text $part) {
-                $this->next->parseBlock($part);
+            $content, '_', $target,
+            function (Text $part) use ($target) {
+                $this->next->parseBlock($part, $target);
             }
         );
     }
 
-    protected function handle(Text $content, $mark, callable $next)
+    protected function handle(Text $content, $mark, Container $target, callable $next)
     {
         $content->handle(
             $this->getPattern($mark),
-            function () {
-                $this->stack->acceptHorizontalRule(new HorizontalRule());
+            function () use ($target) {
+                $target->acceptHorizontalRule(new HorizontalRule());
             },
             $next
         );

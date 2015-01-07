@@ -4,8 +4,8 @@ namespace FluxBB\CommonMark;
 
 use FluxBB\CommonMark\Common\Collection;
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Node\Document;
-use FluxBB\CommonMark\Node\Stack;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 use FluxBB\CommonMark\Parser\Block\AtxHeaderParser;
 use FluxBB\CommonMark\Parser\Block\BlockquoteParser;
@@ -37,11 +37,6 @@ class DocumentParser implements BlockParserInterface
      */
     protected $parsers = [];
 
-    /**
-     * @var Stack
-     */
-    protected $stack;
-
 
     /**
      * Create a parser instance.
@@ -63,14 +58,13 @@ class DocumentParser implements BlockParserInterface
     public function convert($markdown)
     {
         $root = new Document();
-        $this->stack = new Stack($root);
 
         $parser = $this->buildParserStack();
 
         $text = new Text($markdown);
         $this->prepare($text);
 
-        $parser->parseBlock($text);
+        $parser->parseBlock($text, $root);
 
         $this->parseInlineContent($root);
 
@@ -154,7 +148,6 @@ class DocumentParser implements BlockParserInterface
         return function (BlockParserInterface $stack, AbstractBlockParser $parser) use ($first) {
             $parser->setNextParser($stack);
             $parser->setFirstParser($first);
-            $parser->setStack($this->stack);
 
             return $parser;
         };
@@ -167,9 +160,10 @@ class DocumentParser implements BlockParserInterface
      * in the chain.
      *
      * @param Text $content
+     * @param Container $target
      * @return void
      */
-    public function parseBlock(Text $content)
+    public function parseBlock(Text $content, Container $target)
     {
         // Do nothing. This is just the fallback.
     }

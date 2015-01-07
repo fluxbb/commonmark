@@ -2,15 +2,8 @@
 
 namespace FluxBB\CommonMark\Parser;
 
-use FluxBB\CommonMark\Node\NodeAcceptorInterface;
-
 abstract class AbstractBlockParser implements BlockParserInterface
 {
-
-    /**
-     * @var NodeAcceptorInterface
-     */
-    protected $stack;
 
     /**
      * @var BlockParserInterface
@@ -31,11 +24,6 @@ abstract class AbstractBlockParser implements BlockParserInterface
     public function setFirstParser(BlockParserInterface $first)
     {
         $this->first = $first;
-    }
-
-    public function setStack(NodeAcceptorInterface $stack)
-    {
-        $this->stack = $stack;
     }
 
 }

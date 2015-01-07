@@ -4,6 +4,7 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Blockquote;
+use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
 class BlockquoteParser extends AbstractBlockParser
@@ -16,9 +17,10 @@ class BlockquoteParser extends AbstractBlockParser
      * in the chain.
      *
      * @param Text $content
+     * @param Container $target
      * @return void
      */
-    public function parseBlock(Text $content)
+    public function parseBlock(Text $content, Container $target)
     {
         $content->handle(
             '/
@@ -36,17 +38,17 @@ class BlockquoteParser extends AbstractBlockParser
                 )*
                 $
             /mx',
-            function (Text $content) {
+            function (Text $content) use ($target) {
                 // Remove block quote marker plus surrounding whitespace on each line
                 $content->replace('/^[ ]{0,3}\>[ ]?/m', '');
 
-                // TODO: Close blockquote when we're done.
-                $this->stack->acceptBlockquote(new Blockquote());
+                $blockquote = new Blockquote();
+                $target->acceptBlockquote($blockquote);
 
-                $this->first->parseBlock($content);
+                $this->first->parseBlock($content, $blockquote);
             },
-            function (Text $part) {
-                $this->next->parseBlock($part);
+            function (Text $part) use ($target) {
+                $this->next->parseBlock($part, $target);
             }
         );
     }

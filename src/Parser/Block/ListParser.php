@@ -3,6 +3,7 @@
 namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Node\ListBlock;
 use FluxBB\CommonMark\Node\ListItem;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
@@ -17,9 +18,10 @@ class ListParser extends AbstractBlockParser
      * in the chain.
      *
      * @param Text $content
+     * @param Container $target
      * @return void
      */
-    public function parseBlock(Text $content)
+    public function parseBlock(Text $content, Container $target)
     {
         $content->handle(
             '{
@@ -44,7 +46,7 @@ class ListParser extends AbstractBlockParser
                 )*
                 $
             }mx',
-            function (Text $content, Text $marker, Text $indent) {
+            function (Text $content, Text $marker, Text $indent) use ($target) {
                 $lines = explode("\n", $content->getString());
                 $marker = $marker->getString();
                 $indentLength = $indent->getLength() + 1;
@@ -63,10 +65,10 @@ class ListParser extends AbstractBlockParser
                 }
                 $list->addChild(new ListItem(new Text(rtrim($curItem))));
 
-                $this->stack->acceptListBlock($list);
+                $target->acceptListBlock($list);
             },
-            function (Text $part) {
-                $this->next->parseBlock($part);
+            function (Text $part) use ($target) {
+                $this->next->parseBlock($part, $target);
             }
         );
     }

@@ -3,6 +3,7 @@
 namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Node\Heading;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
@@ -16,9 +17,10 @@ class AtxHeaderParser extends AbstractBlockParser
      * in the chain.
      *
      * @param Text $content
+     * @param Container $target
      * @return void
      */
-    public function parseBlock(Text $content)
+    public function parseBlock(Text $content, Container $target)
     {
         $content->handle(
             '{
@@ -28,13 +30,13 @@ class AtxHeaderParser extends AbstractBlockParser
                 ([ ]\#*[ ]*)?   # optional closing #\'s (not counted)
                 $
             }mx',
-            function (Text $whole, Text $marks, Text $content) {
+            function (Text $whole, Text $marks, Text $content) use ($target) {
                 $level = $marks->getLength();
 
-                $this->stack->acceptHeading(new Heading($content->trim(), $level));
+                $target->acceptHeading(new Heading($content->trim(), $level));
             },
-            function (Text $part) {
-                $this->next->parseBlock($part);
+            function (Text $part) use ($target) {
+                $this->next->parseBlock($part, $target);
             }
         );
     }

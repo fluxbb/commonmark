@@ -3,6 +3,7 @@
 namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Node\Heading;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
@@ -16,21 +17,22 @@ class SetextHeaderParser extends AbstractBlockParser
      * in the chain.
      *
      * @param Text $content
+     * @param Container $target
      * @return void
      */
-    public function parseBlock(Text $content)
+    public function parseBlock(Text $content, Container $target)
     {
         $content->handle(
             '{^(.+)[ \t]*\n[ \t]{0,3}(=+|-+)[ \t]*\n+}m',
-            function (Text $whole, Text $content, Text $mark) {
+            function (Text $whole, Text $content, Text $mark) use ($target) {
                 $level = (substr($mark, 0, 1) == '=') ? 1 : 2;
 
                 // TODO: Parse content as inline.
 
-                $this->stack->acceptHeading(new Heading($content->trim(), $level));
+                $target->acceptHeading(new Heading($content->trim(), $level));
             },
-            function (Text $part) {
-                $this->next->parseBlock($part);
+            function (Text $part) use ($target) {
+                $this->next->parseBlock($part, $target);
             }
         );
     }

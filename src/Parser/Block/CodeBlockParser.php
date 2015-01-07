@@ -4,6 +4,7 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\CodeBlock;
+use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
 class CodeBlockParser extends AbstractBlockParser
@@ -16,9 +17,10 @@ class CodeBlockParser extends AbstractBlockParser
      * in the chain.
      *
      * @param Text $content
+     * @param Container $target
      * @return void
      */
-    public function parseBlock(Text $content)
+    public function parseBlock(Text $content, Container $target)
     {
         $content->handle(
             '{
@@ -31,16 +33,16 @@ class CodeBlockParser extends AbstractBlockParser
                 )
                 (?:(?=^[ ]{0,4}\S)|\Z) # Lookahead for non-space at line-start, or end of doc
             }mx',
-            function (Text $whole, Text $code) {
+            function (Text $whole, Text $code) use ($target) {
                 // TODO: Prepare contents
 
                 // Remove indent
                 $code->replace('/^(\t|[ ]{1,4})/m', '');
 
-                $this->stack->acceptCodeBlock(new CodeBlock($code));
+                $target->acceptCodeBlock(new CodeBlock($code));
             },
-            function(Text $part) {
-                $this->next->parseBlock($part);
+            function(Text $part) use ($target) {
+                $this->next->parseBlock($part, $target);
             }
         );
     }

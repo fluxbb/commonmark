@@ -4,6 +4,7 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\BlankLine;
+use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Node\Paragraph;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
@@ -17,21 +18,22 @@ class ParagraphParser extends AbstractBlockParser
      * in the chain.
      *
      * @param Text $content
+     * @param Container $target
      * @return void
      */
-    public function parseBlock(Text $content)
+    public function parseBlock(Text $content, Container $target)
     {
         $content->handle(
             '/^(.*)$/m',
-            function (Text $line) {
+            function (Text $line) use ($target) {
                 if ($line->copy()->trim()->isEmpty()) {
-                    $this->stack->acceptBlankLine(new BlankLine($line));
+                    $target->acceptBlankLine(new BlankLine($line));
                 } else {
-                    $this->stack->acceptParagraph(new Paragraph($line));
+                    $target->acceptParagraph(new Paragraph($line));
                 }
             },
-            function(Text $part) {
-                $this->next->parseBlock($part);
+            function (Text $part) use ($target) {
+                $this->next->parseBlock($part, $target);
             }
         );
     }

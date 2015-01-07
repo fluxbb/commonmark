@@ -4,6 +4,7 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\CodeBlock;
+use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
 class FencedCodeBlockParser extends AbstractBlockParser
@@ -16,9 +17,10 @@ class FencedCodeBlockParser extends AbstractBlockParser
      * in the chain.
      *
      * @param Text $content
+     * @param Container $target
      * @return void
      */
-    public function parseBlock(Text $content)
+    public function parseBlock(Text $content, Container $target)
     {
         $content->handle(
             '{
@@ -33,7 +35,7 @@ class FencedCodeBlockParser extends AbstractBlockParser
                     (?:(?<=\n)([ ]{0,3}\2\3*[ ]*)|\z)  #  Closing fence or end of document
                 )$
             }msx',
-            function (Text $whole, Text $whitespace, Text $fence, Text $fenceChar, Text $lang, Text $code) {
+            function (Text $whole, Text $whitespace, Text $fence, Text $fenceChar, Text $lang, Text $code) use ($target) {
                 $leading = $whitespace->getLength();
 
                 $language = new Text(explode(' ', $lang->trim())[0]);
@@ -44,10 +46,10 @@ class FencedCodeBlockParser extends AbstractBlockParser
                     $code->replace("/^[ ]{0,$leading}/m", '');
                 }
 
-                $this->stack->acceptCodeBlock(new CodeBlock($code, $language));
+                $target->acceptCodeBlock(new CodeBlock($code, $language));
             },
-            function (Text $part) {
-                $this->next->parseBlock($part);
+            function (Text $part) use ($target) {
+                $this->next->parseBlock($part, $target);
             }
         );
     }

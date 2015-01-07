@@ -3,6 +3,7 @@
 namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Node\HTMLBlock;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
@@ -16,9 +17,10 @@ class HTMLBlockParser extends AbstractBlockParser
      * in the chain.
      *
      * @param Text $content
+     * @param Container $target
      * @return void
      */
-    public function parseBlock(Text $content)
+    public function parseBlock(Text $content, Container $target)
     {
         $tags = implode('|', $this->getValidTags());
 
@@ -37,13 +39,13 @@ class HTMLBlockParser extends AbstractBlockParser
                 .*?                      # match everything until...
                 ((?=\\n[ ]*\\n)|\Z)      # we encounter an empty line or the end
             }imsx',
-            function (Text $content) {
+            function (Text $content) use ($target) {
                 $block = new HTMLBlock($content);
 
-                $this->stack->acceptHTMLBLock($block);
+                $target->acceptHTMLBLock($block);
             },
-            function (Text $part) {
-                $this->next->parseBlock($part);
+            function (Text $part) use ($target) {
+                $this->next->parseBlock($part, $target);
             }
         );
     }
