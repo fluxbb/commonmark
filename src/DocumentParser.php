@@ -115,11 +115,11 @@ class DocumentParser implements BlockParserInterface
             new HTMLBlockParser(),
             new FencedCodeBlockParser(),
             new CodeBlockParser(),
+            new SetextHeaderParser(),
             new HorizontalRuleParser(),
             new ListParser(),
             new BlockquoteParser(),
             new LinkReferenceParser($this->links, $this->titles),
-            new SetextHeaderParser(),
             new AtxHeaderParser(),
             new ParagraphParser(),
         ];
