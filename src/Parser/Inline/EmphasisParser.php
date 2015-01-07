@@ -32,8 +32,8 @@ class EmphasisParser extends AbstractInlineParser
     protected function parseStars(Text $content, InlineNodeAcceptorInterface $target)
     {
         $content->handle(
-            '{ (\*) (?![\s*]) (.+?) (?<![\s*]) \1 }sx',
-            function (Text $w, Text $a, Text $inner) use ($target) {
+            '{ (?<!\\\\) \* (?![\s*]) (.+?) (?<![\s*]) (?<!\\\\) \* }sx',
+            function (Text $w, Text $inner) use ($target) {
                 $target->addInline(new Emphasis($inner->getString()));
             },
             function (Text $part) use ($target) {
