@@ -6,6 +6,7 @@ use FluxBB\CommonMark\Common\Collection;
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
+use SplQueue;
 
 class LinkReferenceParser extends AbstractBlockParser
 {
@@ -20,11 +21,18 @@ class LinkReferenceParser extends AbstractBlockParser
      */
     protected $titles = [];
 
+    /**
+     * @var SplQueue
+     */
+    protected $queue;
+
 
     public function __construct(Collection $links, Collection $titles)
     {
         $this->links = $links;
         $this->titles = $titles;
+
+        $this->queue = new SplQueue();
     }
 
     /**
@@ -42,11 +50,6 @@ class LinkReferenceParser extends AbstractBlockParser
         $content->handle(
             '{
                 ^
-                (?:                 # Ensure blank line before (or beginning of subject)
-                    (?<=\n\n)|
-                    (?<=\A\n)|
-                    (?<=\A)
-                )
                 [ ]{0,3}\[(.+)\]:  # id = $1
                   [ \t]*
                   \n?               # maybe *one* newline
@@ -68,7 +71,20 @@ class LinkReferenceParser extends AbstractBlockParser
                 )?  # title is optional
                 $
             }xm',
-            function (Text $whole, Text $id, Text $url, Text $title = null) {
+            function (Text $whole, Text $id, Text $url, Text $title = null) use ($target) {
+                if (! $this->queue->isEmpty()) {
+                    $lastPart = $this->queue->dequeue();
+
+                    // If the previous line was not empty, we should not parse this as a link reference
+                    if (! $lastPart->match('/(^|\n *)\n$/')) {
+                        $lastPart->append($whole);
+                        $this->queue->enqueue($lastPart);
+                        return;
+                    }
+
+                    $this->parsePart($lastPart, $target);
+                }
+
                 $id = $id->lower()->getString();
 
                 // Throw away duplicate reference definitions
@@ -86,10 +102,25 @@ class LinkReferenceParser extends AbstractBlockParser
                     }
                 }
             },
-            function (Text $part) use ($target) {
-                $this->next->parseBlock($part, $target);
+            function (Text $part) {
+                if (! $this->queue->isEmpty()) {
+                    $lastPart = $this->queue->dequeue();
+                    $part->prepend($lastPart);
+                }
+
+                $this->queue->enqueue($part);
             }
         );
+
+        if (! $this->queue->isEmpty()) {
+            $lastPart = $this->queue->dequeue();
+            $this->parsePart($lastPart, $target);
+        }
+    }
+
+    protected function parsePart(Text $part, Container $target)
+    {
+        $this->next->parseBlock($part, $target);
     }
 
 }
