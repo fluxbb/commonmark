@@ -29,12 +29,9 @@ class BlockquoteParser extends AbstractBlockParser
                 \>              # block quote marker
                 [ ]?            # an optional space
                 [^\n]*          # until end of line
-                (               # and repeat multiple times...
+                (?:                 # lazy continuation
                     \n
-                    [ ]{0,3}
-                    \>
-                    [ ]?
-                    [^\n]*
+                    [^\-*=\ ].*
                 )*
                 $
             /mx',
