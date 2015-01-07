@@ -2,7 +2,7 @@
 
 namespace FluxBB\CommonMark\Console;
 
-use FluxBB\CommonMark\Console\Command\MarkdownCommand;
+use FluxBB\CommonMark\Console\Command\CommonMarkCommand;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -40,9 +40,9 @@ class Application extends BaseApplication
      */
     protected function getDefaultCommands()
     {
-        return array_merge(parent::getDefaultCommands(), array(
-            new MarkdownCommand()
-        ));
+        return array_merge(parent::getDefaultCommands(), [
+            new CommonMarkCommand()
+        ]);
     }
 
 }
