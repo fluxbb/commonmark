@@ -2,8 +2,23 @@
 
 namespace FluxBB\CommonMark\Node;
 
+use FluxBB\CommonMark\Common\Text;
+
 class ListItem extends Container
 {
+
+    protected $content;
+
+
+    public function __construct(Text $content)
+    {
+        $this->content = $content;
+    }
+
+    public function getContent()
+    {
+        return $this->content;
+    }
 
     public function acceptListBlock(ListBlock $listBlock)
     {

@@ -99,7 +99,8 @@ class Renderer implements NodeVisitorInterface
 
     public function leaveListItem(ListItem $listItem)
     {
-        $tag = Tag::block('li')->setText($this->popBuffer());
+        $this->popBuffer();
+        $tag = Tag::block('li')->setText($listItem->getContent());
 
         $this->buffer->append($tag)->append("\n");
     }

@@ -21,14 +21,48 @@ class ListParser extends AbstractBlockParser
      */
     public function parseBlock(Text $content)
     {
-        $pattern = '/^[ ]{0,3}-[ ]+/';
-
         $content->handle(
-            $pattern,
-            function (Text $line) use ($pattern) {
-                $line->replace($pattern, '');
+            '{
+                ^
+                ([\-+*])                  # $1 - list marker
+                ([ ]{1,4})                # $2 - initial indent
+                [^ ].*
+                (
+                    \n\n?
+                    [ ]\2
+                    .*
+                )*
+                (
+                    \n
+                    \1\2
+                    [^ ].*
+                    (
+                        \n\n?
+                        [ ]\2
+                        .*
+                    )*
+                )*
+                $
+            }mx',
+            function (Text $content, Text $marker, Text $indent) {
+                $lines = explode("\n", $content->getString());
+                $marker = $marker->getString();
+                $indentLength = $indent->getLength() + 1;
 
-                $list = new ListBlock(new ListItem($line));
+                $list = new ListBlock('ul');
+
+                // Go through all the lines to assemble the list items
+                $curItem = substr(array_shift($lines), $indentLength) . "\n";
+                foreach ($lines as $line) {
+                    if (strpos($line, $marker) === 0) {
+                        $list->addChild(new ListItem(new Text(rtrim($curItem))));
+                        $curItem = '';
+                    }
+
+                    $curItem .= substr($line, $indentLength) . "\n";
+                }
+                $list->addChild(new ListItem(new Text(rtrim($curItem))));
+
                 $this->stack->acceptListBlock($list);
             },
             function (Text $part) {
