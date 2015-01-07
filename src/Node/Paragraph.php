@@ -21,7 +21,7 @@ class Paragraph extends Node implements NodeAcceptorInterface
 
     public function getText()
     {
-        return $this->lines->join("\n");
+        return new Text($this->lines->join("\n"));
     }
 
     public function spansMultipleLines()
