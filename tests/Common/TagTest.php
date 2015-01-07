@@ -10,7 +10,7 @@ class TagTest extends \PHPUnit_Framework_TestCase
         $tag->setText('content');
         $text = $tag->getText();
 
-        $this->assertInstanceOf('\\FluxBB\\Markdown\\Common\\Text', $text);
+        $this->assertInstanceOf('\\FluxBB\\CommonMark\\Common\\Text', $text);
     }
 
     public function testRenderTag()

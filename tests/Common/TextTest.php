@@ -5,7 +5,7 @@ use FluxBB\CommonMark\Common\Text;
 class TextTest extends \PHPUnit_Framework_TestCase
 {
 
-    public $class = '\\FluxBB\\Markdown\\Common\\Text';
+    public $class = '\\FluxBB\\CommonMark\\Common\\Text';
 
     public function testStringExpression()
     {
