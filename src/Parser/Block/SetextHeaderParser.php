@@ -26,7 +26,7 @@ class SetextHeaderParser extends AbstractBlockParser
             '{
                 ^
                 [ ]{0,3}
-                ([^>\-*=\ ].*)
+                ([^>\-*=\ \n].*)
                 [ ]*
                 \n
                 [ ]{0,3}
