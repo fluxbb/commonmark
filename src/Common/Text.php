@@ -67,7 +67,7 @@ class Text implements \Serializable
      */
     public function lower()
     {
-        $this->text = strtolower($this->text);
+        $this->text = mb_strtolower($this->text);
 
         return $this;
     }
