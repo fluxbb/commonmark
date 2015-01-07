@@ -31,8 +31,8 @@ class Paragraph extends Node implements NodeAcceptorInterface
 
     protected function makeLines(Text $text)
     {
-        return $text->split('/\n/')->apply(function (Text $line) {
-            return $line->copy()->trim();
+        return $text->trim()->split('/\n/')->apply(function (Text $line) {
+            return $line->copy()->ltrim();
         });
     }
 
