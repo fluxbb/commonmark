@@ -41,7 +41,13 @@ class LinkReferenceParser extends AbstractBlockParser
     {
         $content->handle(
             '{
-                ^[ ]{0,3}\[(.+)\]:  # id = $1
+                ^
+                (?:                 # Ensure blank line before (or beginning of subject)
+                    (?<=\n\n)|
+                    (?<=\A\n)|
+                    (?<=\A)
+                )
+                [ ]{0,3}\[(.+)\]:  # id = $1
                   [ \t]*
                   \n?               # maybe *one* newline
                   [ \t]*
