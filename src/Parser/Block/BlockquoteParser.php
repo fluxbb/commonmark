@@ -31,6 +31,7 @@ class BlockquoteParser extends AbstractBlockParser
                 [^\n]*          # until end of line
                 (?:                 # lazy continuation
                     \n
+                    [ ]{0,3}
                     [^\-*=\ ].*
                 )*
                 $
