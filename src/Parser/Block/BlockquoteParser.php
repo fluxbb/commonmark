@@ -32,7 +32,7 @@ class BlockquoteParser extends AbstractBlockParser
                         [ ]{0,3}\>[ ]*              # either a blank line
                         |
                         [ ]{0,3}\>                  # or non-blank lines...
-                        [ ]?[^\n\ ][^\n]*[ ]*
+                        [ ]*[^\n\ ][^\n]*[ ]*
                         (                           # ...with lazy continuation
                             \n
                             [ ]{0,3}
