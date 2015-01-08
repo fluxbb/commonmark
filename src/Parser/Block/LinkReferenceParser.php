@@ -50,7 +50,7 @@ class LinkReferenceParser extends AbstractBlockParser
         $content->handle(
             '{
                 ^
-                [ ]{0,3}\[(.+)\]:  # id = $1
+                [ ]{0,3}\[(.+?)\]:  # id = $1
                   [ \t]*
                   \n?               # maybe *one* newline
                   [ \t]*
