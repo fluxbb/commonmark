@@ -50,7 +50,7 @@ class LinkReferenceParser extends AbstractBlockParser
         $content->handle(
             '{
                 ^
-                [ ]{0,3}\[([^\]]+)\]:  # id = $1
+                [ ]{0,3}\[(.+)\]:  # id = $1
                   [ \t]*
                   \n?               # maybe *one* newline
                   [ \t]*
@@ -65,12 +65,12 @@ class LinkReferenceParser extends AbstractBlockParser
                   [ \t]*
                     (?<=\s)         # lookbehind for whitespace
                     ["\'(]
-                    (.+?)           # title = $3
+                    ([^\n]+?)           # title = $3
                     ["\')]
                     [ \t]*
                 )?  # title is optional
                 $
-            }xm',
+            }msx',
             function (Text $whole, Text $id, Text $url, Text $title = null) use ($target) {
                 if (! $this->queue->isEmpty()) {
                     $lastPart = $this->queue->dequeue();
