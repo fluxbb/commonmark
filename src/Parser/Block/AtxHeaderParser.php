@@ -33,7 +33,10 @@ class AtxHeaderParser extends AbstractBlockParser
             function (Text $whole, Text $marks, Text $content) use ($target) {
                 $level = $marks->getLength();
 
-                $target->acceptHeading(new Heading($content->trim(), $level));
+                $heading = new Heading($content->trim(), $level);
+                $target->acceptHeading($heading);
+
+                $this->inlineParser->queue($heading->getText(), $heading);
             },
             function (Text $part) use ($target) {
                 $this->next->parseBlock($part, $target);

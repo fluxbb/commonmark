@@ -37,6 +37,11 @@ class DocumentParser implements BlockParserInterface
      */
     protected $parsers = [];
 
+    /**
+     * @var InlineParser
+     */
+    protected $inlineParser;
+
 
     /**
      * Create a parser instance.
@@ -59,6 +64,7 @@ class DocumentParser implements BlockParserInterface
     {
         $root = new Document();
 
+        $this->inlineParser = new InlineParser($this->links, $this->titles);
         $parser = $this->buildParserStack();
 
         $text = new Text($markdown);
@@ -66,7 +72,7 @@ class DocumentParser implements BlockParserInterface
 
         $parser->parseBlock($text, $root);
 
-        $this->parseInlineContent($root);
+        $this->inlineParser->parse();
 
         return $root;
     }
@@ -90,18 +96,6 @@ class DocumentParser implements BlockParserInterface
             $tabWidth = 4;
             return $string . str_repeat(' ', $tabWidth - $string->getLength() % $tabWidth);
         });
-    }
-
-    /**
-     * Parse the inline elements of our document tree.
-     *
-     * @param Document $root
-     * @return void
-     */
-    protected function parseInlineContent(Document $root)
-    {
-        $inlineParser = new InlineParser($this->links, $this->titles);
-        $root->visit($inlineParser);
     }
 
     /**
@@ -148,6 +142,7 @@ class DocumentParser implements BlockParserInterface
         return function (BlockParserInterface $stack, AbstractBlockParser $parser) use ($first) {
             $parser->setNextParser($stack);
             $parser->setFirstParser($first);
+            $parser->setInlineParser($this->inlineParser);
 
             return $parser;
         };

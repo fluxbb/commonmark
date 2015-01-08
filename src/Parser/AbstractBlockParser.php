@@ -2,6 +2,8 @@
 
 namespace FluxBB\CommonMark\Parser;
 
+use FluxBB\CommonMark\InlineParser;
+
 abstract class AbstractBlockParser implements BlockParserInterface
 {
 
@@ -15,6 +17,11 @@ abstract class AbstractBlockParser implements BlockParserInterface
      */
     protected $first;
 
+    /**
+     * @var InlineParser
+     */
+    protected $inlineParser;
+
 
     public function setNextParser(BlockParserInterface $next)
     {
@@ -24,6 +31,11 @@ abstract class AbstractBlockParser implements BlockParserInterface
     public function setFirstParser(BlockParserInterface $first)
     {
         $this->first = $first;
+    }
+
+    public function setInlineParser(InlineParser $parser)
+    {
+        $this->inlineParser = $parser;
     }
 
 }

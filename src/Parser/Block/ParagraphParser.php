@@ -29,7 +29,10 @@ class ParagraphParser extends AbstractBlockParser
                 $target->acceptBlankLine(new BlankLine($line));
             },
             function (Text $part) use ($target) {
-                $target->acceptParagraph(new Paragraph($part));
+                $paragraph = new Paragraph($part);
+                $target->acceptParagraph($paragraph);
+
+                $this->inlineParser->queue($paragraph->getText(), $paragraph);
             }
         );
     }

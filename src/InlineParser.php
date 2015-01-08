@@ -4,24 +4,7 @@ namespace FluxBB\CommonMark;
 
 use FluxBB\CommonMark\Common\Collection;
 use FluxBB\CommonMark\Common\Text;
-use FluxBB\CommonMark\Node\Blockquote;
-use FluxBB\CommonMark\Node\Code;
-use FluxBB\CommonMark\Node\CodeBlock;
-use FluxBB\CommonMark\Node\Emphasis;
-use FluxBB\CommonMark\Node\Heading;
-use FluxBB\CommonMark\Node\HorizontalRule;
-use FluxBB\CommonMark\Node\HTMLBlock;
-use FluxBB\CommonMark\Node\Image;
 use FluxBB\CommonMark\Node\InlineNodeAcceptorInterface;
-use FluxBB\CommonMark\Node\Link;
-use FluxBB\CommonMark\Node\ListBlock;
-use FluxBB\CommonMark\Node\ListItem;
-use FluxBB\CommonMark\Node\NodeVisitorInterface;
-use FluxBB\CommonMark\Node\Paragraph;
-use FluxBB\CommonMark\Node\HardBreak;
-use FluxBB\CommonMark\Node\RawHTML;
-use FluxBB\CommonMark\Node\String;
-use FluxBB\CommonMark\Node\StrongEmphasis;
 use FluxBB\CommonMark\Parser\AbstractInlineParser;
 use FluxBB\CommonMark\Parser\Inline\AutolinkParser;
 use FluxBB\CommonMark\Parser\Inline\CodeSpanParser;
@@ -33,8 +16,9 @@ use FluxBB\CommonMark\Parser\Inline\RawHTMLParser;
 use FluxBB\CommonMark\Parser\Inline\StrongEmphasisParser;
 use FluxBB\CommonMark\Parser\Inline\TextParser;
 use FluxBB\CommonMark\Parser\InlineParserInterface;
+use SplQueue;
 
-class InlineParser implements NodeVisitorInterface, InlineParserInterface
+class InlineParser implements InlineParserInterface
 {
 
     /**
@@ -59,6 +43,11 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
      */
     protected $titles;
 
+    /**
+     * @var SplQueue
+     */
+    protected $queue;
+
 
     public function __construct(Collection $links, Collection $titles)
     {
@@ -68,6 +57,22 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
         $this->registerDefaultParsers();
 
         $this->parser = $this->buildParserStack();
+
+        $this->queue = new SplQueue();
+    }
+
+    public function queue(Text $content, InlineNodeAcceptorInterface $node)
+    {
+        $this->queue->enqueue([$content, $node]);
+    }
+
+    public function parse()
+    {
+        while (! $this->queue->isEmpty()) {
+            list($content, $node) = $this->queue->dequeue();
+
+            $this->parser->parseInline($content, $node);
+        }
     }
 
     public function getReferences()
@@ -83,106 +88,6 @@ class InlineParser implements NodeVisitorInterface, InlineParserInterface
     public function getReferenceTitle($reference)
     {
         return $this->titles->exists($reference) ? $this->titles->get($reference) : new Text();
-    }
-
-    public function enterParagraph(Paragraph $paragraph)
-    {
-        $this->parser->parseInline($paragraph->getText(), $paragraph);
-    }
-
-    public function leaveParagraph(Paragraph $paragraph)
-    {
-        return;
-    }
-
-    public function enterBlockquote(Blockquote $blockquote)
-    {
-        return;
-    }
-
-    public function leaveBlockquote(Blockquote $blockquote)
-    {
-        return;
-    }
-
-    public function enterListBlock(ListBlock $listBlock)
-    {
-        return;
-    }
-
-    public function leaveListBlock(ListBlock $listBlock)
-    {
-        return;
-    }
-
-    public function enterListItem(ListItem $listItem)
-    {
-        return;
-    }
-
-    public function leaveListItem(ListItem $listItem)
-    {
-        return;
-    }
-
-    public function visitHeading(Heading $heading)
-    {
-        $this->parser->parseInline($heading->getText(), $heading);
-    }
-
-    public function visitHorizontalRule(HorizontalRule $horizontalRule)
-    {
-        return;
-    }
-
-    public function visitHTMLBLock(HTMLBlock $htmlBlock)
-    {
-        return;
-    }
-
-    public function visitCodeBlock(CodeBlock $codeBlock)
-    {
-        return;
-    }
-
-    public function visitString(String $string)
-    {
-        return;
-    }
-
-    public function visitEmphasis(Emphasis $emphasis)
-    {
-        return;
-    }
-
-    public function visitStrongEmphasis(StrongEmphasis $strongEmphasis)
-    {
-        return;
-    }
-
-    public function visitLink(Link $link)
-    {
-        return;
-    }
-
-    public function visitImage(Image $image)
-    {
-        return;
-    }
-
-    public function visitCode(Code $code)
-    {
-        return;
-    }
-
-    public function visitRawHTML(RawHTML $rawHtml)
-    {
-        return;
-    }
-
-    public function visitHardBreak(HardBreak $softBreak)
-    {
-        return;
     }
 
     /**
