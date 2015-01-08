@@ -24,7 +24,6 @@ class CodeBlockParser extends AbstractBlockParser
     {
         $content->handle(
             '{
-                ^
                 (?:                 # Ensure blank line before (or beginning of subject)
                     \A\s*\n?|
                     \n\s*\n
