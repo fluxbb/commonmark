@@ -107,7 +107,7 @@ class ListParser extends AbstractBlockParser
                 $lines = explode("\n", $content->getString());
                 $marker = $marker->getString();
                 $start = substr($marker, 0, -1);
-                $indentLength = $indent->getLength() + 1;
+                $indentLength = $indent->getLength() + 2;
 
                 $list = new ListBlock('ol', $start);
 
