@@ -24,16 +24,22 @@ class BlockquoteParser extends AbstractBlockParser
     {
         $content->handle(
             '/
-                ^
-                [ ]{0,3}        # up to 3 leading spaces
-                \>              # block quote marker
-                [ ]?            # an optional space
-                [^\n]*          # until end of line
-                (?:                 # lazy continuation
-                    \n
-                    [ ]{0,3}
-                    [^\-*=\ \n].*
-                )*
+                (
+                    (?:                             # We are either at the beginning of the match
+                        ^|\n                        # or at a newline (for multi-line quotes)
+                    )
+                    (?:
+                        [ ]{0,3}\>[ ]*              # either a blank line
+                        |
+                        [ ]{0,3}\>                  # or non-blank lines...
+                        [ ]?[^\n\ ][^\n]*[ ]*
+                        (                           # ...with lazy continuation
+                            \n
+                            [ ]{0,3}
+                            [^>\-*=\ \n][^\n]*
+                        )*
+                    )
+                )+
                 $
             /mx',
             function (Text $content) use ($target) {
