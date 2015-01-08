@@ -39,7 +39,7 @@ class ImageParser extends AbstractInlineParser
                 \]
                 \(            # literal paren
                 [ \t]*
-                <?(\S+?)>?  # src url = $2
+                <?(\S*?)>?  # src url = $2
                 [ \t]*
                 (           # $3
                   ([\'"])   # quote char = $4
