@@ -23,6 +23,11 @@ class ListParser extends AbstractBlockParser
      */
     public function parseBlock(Text $content, Container $target)
     {
+        $this->parseBulletLists($content, $target);
+    }
+
+    protected function parseBulletLists(Text $content, Container $target)
+    {
         $content->handle(
             '{
                 ^
@@ -52,6 +57,59 @@ class ListParser extends AbstractBlockParser
                 $indentLength = $indent->getLength() + 1;
 
                 $list = new ListBlock('ul');
+
+                // Go through all the lines to assemble the list items
+                $curItem = substr(array_shift($lines), $indentLength) . "\n";
+                foreach ($lines as $line) {
+                    if (strpos($line, $marker) === 0) {
+                        $this->addItemToList($curItem, $list);
+                        $curItem = '';
+                    }
+
+                    $curItem .= substr($line, $indentLength) . "\n";
+                }
+                $this->addItemToList($curItem, $list);
+
+                $target->acceptListBlock($list);
+            },
+            function (Text $part) use ($target) {
+                $this->parseOrderedLists($part, $target);
+            }
+        );
+    }
+
+    protected function parseOrderedLists(Text $content, Container $target)
+    {
+        $content->handle(
+            '{
+                ^
+                ([0-9]+[.)])                  # $1 - list marker
+                ([ ]{1,4})                # $2 - initial indent
+                [^ ].*
+                (
+                    \n\n?
+                    [ ]{2}\2
+                    .*
+                )*
+                (
+                    \n
+                    \1\2
+                    [^ ].*
+                    (
+                        \n\n?
+                        [ ]{2}\2
+                        .*
+                    )*
+                )*
+                $
+            }mx',
+            function (Text $content, Text $marker, Text $indent) use ($target) {
+                $lines = explode("\n", $content->getString());
+                $marker = $marker->getString();
+                $start = substr($marker, 0, -1);
+                $indentLength = $indent->getLength() + 1;
+
+                $list = new ListBlock('ol', $start);
 
                 // Go through all the lines to assemble the list items
                 $curItem = substr(array_shift($lines), $indentLength) . "\n";

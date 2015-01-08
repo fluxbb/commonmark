@@ -5,9 +5,23 @@ namespace FluxBB\CommonMark\Node;
 class ListBlock extends Container implements NodeAcceptorInterface
 {
 
-    public function __construct($type)
+    protected $start;
+
+
+    public function __construct($type, $start = null)
     {
         $this->type = $type;
+        $this->start = $start;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function getStart()
+    {
+        return $this->start ?: 1;
     }
 
     public function acceptParagraph(Paragraph $paragraph)

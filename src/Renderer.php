@@ -87,7 +87,19 @@ class Renderer implements NodeVisitorInterface
 
     public function leaveListBlock(ListBlock $listBlock)
     {
-        $tag = Tag::block('ul')->setText($this->popBuffer());
+        $type = $listBlock->getType();
+        $start = $listBlock->getStart();
+
+        if ($type == 'ol') {
+            $tag = Tag::block('ol');
+            if ($start > 1) {
+                $tag->setAttribute('start', $start);
+            }
+        } else {
+            $tag = Tag::block('ul');
+        }
+
+        $tag->setText($this->popBuffer());
 
         $this->buffer->append($tag)->append("\n");
     }
