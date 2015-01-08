@@ -5,6 +5,7 @@ namespace FluxBB\CommonMark\Parser\Inline;
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\InlineNodeAcceptorInterface;
 use FluxBB\CommonMark\Node\Link;
+use FluxBB\CommonMark\Node\String;
 use FluxBB\CommonMark\Parser\AbstractInlineParser;
 
 class AutolinkParser extends AbstractInlineParser
@@ -43,7 +44,9 @@ class AutolinkParser extends AbstractInlineParser
                 // Replace special characters in the URL
                 $url->encodeUrl();
 
-                $target->addInline(new Link($url, $content));
+                $link = new Link($url);
+                $link->addInline(new String($content));
+                $target->addInline($link);
             },
             function (Text $part) use ($target) {
                 $this->parseEmail($part, $target);
@@ -69,7 +72,9 @@ class AutolinkParser extends AbstractInlineParser
                 }ix',
                 function (Text $w, Text $email) use ($target) {
                     $text = $email->copy();
-                    $target->addInline(new Link($email->prepend('mailto:'), $text));
+                    $link = new Link($email->prepend('mailto:'));
+                    $link->addInline(new String($text));
+                    $target->addInline($link);
                 },
                 function (Text $part) use ($target) {
                     $this->next->parseInline($part, $target);

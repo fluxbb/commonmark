@@ -23,7 +23,7 @@ class Link extends Node implements NodeAcceptorInterface
     protected $titleText;
 
 
-    public function __construct(Text $href, Text $content, Text $titleText = null)
+    public function __construct(Text $href, Text $content = null, Text $titleText = null)
     {
         $this->href = $href;
         $this->content = $content;
