@@ -90,15 +90,24 @@ class LinkParser extends AbstractInlineParser
         $content->handle(
             '/
                 (?<!\\\\)
-                (?:
+                (?|
+                    ()
                     \[
-                        (' . $this->getNestedBrackets() . ')    # link text = $1
+                        (' . $references . ')
                     \]
-                    [ \t\n]*
-                )?
-                \[
-                    (' . $references . ')                       # label = $2
-                \]
+                    [\n\ ]*
+                    \[\]
+                  |
+                    (?:
+                        \[
+                            (' . $this->getNestedBrackets() . ')    # link text = $1
+                        \]
+                        [ \t\n]*
+                    )?
+                    \[
+                        (' . $references . ')                       # label = $2
+                    \]
+                )
             /iux',
             function (Text $whole, Text $linkText, Text $label) use ($target) {
                 $reference = $label->copy()->lower();
