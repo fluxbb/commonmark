@@ -169,7 +169,8 @@ class Renderer implements NodeVisitorInterface
     {
         $tag = Tag::block('a');
         $tag->setAttribute('href', $link->getHref()->escapeHtml());
-        $tag->setText($link->getContent()->escapeHtml());
+
+        $this->fillWithInlineElements($tag, $link);
 
         if (! $link->getTitleText()->isEmpty()) {
             $tag->setAttribute('title', $link->getTitleText()->escapeHtml());

@@ -70,7 +70,10 @@ class LinkParser extends AbstractInlineParser
                 // Replace special characters in the URL
                 $url->encodeUrl();
 
-                $target->addInline(new Link($url, $linkText, $title));
+                $link = new Link($url, $linkText, $title);
+                $target->addInline($link);
+
+                $this->context->queue($link->getContent(), $link);
             },
             function (Text $part) use ($target) {
                 $this->parseReferenceLink($part, $target);
@@ -106,7 +109,10 @@ class LinkParser extends AbstractInlineParser
                     $linkText = $label;
                 }
 
-                $target->addInline(new Link($url, $linkText, $title));
+                $link = new Link($url, $linkText, $title);
+                $target->addInline($link);
+
+                $this->context->queue($link->getContent(), $link);
             },
             function (Text $part) use ($target) {
                 $this->next->parseInline($part, $target);
