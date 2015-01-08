@@ -31,12 +31,15 @@ class FencedCodeBlockParser extends AbstractBlockParser
                         \3{2,}                  #  At least two remaining fence characters
                     )
                     ([^`\n]*?)?                 #4 Code language [optional]
-                    \n(.*?)                     #5 Code block
+                    (?:
+                        \n(.*?)                 #5 Code block
+                    )?
                     (?:(?<=\n)([ ]{0,3}\2\3*[ ]*)|\z)  #  Closing fence or end of document
                 )$
             }msx',
-            function (Text $whole, Text $whitespace, Text $fence, Text $fenceChar, Text $lang, Text $code) use ($target) {
+            function (Text $whole, Text $whitespace, Text $fence, Text $fenceChar, Text $lang, Text $code = null) use ($target) {
                 $leading = $whitespace->getLength();
+                $code = $code ?: new Text();
 
                 $language = new Text(explode(' ', $lang->trim())[0]);
                 $language->decodeEntities();
