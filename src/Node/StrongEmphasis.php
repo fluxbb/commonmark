@@ -2,22 +2,24 @@
 
 namespace FluxBB\CommonMark\Node;
 
+use FluxBB\CommonMark\Common\Text;
+
 class StrongEmphasis extends Node implements NodeAcceptorInterface
 {
 
     /**
-     * @var string
+     * @var Text
      */
     protected $content;
 
 
-    public function __construct($content)
+    public function __construct(Text $content)
     {
         $this->content = $content;
     }
 
     /**
-     * @return string
+     * @return Text
      */
     public function getContent()
     {

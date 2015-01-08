@@ -34,7 +34,9 @@ class StrongEmphasisParser extends AbstractInlineParser
         $content->handle(
             '{ (\*\*) (?![\s*]) (.+) (?<![\s*]) \1 }sx',
             function (Text $w, Text $a, Text $inner) use ($target) {
-                $target->addInline(new StrongEmphasis($inner->getString()));
+                $emphasis = new StrongEmphasis($inner);
+                $this->context->queue($emphasis->getContent(), $emphasis);
+                $target->addInline($emphasis);
             },
             function (Text $part) use ($target) {
                 $this->parseUnderscores($part, $target);
@@ -47,7 +49,9 @@ class StrongEmphasisParser extends AbstractInlineParser
         $content->handle(
             '{ (?<![A-Za-z0-9]) (__) (?![\s_]) (.+) (?<![\s_]) \1 (?![A-Za-z0-9]) }sx',
             function (Text $w, Text $a, Text $inner) use ($target) {
-                $target->addInline(new StrongEmphasis($inner->getString()));
+                $emphasis = new StrongEmphasis($inner);
+                $this->context->queue($emphasis->getContent(), $emphasis);
+                $target->addInline($emphasis);
             },
             function (Text $part) use ($target) {
                 $this->next->parseInline($part, $target);

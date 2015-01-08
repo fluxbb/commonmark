@@ -152,7 +152,7 @@ class Renderer implements NodeVisitorInterface
     public function visitEmphasis(Emphasis $emphasis)
     {
         $tag = Tag::block('em');
-        $tag->setText($emphasis->getContent());
+        $this->fillWithInlineElements($tag, $emphasis);
 
         $this->buffer->append($tag);
     }
@@ -160,7 +160,7 @@ class Renderer implements NodeVisitorInterface
     public function visitStrongEmphasis(StrongEmphasis $strongEmphasis)
     {
         $tag = Tag::block('strong');
-        $tag->setText($strongEmphasis->getContent());
+        $this->fillWithInlineElements($tag, $strongEmphasis);
 
         $this->buffer->append($tag);
     }
