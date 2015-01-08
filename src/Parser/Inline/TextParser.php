@@ -26,6 +26,9 @@ class TextParser extends AbstractInlineParser
 
         $content->decodeEntities();
 
+        // Remove spaces at the end of each line
+        $content->replace('/[ ]+(?=\n)/', '');
+
         $target->addInline(new String($content));
     }
 
