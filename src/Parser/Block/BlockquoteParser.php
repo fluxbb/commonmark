@@ -31,7 +31,7 @@ class BlockquoteParser extends AbstractBlockParser
                     (?:
                         [ ]{0,3}\>[ ]*              # either a blank line
                       |
-                        [ ]{0,3}\>[ ]?[`~]{3,}[ ]*  # or a code fence
+                        [ ]{0,3}\>[ ]?[`~]{3,}.*    # or a code fence
                       |
                         [ ]{0,3}\>                  # or non-blank lines...
                         [ ]*[^\n\ ][^\n]*[ ]*
