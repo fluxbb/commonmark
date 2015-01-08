@@ -33,7 +33,7 @@ class CodeSpanParser extends AbstractInlineParser
     {
         $content->handle(
             '{
-                (?<!`)
+                (?<![`\\\\])
                 (`+)        # $1 = Opening run of `
                 (?!`)
                 (.+?)       # $2 = The code block
