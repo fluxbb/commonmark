@@ -114,9 +114,7 @@ class Renderer implements NodeVisitorInterface
     {
         $tag = Tag::block('h' . $heading->getLevel());
 
-        $this->pushBuffer();
-        $this->renderInlineElements($heading);
-        $tag->setText($this->popBuffer());
+        $this->fillWithInlineElements($tag, $heading);
 
         $this->buffer->append($tag)->append("\n");
     }
@@ -211,6 +209,13 @@ class Renderer implements NodeVisitorInterface
     public function visitHardBreak(HardBreak $softBreak)
     {
         $this->buffer->append(Tag::inline('br'))->append("\n");
+    }
+
+    protected function fillWithInlineElements(Tag $tag, Node $node)
+    {
+        $this->pushBuffer();
+        $this->renderInlineElements($node);
+        $tag->setText($this->popBuffer());
     }
 
     protected function pushBuffer($text = '')
