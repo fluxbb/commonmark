@@ -50,7 +50,7 @@ class LinkReferenceParser extends AbstractBlockParser
         $content->handle(
             '{
                 ^
-                [ ]{0,3}\[(.+)\]:  # id = $1
+                [ ]{0,3}\[([^\]]+)\]:  # id = $1
                   [ \t]*
                   \n?               # maybe *one* newline
                   [ \t]*
@@ -85,7 +85,7 @@ class LinkReferenceParser extends AbstractBlockParser
                     $this->parsePart($lastPart, $target);
                 }
 
-                $id = $id->lower()->getString();
+                $id = $id->replace('/[\ \n]+/', ' ')->lower()->getString();
 
                 // Throw away duplicate reference definitions
                 if ( ! $this->links->exists($id)) {
