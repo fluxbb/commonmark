@@ -101,11 +101,11 @@ class InlineParser implements InlineParserInterface
             new AutolinkParser(),
             new RawHTMLParser(),
             new CodeSpanParser(),
-            new LineBreakParser(),
             new ImageParser(),
             new LinkParser(),
             new StrongEmphasisParser(),
             new EmphasisParser(),
+            new LineBreakParser(),
             new TextParser(),
         ];
     }
