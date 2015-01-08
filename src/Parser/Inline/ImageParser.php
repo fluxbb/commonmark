@@ -50,7 +50,8 @@ class ImageParser extends AbstractInlineParser
                 \)
             }xs',
             function (Text $w, Text $alt, Text $url, Text $a = null, Text $q = null, Text $title = null) use ($target) {
-                $target->addInline(new Image($url, $alt, $title));
+                $image = new Image($url, $alt, $title);
+                $target->addInline($image);
             },
             function (Text $part) use ($target) {
                 $this->parseReferenceImage($part, $target);
@@ -67,15 +68,24 @@ class ImageParser extends AbstractInlineParser
         $content->handle(
             '{
                 (?<!\\\\)!
-                (?:
+                (?|
+                    ()
                     \[
-                        (.*?)       # alt text = $1
+                        (' . $references . ')
                     \]
-                    [ \t\n]*
-                )?
-                \[
-                    (' . $references .')
-                \]
+                    [\n\ ]*
+                    \[\]
+                  |
+                    (?:
+                        \[
+                            (.*?)       # alt text = $1
+                        \]
+                        [ \t\n]*
+                    )?
+                    \[
+                        (' . $references .')
+                    \]
+                )
             }iux',
             function (Text $whole, Text $alt, Text $label) use ($target) {
                 $reference = $label->copy()->lower();
@@ -86,7 +96,8 @@ class ImageParser extends AbstractInlineParser
                     $alt = $label;
                 }
 
-                $target->addInline(new Image($url, $alt, $title));
+                $image = new Image($url, $alt, $title);
+                $target->addInline($image);
             },
             function (Text $part) use ($target) {
                 $this->next->parseInline($part, $target);
