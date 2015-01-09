@@ -4,7 +4,6 @@ namespace FluxBB\CommonMark\Node\Block;
 
 use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Node\NodeVisitorInterface;
-use FluxBB\CommonMark\Node\Block\Paragraph;
 
 class ListItem extends Container
 {
