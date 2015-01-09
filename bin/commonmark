@@ -22,6 +22,6 @@ foreach($paths as $path) {
     }
 }
 
-$app = new Application('FluxBB CommonMark', \FluxBB\CommonMark\Parser::VERSION);
+$app = new Application('FluxBB CommonMark', \FluxBB\CommonMark\DocumentParser::VERSION);
 $app->add(new \FluxBB\CommonMark\Console\Command\CommonMarkCommand());
 $app->run();

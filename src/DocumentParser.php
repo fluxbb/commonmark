@@ -22,6 +22,9 @@ use FluxBB\CommonMark\Parser\BlockParserInterface;
 class DocumentParser implements BlockParserInterface
 {
 
+    const VERSION = '1.0-dev';
+
+
     /**
      * @var Collection
      */
