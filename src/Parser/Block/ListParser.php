@@ -55,7 +55,7 @@ class ListParser extends AbstractBlockParser
             function (Text $content, Text $i, Text $marker, Text $indent) use ($target) {
                 $lines = explode("\n", $content->getString());
                 $marker = $marker->getString();
-                $indentLength = $indent->getLength() + 1;
+                $indentLength = $i->getLength() + $indent->getLength() + 1;
 
                 $list = new ListBlock('ul');
 
