@@ -46,7 +46,7 @@ class ListParser extends AbstractBlockParser
                     [^ ].*
                     (
                         \n\n?
-                        [ ]\3
+                        \1[ ]\3
                         .*
                     )*
                 )*
