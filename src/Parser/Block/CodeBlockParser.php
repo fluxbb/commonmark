@@ -48,7 +48,7 @@ class CodeBlockParser extends AbstractBlockParser
                 $code->replace('/^[ ]{1,4}/m', '');
                 $code->append("\n");
 
-                $target->acceptCodeBlock(new CodeBlock($code));
+                $target->addChild(new CodeBlock($code));
             },
             function(Text $part) use ($target) {
                 $this->next->parseBlock($part, $target);

@@ -42,7 +42,7 @@ class HTMLBlockParser extends AbstractBlockParser
             function (Text $content) use ($target) {
                 $block = new HTMLBlock($content);
 
-                $target->acceptHTMLBLock($block);
+                $target->addChild($block);
             },
             function (Text $part) use ($target) {
                 $this->next->parseBlock($part, $target);

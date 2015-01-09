@@ -4,7 +4,7 @@ namespace FluxBB\CommonMark\Node;
 
 use FluxBB\CommonMark\Common\Text;
 
-class Heading extends Node implements NodeAcceptorInterface
+class Heading extends Node
 {
 
     /**

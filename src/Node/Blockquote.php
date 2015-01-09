@@ -2,25 +2,8 @@
 
 namespace FluxBB\CommonMark\Node;
 
-class Blockquote extends Container implements NodeAcceptorInterface
+class Blockquote extends Container
 {
-
-    public function acceptParagraph(Paragraph $paragraph)
-    {
-        $this->addChild($paragraph);
-
-        return $paragraph;
-    }
-
-    public function acceptBlankLine(BlankLine $blankLine)
-    {
-        return $this->addChild($blankLine);
-    }
-
-    public function acceptHorizontalRule(HorizontalRule $horizontalRule)
-    {
-        return $this->parent->acceptHorizontalRule($horizontalRule);
-    }
 
     public function visit(NodeVisitorInterface $visitor)
     {
@@ -30,4 +13,5 @@ class Blockquote extends Container implements NodeAcceptorInterface
 
         $visitor->leaveBlockquote($this);
     }
+
 }

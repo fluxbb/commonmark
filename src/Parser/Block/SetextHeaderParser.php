@@ -39,7 +39,7 @@ class SetextHeaderParser extends AbstractBlockParser
                 $level = (substr($mark, 0, 1) == '=') ? 1 : 2;
 
                 $heading = new Heading($content->trim(), $level);
-                $target->acceptHeading($heading);
+                $target->addChild($heading);
 
                 $this->inlineParser->queue($heading->getText(), $heading);
             },

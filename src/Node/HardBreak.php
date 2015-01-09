@@ -2,7 +2,7 @@
 
 namespace FluxBB\CommonMark\Node;
 
-class HardBreak extends Node implements NodeAcceptorInterface
+class HardBreak extends Node
 {
 
     /**

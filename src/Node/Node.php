@@ -2,7 +2,7 @@
 
 namespace FluxBB\CommonMark\Node;
 
-abstract class Node implements NodeAcceptorInterface, InlineNodeAcceptorInterface
+abstract class Node implements InlineNodeAcceptorInterface
 {
 
     /**
@@ -50,46 +50,6 @@ abstract class Node implements NodeAcceptorInterface, InlineNodeAcceptorInterfac
     protected function setParent(Node $parent)
     {
         $this->parent = $parent;
-    }
-
-    public function acceptParagraph(Paragraph $paragraph)
-    {
-        return $this->parent->acceptParagraph($paragraph);
-    }
-
-    public function acceptBlockquote(Blockquote $blockquote)
-    {
-        return $this->parent->acceptBlockquote($blockquote);
-    }
-
-    public function acceptListBlock(ListBlock $listBlock)
-    {
-        return $this->parent->acceptListBlock($listBlock);
-    }
-
-    public function acceptHeading(Heading $heading)
-    {
-        return $this->parent->acceptHeading($heading);
-    }
-
-    public function acceptHorizontalRule(HorizontalRule $horizontalRule)
-    {
-        return $this->parent->acceptHorizontalRule($horizontalRule);
-    }
-
-    public function acceptHTMLBlock(HTMLBlock $htmlBlock)
-    {
-        return $this->parent->acceptHTMLBlock($htmlBlock);
-    }
-
-    public function acceptBlankLine(BlankLine $blankLine)
-    {
-        return $this->parent->acceptBlankLine($blankLine);
-    }
-
-    public function acceptCodeBlock(CodeBlock $codeBlock)
-    {
-        return $this->parent->acceptCodeBlock($codeBlock);
     }
 
     /**

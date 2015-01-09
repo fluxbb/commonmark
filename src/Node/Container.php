@@ -2,7 +2,7 @@
 
 namespace FluxBB\CommonMark\Node;
 
-abstract class Container extends Node implements NodeAcceptorInterface
+abstract class Container extends Node
 {
 
     /**
@@ -34,50 +34,6 @@ abstract class Container extends Node implements NodeAcceptorInterface
     public function merge(Container $sibling)
     {
         $this->children = array_merge($this->children, $sibling->children);
-    }
-
-    public function acceptParagraph(Paragraph $paragraph)
-    {
-        return $this->addChild($paragraph);
-    }
-
-    public function acceptBlockquote(Blockquote $blockquote)
-    {
-        $this->addChild($blockquote);
-
-        return $blockquote;
-    }
-
-    public function acceptListBlock(ListBlock $listBlock)
-    {
-        $this->addChild($listBlock);
-
-        return $listBlock;
-    }
-
-    public function acceptHeading(Heading $heading)
-    {
-        return $this->addChild($heading);
-    }
-
-    public function acceptHorizontalRule(HorizontalRule $horizontalRule)
-    {
-        return $this->addChild($horizontalRule);
-    }
-
-    public function acceptHTMLBLock(HTMLBlock $htmlBlock)
-    {
-        return $this->addChild($htmlBlock);
-    }
-
-    public function acceptBlankLine(BlankLine $blankLine)
-    {
-        return $this->addChild($blankLine);
-    }
-
-    public function acceptCodeBlock(CodeBlock $codeBlock)
-    {
-        return $this->addChild($codeBlock);
     }
 
     /**

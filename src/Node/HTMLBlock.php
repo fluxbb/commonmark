@@ -4,7 +4,7 @@ namespace FluxBB\CommonMark\Node;
 
 use FluxBB\CommonMark\Common\Text;
 
-class HTMLBlock extends Node implements NodeAcceptorInterface
+class HTMLBlock extends Node
 {
 
     /**

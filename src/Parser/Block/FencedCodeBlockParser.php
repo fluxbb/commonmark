@@ -49,7 +49,7 @@ class FencedCodeBlockParser extends AbstractBlockParser
                     $code->replace("/^[ ]{0,$leading}/m", '');
                 }
 
-                $target->acceptCodeBlock(new CodeBlock($code, $language));
+                $target->addChild(new CodeBlock($code, $language));
             },
             function (Text $part) use ($target) {
                 $this->next->parseBlock($part, $target);

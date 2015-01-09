@@ -4,7 +4,7 @@ namespace FluxBB\CommonMark\Node;
 
 use FluxBB\CommonMark\Common\Text;
 
-class Emphasis extends Node implements NodeAcceptorInterface
+class Emphasis extends Node
 {
 
     /**

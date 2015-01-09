@@ -26,11 +26,11 @@ class ParagraphParser extends AbstractBlockParser
         $content->handle(
             '/^\s*$/m',
             function (Text $line) use ($target) {
-                $target->acceptBlankLine(new BlankLine($line));
+                $target->addChild(new BlankLine($line));
             },
             function (Text $part) use ($target) {
                 $paragraph = new Paragraph($part);
-                $target->acceptParagraph($paragraph);
+                $target->addChild($paragraph);
 
                 $this->inlineParser->queue($paragraph->getText(), $paragraph);
             }

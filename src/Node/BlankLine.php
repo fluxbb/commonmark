@@ -4,7 +4,7 @@ namespace FluxBB\CommonMark\Node;
 
 use FluxBB\CommonMark\Common\Text;
 
-class BlankLine extends Node implements NodeAcceptorInterface
+class BlankLine extends Node
 {
 
     /**

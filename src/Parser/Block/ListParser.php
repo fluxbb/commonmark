@@ -71,7 +71,7 @@ class ListParser extends AbstractBlockParser
                 }
                 $this->addItemToList($curItem, $list);
 
-                $target->acceptListBlock($list);
+                $target->addChild($list);
             },
             function (Text $part) use ($target) {
                 $this->parseOrderedLists($part, $target);
@@ -124,7 +124,7 @@ class ListParser extends AbstractBlockParser
                 }
                 $this->addItemToList($curItem, $list);
 
-                $target->acceptListBlock($list);
+                $target->addChild($list);
             },
             function (Text $part) use ($target) {
                 $this->next->parseBlock($part, $target);

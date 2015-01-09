@@ -60,7 +60,7 @@ class HorizontalRuleParser extends AbstractBlockParser
         $content->handle(
             $this->getPattern($mark),
             function () use ($target) {
-                $target->acceptHorizontalRule(new HorizontalRule());
+                $target->addChild(new HorizontalRule());
             },
             $next
         );

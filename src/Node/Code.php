@@ -4,7 +4,7 @@ namespace FluxBB\CommonMark\Node;
 
 use FluxBB\CommonMark\Common\Text;
 
-class Code extends Node implements NodeAcceptorInterface
+class Code extends Node
 {
 
     protected $content;

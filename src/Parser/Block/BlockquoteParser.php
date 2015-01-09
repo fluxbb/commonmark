@@ -49,7 +49,7 @@ class BlockquoteParser extends AbstractBlockParser
                 $content->replace('/^[ ]{0,3}\>[ ]?/m', '');
 
                 $blockquote = new Blockquote();
-                $target->acceptBlockquote($blockquote);
+                $target->addChild($blockquote);
 
                 $this->first->parseBlock($content, $blockquote);
             },

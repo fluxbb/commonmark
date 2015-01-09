@@ -2,7 +2,7 @@
 
 namespace FluxBB\CommonMark\Node;
 
-class HorizontalRule extends Node implements NodeAcceptorInterface
+class HorizontalRule extends Node
 {
 
     public function visit(NodeVisitorInterface $visitor)

@@ -5,7 +5,7 @@ namespace FluxBB\CommonMark\Node;
 use FluxBB\CommonMark\Common\Collection;
 use FluxBB\CommonMark\Common\Text;
 
-class Paragraph extends Node implements NodeAcceptorInterface
+class Paragraph extends Node
 {
 
     /**
@@ -34,20 +34,6 @@ class Paragraph extends Node implements NodeAcceptorInterface
         return $text->trim()->split('/\n/')->apply(function (Text $line) {
             return $line->copy()->ltrim();
         });
-    }
-
-    public function acceptParagraph(Paragraph $paragraph)
-    {
-        $paragraph->lines->each(function (Text $line) {
-            $this->lines->add($line);
-        });
-
-        return $this;
-    }
-
-    public function acceptBlankLine(BlankLine $blankLine)
-    {
-        return $this->parent;
     }
 
     public function visit(NodeVisitorInterface $visitor)
