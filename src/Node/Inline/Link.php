@@ -1,8 +1,10 @@
 <?php
 
-namespace FluxBB\CommonMark\Node;
+namespace FluxBB\CommonMark\Node\Inline;
 
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Node;
+use FluxBB\CommonMark\Node\NodeVisitorInterface;
 
 class Link extends Node
 {

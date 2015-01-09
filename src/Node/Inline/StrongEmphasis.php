@@ -1,12 +1,17 @@
 <?php
 
-namespace FluxBB\CommonMark\Node;
+namespace FluxBB\CommonMark\Node\Inline;
 
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Node;
+use FluxBB\CommonMark\Node\NodeVisitorInterface;
 
-class Code extends Node
+class StrongEmphasis extends Node
 {
 
+    /**
+     * @var Text
+     */
     protected $content;
 
 
@@ -15,6 +20,9 @@ class Code extends Node
         $this->content = $content;
     }
 
+    /**
+     * @return Text
+     */
     public function getContent()
     {
         return $this->content;
@@ -30,7 +38,7 @@ class Code extends Node
      */
     public function visit(NodeVisitorInterface $visitor)
     {
-        $visitor->visitCode($this);
+        $visitor->visitStrongEmphasis($this);
     }
 
 }

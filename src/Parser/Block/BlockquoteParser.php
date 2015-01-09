@@ -3,7 +3,7 @@
 namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
-use FluxBB\CommonMark\Node\Blockquote;
+use FluxBB\CommonMark\Node\Block\Blockquote;
 use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 

@@ -1,6 +1,9 @@
 <?php
 
-namespace FluxBB\CommonMark\Node;
+namespace FluxBB\CommonMark\Node\Inline;
+
+use FluxBB\CommonMark\Node\Node;
+use FluxBB\CommonMark\Node\NodeVisitorInterface;
 
 class HardBreak extends Node
 {

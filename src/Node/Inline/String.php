@@ -1,10 +1,12 @@
 <?php
 
-namespace FluxBB\CommonMark\Node;
+namespace FluxBB\CommonMark\Node\Inline;
 
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Node;
+use FluxBB\CommonMark\Node\NodeVisitorInterface;
 
-class Emphasis extends Node
+class String extends Node
 {
 
     /**
@@ -36,7 +38,7 @@ class Emphasis extends Node
      */
     public function visit(NodeVisitorInterface $visitor)
     {
-        $visitor->visitEmphasis($this);
+        $visitor->visitString($this);
     }
 
 }

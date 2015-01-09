@@ -1,10 +1,12 @@
 <?php
 
-namespace FluxBB\CommonMark\Node;
+namespace FluxBB\CommonMark\Node\Inline;
 
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Node;
+use FluxBB\CommonMark\Node\NodeVisitorInterface;
 
-class BlankLine extends Node
+class Emphasis extends Node
 {
 
     /**
@@ -23,7 +25,7 @@ class BlankLine extends Node
      */
     public function getContent()
     {
-        return $this->content->copy();
+        return $this->content;
     }
 
     /**
@@ -36,7 +38,7 @@ class BlankLine extends Node
      */
     public function visit(NodeVisitorInterface $visitor)
     {
-        //
+        $visitor->visitEmphasis($this);
     }
 
 }

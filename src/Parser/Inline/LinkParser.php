@@ -4,7 +4,7 @@ namespace FluxBB\CommonMark\Parser\Inline;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\InlineNodeAcceptorInterface;
-use FluxBB\CommonMark\Node\Link;
+use FluxBB\CommonMark\Node\Inline\Link;
 use FluxBB\CommonMark\Parser\AbstractInlineParser;
 
 class LinkParser extends AbstractInlineParser

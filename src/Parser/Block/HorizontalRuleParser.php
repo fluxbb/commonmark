@@ -4,7 +4,7 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Container;
-use FluxBB\CommonMark\Node\HorizontalRule;
+use FluxBB\CommonMark\Node\Block\HorizontalRule;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
 class HorizontalRuleParser extends AbstractBlockParser

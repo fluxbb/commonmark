@@ -1,9 +1,11 @@
 <?php
 
-namespace FluxBB\CommonMark\Node;
+namespace FluxBB\CommonMark\Node\Block;
 
 use FluxBB\CommonMark\Common\Collection;
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Node;
+use FluxBB\CommonMark\Node\NodeVisitorInterface;
 
 class Paragraph extends Node
 {

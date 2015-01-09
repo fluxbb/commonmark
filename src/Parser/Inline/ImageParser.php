@@ -3,7 +3,7 @@
 namespace FluxBB\CommonMark\Parser\Inline;
 
 use FluxBB\CommonMark\Common\Text;
-use FluxBB\CommonMark\Node\Image;
+use FluxBB\CommonMark\Node\Inline\Image;
 use FluxBB\CommonMark\Node\InlineNodeAcceptorInterface;
 use FluxBB\CommonMark\Parser\AbstractInlineParser;
 

@@ -4,8 +4,8 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Container;
-use FluxBB\CommonMark\Node\ListBlock;
-use FluxBB\CommonMark\Node\ListItem;
+use FluxBB\CommonMark\Node\Block\ListBlock;
+use FluxBB\CommonMark\Node\Block\ListItem;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
 class ListParser extends AbstractBlockParser

@@ -4,7 +4,7 @@ namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Container;
-use FluxBB\CommonMark\Node\HTMLBlock;
+use FluxBB\CommonMark\Node\Block\HTMLBlock;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 
 class HTMLBlockParser extends AbstractBlockParser

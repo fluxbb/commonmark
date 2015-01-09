@@ -1,15 +1,14 @@
 <?php
 
-namespace FluxBB\CommonMark\Node;
+namespace FluxBB\CommonMark\Node\Inline;
 
 use FluxBB\CommonMark\Common\Text;
+use FluxBB\CommonMark\Node\Node;
+use FluxBB\CommonMark\Node\NodeVisitorInterface;
 
-class StrongEmphasis extends Node
+class RawHTML extends Node
 {
 
-    /**
-     * @var Text
-     */
     protected $content;
 
 
@@ -18,9 +17,6 @@ class StrongEmphasis extends Node
         $this->content = $content;
     }
 
-    /**
-     * @return Text
-     */
     public function getContent()
     {
         return $this->content;
@@ -36,7 +32,7 @@ class StrongEmphasis extends Node
      */
     public function visit(NodeVisitorInterface $visitor)
     {
-        $visitor->visitStrongEmphasis($this);
+        $visitor->visitRawHTML($this);
     }
 
 }

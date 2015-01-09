@@ -3,7 +3,7 @@
 namespace FluxBB\CommonMark\Parser\Block;
 
 use FluxBB\CommonMark\Common\Text;
-use FluxBB\CommonMark\Node\CodeBlock;
+use FluxBB\CommonMark\Node\Block\CodeBlock;
 use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 

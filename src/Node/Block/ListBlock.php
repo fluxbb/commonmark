@@ -1,6 +1,9 @@
 <?php
 
-namespace FluxBB\CommonMark\Node;
+namespace FluxBB\CommonMark\Node\Block;
+
+use FluxBB\CommonMark\Node\Container;
+use FluxBB\CommonMark\Node\NodeVisitorInterface;
 
 class ListBlock extends Container
 {
