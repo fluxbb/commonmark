@@ -83,30 +83,29 @@ class ListParser extends AbstractBlockParser
         $content->handle(
             '{
                 ^
-                ([0-9]+[.)])                  # $1 - list marker
-                ([ ]{1,4})                # $2 - initial indent
+                ([0-9]+)([.)])            # $1 - list marker; $2 - punctuation
+                ([ ]{1,4})                # $3 - initial indent
                 [^ ].*
                 (
                     \n\n?
-                    [ ]{2}\2
+                    [ ]{2}\3
                     .*
                 )*
                 (
                     \n
-                    \1\2
+                    [0-9]+\2\3
                     [^ ].*
                     (
                         \n\n?
-                        [ ]{2}\2
+                        [ ]{2}\3
                         .*
                     )*
                 )*
                 $
             }mx',
-            function (Text $content, Text $marker, Text $indent) use ($target) {
+            function (Text $content, Text $start, Text $punctuation, Text $indent) use ($target) {
                 $lines = explode("\n", $content->getString());
-                $marker = $marker->getString();
-                $start = substr($marker, 0, -1);
+                $start = $start->getString();
                 $indentLength = $indent->getLength() + 2;
 
                 $list = new ListBlock('ol', $start);
@@ -114,7 +113,7 @@ class ListParser extends AbstractBlockParser
                 // Go through all the lines to assemble the list items
                 $curItem = substr(array_shift($lines), $indentLength) . "\n";
                 foreach ($lines as $line) {
-                    if (strpos($line, $marker) === 0) {
+                    if (preg_match('/^[0-9]+' . $punctuation . '/', $line)) {
                         $this->addItemToList($curItem, $list);
                         $curItem = '';
                     }
