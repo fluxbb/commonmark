@@ -84,30 +84,31 @@ class ListParser extends AbstractBlockParser
         $content->handle(
             '{
                 ^
-                ([0-9]+)([.)])            # $1 - list marker; $2 - punctuation
-                ([ ]{1,4})                # $3 - initial indent
+                ([ ]{0,3})              # $1 - initial indent
+                ([0-9]+)([.)])          # $2 - list marker; $3 - punctuation
+                ([ ]{1,4})              # $4 - initial indent
                 [^ ].*
                 (
                     \n\n?
-                    [ ]{2}\3
+                    \1[ ]{2}\4
                     .*
                 )*
                 (
                     \n
-                    [0-9]+\2\3
+                    \1[0-9]+\3\4
                     [^ ].*
                     (
                         \n\n?
-                        [ ]{2}\3
+                        \1[ ]{2}\4
                         .*
                     )*
                 )*
                 $
             }mx',
-            function (Text $content, Text $start, Text $punctuation, Text $indent) use ($target) {
+            function (Text $content, Text $i, Text $start, Text $punctuation, Text $indent) use ($target) {
                 $lines = explode("\n", $content->getString());
                 $start = $start->getString();
-                $indentLength = $indent->getLength() + 2;
+                $indentLength = $i->getLength() + $indent->getLength() + 2;
 
                 $list = new ListBlock('ol', $start);
 
