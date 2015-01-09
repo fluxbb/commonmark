@@ -31,27 +31,28 @@ class ListParser extends AbstractBlockParser
         $content->handle(
             '{
                 ^
-                ([\-+*])                  # $1 - list marker
-                ([ ]{1,4})                # $2 - initial indent
+                ([ ]{0,3})              # $1 - initial indent
+                ([\-+*])                # $2 - list marker
+                ([ ]{1,4})              # $3 - list indent
                 [^ ].*
                 (
                     \n\n?
-                    [ ]\2
+                    \1[ ]\3
                     .*
                 )*
                 (
                     \n
-                    \1\2
+                    \1\2\3
                     [^ ].*
                     (
                         \n\n?
-                        [ ]\2
+                        [ ]\3
                         .*
                     )*
                 )*
                 $
             }mx',
-            function (Text $content, Text $marker, Text $indent) use ($target) {
+            function (Text $content, Text $i, Text $marker, Text $indent) use ($target) {
                 $lines = explode("\n", $content->getString());
                 $marker = $marker->getString();
                 $indentLength = $indent->getLength() + 1;
