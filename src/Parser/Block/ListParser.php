@@ -115,7 +115,7 @@ class ListParser extends AbstractBlockParser
                 // Go through all the lines to assemble the list items
                 $curItem = substr(array_shift($lines), $indentLength) . "\n";
                 foreach ($lines as $line) {
-                    if (preg_match('/^[0-9]+' . $punctuation . '/', $line)) {
+                    if (preg_match('/^[0-9]+' . preg_quote($punctuation) . '/', $line)) {
                         $this->addItemToList($curItem, $list);
                         $curItem = '';
                     }
