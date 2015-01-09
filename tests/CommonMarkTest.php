@@ -1,5 +1,4 @@
 <?php
-use FluxBB\CommonMark\Renderer\XhtmlRenderer;
 
 /**
  * @author Franz Liedke <franz@fluxbb.org>
@@ -12,9 +11,11 @@ class CommonMarkTest extends \PHPUnit_Framework_TestCase
      */
     public function testSpecRegressions($source, $expected)
     {
-        $parser = new \FluxBB\CommonMark\Parser(new XhtmlRenderer());
+        $parser = new \FluxBB\CommonMark\DocumentParser();
+        $renderer = new \FluxBB\CommonMark\Renderer();
 
-        $actual = $parser->render($source);
+        $tree = $parser->convert($source);
+        $actual = $renderer->render($tree);
 
         $this->assertEquals($expected, $actual);
     }
