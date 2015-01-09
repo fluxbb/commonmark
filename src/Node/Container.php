@@ -26,17 +26,6 @@ abstract class Container extends Node
     }
 
     /**
-     * Merge the given node's children into the current one's.
-     *
-     * @param Container $sibling
-     * @return void
-     */
-    public function merge(Container $sibling)
-    {
-        $this->children = array_merge($this->children, $sibling->children);
-    }
-
-    /**
      * Accept a visit from a node visitor.
      *
      * This method should instrument the visitor to handle this node correctly, and also pass it on to any child nodes.
