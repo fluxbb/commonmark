@@ -5,9 +5,9 @@ namespace FluxBB\CommonMark;
 use FluxBB\CommonMark\Common\Tag;
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Block\Blockquote;
+use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Node\Inline\Code;
 use FluxBB\CommonMark\Node\Block\CodeBlock;
-use FluxBB\CommonMark\Node\Document;
 use FluxBB\CommonMark\Node\Inline\Emphasis;
 use FluxBB\CommonMark\Node\Block\Heading;
 use FluxBB\CommonMark\Node\Block\HorizontalRule;
@@ -44,11 +44,11 @@ class Renderer implements NodeVisitorInterface
         $this->stack = new SplStack();
     }
 
-    public function render(Document $document)
+    public function render(Container $root)
     {
         $this->buffer = new Text();
 
-        $document->visit($this);
+        $root->visit($this);
 
         return $this->buffer;
     }

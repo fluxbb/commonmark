@@ -5,7 +5,6 @@ namespace FluxBB\CommonMark;
 use FluxBB\CommonMark\Common\Collection;
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Container;
-use FluxBB\CommonMark\Node\Document;
 use FluxBB\CommonMark\Parser\AbstractBlockParser;
 use FluxBB\CommonMark\Parser\Block\AtxHeaderParser;
 use FluxBB\CommonMark\Parser\Block\BlockquoteParser;
@@ -61,11 +60,11 @@ class DocumentParser implements BlockParserInterface
      * Parse the given Markdown text into a document tree.
      *
      * @param string $markdown
-     * @return Document
+     * @return Container
      */
     public function convert($markdown)
     {
-        $root = new Document();
+        $root = new Container();
 
         $this->inlineParser = new InlineParser($this->links, $this->titles);
         $parser = $this->buildParserStack();

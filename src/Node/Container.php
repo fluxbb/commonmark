@@ -2,7 +2,7 @@
 
 namespace FluxBB\CommonMark\Node;
 
-abstract class Container extends Node
+class Container extends Node
 {
 
     /**
