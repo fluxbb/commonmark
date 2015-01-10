@@ -25,7 +25,7 @@ class CommonMarkTest extends \PHPUnit_Framework_TestCase
         return [
             [ # Example 24
                 "####### foo",
-                "<p>####### foo</p>",
+                "<p>####### foo</p>\n",
             ],
         ];
     }
