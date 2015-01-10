@@ -8,18 +8,28 @@ use FluxBB\CommonMark\Node\NodeVisitorInterface;
 class ListBlock extends Container
 {
 
+    protected $type;
+
+    protected $terse;
+
     protected $start;
 
 
-    public function __construct($type, $start = null)
+    public function __construct($type, $terse, $start = null)
     {
         $this->type = $type;
+        $this->terse = $terse;
         $this->start = $start;
     }
 
     public function getType()
     {
         return $this->type;
+    }
+
+    public function isTerse()
+    {
+        return boolval($this->terse);
     }
 
     public function getStart()

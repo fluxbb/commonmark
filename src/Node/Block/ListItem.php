@@ -10,48 +10,19 @@ use FluxBB\CommonMark\Node\NodeVisitorInterface;
 class ListItem extends Container
 {
 
-    protected $isTerse = false;
+    protected $terse = false;
 
     protected $content;
 
 
-    public function shouldBeTerse()
-    {
-        return count($this->children) == 0 ||
-               $this->firstParagraphIsTerse();
-    }
-
-    protected function firstParagraphIsTerse()
-    {
-        $firstChild = $this->children[0];
-
-        return $this->paragraphIsTerse($firstChild) &&
-               (count($this->children) == 1 || $this->secondChildIsList());
-    }
-
-    protected function secondChildIsList()
-    {
-        return $this->children[1] instanceof ListBlock;
-    }
-
-    protected function paragraphIsTerse(Node $node)
-    {
-        return ($node instanceof Paragraph) && ! $node->spansMultipleLines();
-    }
-
     public function terse()
     {
-        if (isset($this->children[0])) {
-            $paragraph = array_shift($this->children);
-            $this->content = $paragraph->getText();
-        }
-
-        $this->isTerse = true;
+        $this->terse = true;
     }
 
     public function isTerse()
     {
-        return $this->isTerse;
+        return $this->terse;
     }
 
     public function getContent()
