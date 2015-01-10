@@ -1,6 +1,5 @@
 <?php
 
-
 class SyntaxErrorTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -10,8 +9,9 @@ class SyntaxErrorTest extends \PHPUnit_Framework_TestCase
      */
     public function testSyntaxErrorPointsRightLineNumber()
     {
-        $md = new \FluxBB\CommonMark\Parser();
-        $md->render(<<< EOL
+        $parser = new \FluxBB\CommonMark\DocumentParser();
+
+        $markdown = <<< EOL
 This is a paragraph
 
 This is a [paragraph][id].
@@ -19,9 +19,9 @@ This is a [paragraph][id].
 <pre>
 preformatted text
 </pre>
-EOL
-, array('strict' => true)
-);
+EOL;
+
+        $parser->convert($markdown);
     }
 
 }
