@@ -106,18 +106,12 @@ class Renderer implements NodeVisitorInterface
 
     public function enterListItem(ListItem $listItem)
     {
-        $this->pushBuffer("\n");
+        $this->pushBuffer($listItem->isTerse() ? '' : "\n");
     }
 
     public function leaveListItem(ListItem $listItem)
     {
-        $content = $this->popBuffer();
-
-        if ($listItem->isTerse()) {
-            $content = $listItem->getContent();
-        }
-
-        $tag = Tag::block('li')->setText($content);
+        $tag = Tag::block('li')->setText($this->popBuffer());
 
         $this->buffer->append($tag)->append("\n");
     }

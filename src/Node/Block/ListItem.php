@@ -4,6 +4,7 @@ namespace FluxBB\CommonMark\Node\Block;
 
 use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Container;
+use FluxBB\CommonMark\Node\Inline\String;
 use FluxBB\CommonMark\Node\NodeVisitorInterface;
 
 class ListItem extends Container
@@ -16,21 +17,30 @@ class ListItem extends Container
 
     public function shouldBeTerse()
     {
-        $numChildren = count($this->children);
+        return count($this->children) == 0 || $this->firstParagraphIsTerse();
+    }
 
-        return $numChildren == 0 || (
-                   ($numChildren == 1) &&
-                   ($this->children[0] instanceof Paragraph) &&
-                   $this->children[0]->spansMultipleLines()
-               );
+    protected function firstParagraphIsTerse()
+    {
+        $firstChild = $this->children[0];
+
+        return ($firstChild instanceof Paragraph) && (! $firstChild->spansMultipleLines());
     }
 
     public function terse()
     {
-        $this->isTerse = true;
+        $text = new Text();
+        if (isset($this->children[0])) {
+            $paragraph = array_shift($this->children);
+            $text = $paragraph->getText();
 
-        $this->content = isset($this->children[0]) ? $this->children[0]->getText() : new Text();
-        $this->children = [];
+            if (count($this->children) > 0) {
+                $text->append("\n");
+            }
+        }
+
+        $this->isTerse = true;
+        array_unshift($this->children, new String($text));
     }
 
     public function isTerse()

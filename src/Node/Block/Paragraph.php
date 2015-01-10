@@ -28,7 +28,7 @@ class Paragraph extends Node
 
     public function spansMultipleLines()
     {
-        return count($this->lines) > 0;
+        return count($this->lines) > 1;
     }
 
     protected function makeLines(Text $text)
