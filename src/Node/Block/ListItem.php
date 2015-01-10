@@ -20,7 +20,9 @@ class ListItem extends Container
             $node = $this->children[$i];
 
             if ($node instanceof Paragraph) {
-                $this->children[$i] = new String($node->getText());
+                // Ensure the line ends with a newline
+                $content = $node->getText()->rtrim("\n")->append("\n");
+                $this->children[$i] = new String($content);
             }
         }
     }
