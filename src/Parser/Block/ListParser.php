@@ -33,8 +33,12 @@ class ListParser extends AbstractBlockParser
                 ^
                 ([ ]{0,3})              # $1 - initial indent
                 ([\-+*])                # $2 - list marker
-                ([ ]{1,4})              # $3 - list indent
-                [^ ].*
+                (?|
+                    ([ ]{1,4})          # $3 - list indent
+                    [^ ].*
+                  |
+                    ()                  # ... which can also be empty
+                )
                 (
                     \n\n?
                     \1[ ]\3
@@ -45,6 +49,9 @@ class ListParser extends AbstractBlockParser
                         \n
                         \1\2\3
                         [^ ].*
+                      |                     # empty items
+                        \n
+                        \1\2
                       |                     # Lazy continuation lines
                         \n
                         [ ]*
@@ -92,8 +99,12 @@ class ListParser extends AbstractBlockParser
                 ^
                 ([ ]{0,3})              # $1 - initial indent
                 ([0-9]+)([.)])          # $2 - list marker; $3 - punctuation
-                ([ ]{1,4})              # $4 - initial indent
-                [^ ].*
+                (?|
+                    ([ ]{1,4})          # $4 - list indent
+                    [^ ].*
+                  |
+                    ()                  # ... which can also be empty
+                )
                 (
                     \n\n?
                     \1[ ]{2}\4
@@ -104,6 +115,9 @@ class ListParser extends AbstractBlockParser
                         \n
                         \1[0-9]+\3\4
                         [^ ].*
+                      |                     # empty items
+                        \n
+                        \1\2
                       |                     # Lazy continuation lines
                         \n
                         [ ]*

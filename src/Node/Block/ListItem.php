@@ -2,6 +2,7 @@
 
 namespace FluxBB\CommonMark\Node\Block;
 
+use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Container;
 use FluxBB\CommonMark\Node\NodeVisitorInterface;
 
@@ -15,16 +16,20 @@ class ListItem extends Container
 
     public function shouldBeTerse()
     {
-        return (count($this->children) == 1) &&
-               ($this->children[0] instanceof Paragraph) &&
-               $this->children[0]->spansMultipleLines();
+        $numChildren = count($this->children);
+
+        return $numChildren == 0 || (
+                   ($numChildren == 1) &&
+                   ($this->children[0] instanceof Paragraph) &&
+                   $this->children[0]->spansMultipleLines()
+               );
     }
 
     public function terse()
     {
         $this->isTerse = true;
 
-        $this->content = $this->children[0]->getText();
+        $this->content = isset($this->children[0]) ? $this->children[0]->getText() : new Text();
         $this->children = [];
     }
 
