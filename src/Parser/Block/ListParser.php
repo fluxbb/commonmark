@@ -55,7 +55,12 @@ class ListParser extends AbstractBlockParser
                       |                     # Lazy continuation lines
                         \n
                         [ ]*
-                        [^>\-+*=\ \n][^\n]*
+                        (?:
+                            [^0-9>\-+*=\ \n]
+                          |
+                            [0-9]+[^.)]
+                        )
+                        [^\n]*
                     )
                     (
                         \n\n?
@@ -122,7 +127,12 @@ class ListParser extends AbstractBlockParser
                       |                     # Lazy continuation lines
                         \n
                         [ ]*
-                        [^>\-+*=\ \n][^\n]*
+                        (?:
+                            [^0-9>\-+*=\ \n]
+                          |
+                            [0-9]+[^.)]
+                        )
+                        [^\n]*
                     )
                     (
                         \n\n?
