@@ -33,7 +33,7 @@ class LinkParser extends AbstractInlineParser
     {
         $content->handle(
             '{
-                (?<![\\\\!])
+                (?<!\\\\)
                 \[
                     (' . $this->getNestedBrackets() . ')    # link text = $1
                 \]
@@ -89,7 +89,7 @@ class LinkParser extends AbstractInlineParser
 
         $content->handle(
             '/
-                (?<![\\\\!])
+                (?<!\\\\)
                 (?|
                     ()
                     \[
