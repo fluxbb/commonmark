@@ -41,9 +41,15 @@ class ListParser extends AbstractBlockParser
                     .*
                 )*
                 (
-                    \n
-                    \1\2\3
-                    [^ ].*
+                    (?:
+                        \n
+                        \1\2\3
+                        [^ ].*
+                      |                     # Lazy continuation lines
+                        \n
+                        [ ]*
+                        [^>\-*=\ \n][^\n]*
+                    )
                     (
                         \n\n?
                         \1[ ]\3
@@ -64,10 +70,10 @@ class ListParser extends AbstractBlockParser
                 foreach ($lines as $line) {
                     if (strpos($line, $marker) === 0) {
                         $this->addItemToList($curItem, $list);
-                        $curItem = '';
+                        $curItem = substr($line, $indentLength) . "\n";
+                    } else {
+                        $curItem .= $this->unindentLine($line, $indentLength) . "\n";
                     }
-
-                    $curItem .= substr($line, $indentLength) . "\n";
                 }
                 $this->addItemToList($curItem, $list);
 
@@ -94,9 +100,15 @@ class ListParser extends AbstractBlockParser
                     .*
                 )*
                 (
-                    \n
-                    \1[0-9]+\3\4
-                    [^ ].*
+                    (?:
+                        \n
+                        \1[0-9]+\3\4
+                        [^ ].*
+                      |                     # Lazy continuation lines
+                        \n
+                        [ ]*
+                        [^>\-*=\ \n][^\n]*
+                    )
                     (
                         \n\n?
                         \1[ ]{2}\4
@@ -117,10 +129,10 @@ class ListParser extends AbstractBlockParser
                 foreach ($lines as $line) {
                     if (preg_match('/^[0-9]+' . preg_quote($punctuation) . '/', $line)) {
                         $this->addItemToList($curItem, $list);
-                        $curItem = '';
+                        $curItem = substr($line, $indentLength) . "\n";
+                    } else {
+                        $curItem .= $this->unindentLine($line, $indentLength) . "\n";
                     }
-
-                    $curItem .= substr($line, $indentLength) . "\n";
                 }
                 $this->addItemToList($curItem, $list);
 
@@ -130,6 +142,11 @@ class ListParser extends AbstractBlockParser
                 $this->next->parseBlock($part, $target);
             }
         );
+    }
+
+    protected function unindentLine($line, $indentLength)
+    {
+        return preg_replace('/^[ ]{0,' . $indentLength . '}/', '', $line);
     }
 
     protected function addItemToList($text, ListBlock $list)
