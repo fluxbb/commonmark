@@ -66,7 +66,7 @@ class ListParser extends AbstractBlockParser
                 $
             }mx',
             function (Text $content, Text $i, Text $marker, Text $indent) use ($target) {
-                $isTerse = $content->match('/^[ ]*$/m');
+                $isTerse = ! $content->match('/^[ ]*$/m');
                 $lines = explode("\n", $content->getString());
                 $marker = $marker->getString();
                 $indentLength = $i->getLength() + $indent->getLength() + 1;
@@ -133,7 +133,7 @@ class ListParser extends AbstractBlockParser
                 $
             }mx',
             function (Text $content, Text $i, Text $start, Text $punctuation, Text $indent) use ($target) {
-                $isTerse = $content->match('/^[ ]*$/m');
+                $isTerse = ! $content->match('/^[ ]*$/m');
                 $lines = explode("\n", $content->getString());
                 $start = $start->getString();
                 $indentLength = $i->getLength() + $indent->getLength() + 2;
@@ -171,11 +171,12 @@ class ListParser extends AbstractBlockParser
         $item = new ListItem();
 
         $list->addChild($item);
+
+        $this->first->parseBlock($text, $item);
+
         if ($list->isTerse()) {
             $item->terse();
         }
-
-        $this->first->parseBlock($text, $item);
     }
 
 }

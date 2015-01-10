@@ -26,11 +26,6 @@ class Paragraph extends Node
         return new Text($this->lines->join("\n"));
     }
 
-    public function spansMultipleLines()
-    {
-        return count($this->lines) > 1;
-    }
-
     protected function makeLines(Text $text)
     {
         return $text->trim()->split('/\n/')->apply(function (Text $line) {

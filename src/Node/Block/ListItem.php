@@ -2,9 +2,8 @@
 
 namespace FluxBB\CommonMark\Node\Block;
 
-use FluxBB\CommonMark\Common\Text;
 use FluxBB\CommonMark\Node\Container;
-use FluxBB\CommonMark\Node\Node;
+use FluxBB\CommonMark\Node\Inline\String;
 use FluxBB\CommonMark\Node\NodeVisitorInterface;
 
 class ListItem extends Container
@@ -12,22 +11,23 @@ class ListItem extends Container
 
     protected $terse = false;
 
-    protected $content;
-
 
     public function terse()
     {
         $this->terse = true;
+
+        for ($i = 0; $i < count($this->children); $i++) {
+            $node = $this->children[$i];
+
+            if ($node instanceof Paragraph) {
+                $this->children[$i] = new String($node->getText());
+            }
+        }
     }
 
     public function isTerse()
     {
         return $this->terse;
-    }
-
-    public function getContent()
-    {
-        return $this->content ?: new Text();
     }
 
     /**
