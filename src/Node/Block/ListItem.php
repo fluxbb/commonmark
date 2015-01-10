@@ -16,12 +16,18 @@ class ListItem extends Container
     {
         $this->terse = true;
 
-        for ($i = 0; $i < count($this->children); $i++) {
+        $childCount = count($this->children);
+        for ($i = 0; $i < $childCount; $i++) {
             $node = $this->children[$i];
 
             if ($node instanceof Paragraph) {
-                // Ensure the line ends with a newline
-                $content = $node->getText()->rtrim("\n")->append("\n");
+                $content = $node->getText();
+
+                if ($i + 1 < $childCount) {
+                    // Ensure the line ends with a newline
+                    $content->rtrim("\n")->append("\n");
+                }
+
                 $this->children[$i] = new String($content);
             }
         }
