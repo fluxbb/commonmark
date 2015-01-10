@@ -38,7 +38,7 @@ class BlockquoteParser extends AbstractBlockParser
                         (                           # ...with lazy continuation
                             \n
                             [ ]{0,3}
-                            [^>\-*=\ \n][^\n]*
+                            [^>\-+*=\ \n][^\n]*
                         )*
                     )
                 )+
