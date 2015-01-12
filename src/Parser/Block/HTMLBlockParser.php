@@ -31,7 +31,7 @@ class HTMLBlockParser extends AbstractBlockParser
                 (?:                      # start with one of the following...
                     \<(?:'.$tags.')\s*/?\>?|    # an opening HTML tag, or
                     \</(?:'.$tags.')\s*\>|      # a closing HTML tag, or
-                    \<!--.*?--\>|               # a HTML comment, or
+                    \<!--(-(?!-)|[^\-])*?--\>|  # a HTML comment, or
                     \<\?.*?\?\>|                # a processing instruction, or
                     \<![A-Z]+\s+[^>]+\>|        # an element type declaration, or
                     \<!\[CDATA\[.*?\]\]\>       # a CDATA section

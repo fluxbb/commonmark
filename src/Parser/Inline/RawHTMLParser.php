@@ -41,7 +41,7 @@ class RawHTMLParser extends AbstractInlineParser
                         )*
                         \s*/?\>|                # ...or
                     \</[A-Z][A-Z0-9]*\s*\>|     # a closing HTML tag, or
-                    \<!--.*?--\>|               # a HTML comment, or
+                    \<!--(-(?!-)|[^\-])*?--\>|  # a HTML comment, or
                     \<\?.*?\?\>|                # a processing instruction, or
                     \<![A-Z]+\s+[^>]+\>|        # an element type declaration, or
                     \<!\[CDATA\[.*?\]\]\>       # a CDATA section
