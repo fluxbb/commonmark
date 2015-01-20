@@ -29,7 +29,7 @@ class ListBlock extends Container
 
     public function isTerse()
     {
-        return boolval($this->terse);
+        return (bool) $this->terse;
     }
 
     public function getStart()
