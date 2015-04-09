@@ -10,9 +10,6 @@ matrix:
   allow_failures:
     - php: hhvm
 
-before_install:
-  - sudo apt-get install python3
-
 before_script:
   - travis_retry composer require --no-update satooshi/php-coveralls:dev-master sensiolabs/security-checker:dev-master
   - travis_retry composer update --dev --no-interaction
